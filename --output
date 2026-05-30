@@ -1,0 +1,3513 @@
+{
+  "scriptCompleted": true,
+  "files": [
+    {
+      "path": "--output",
+      "language": "unknown",
+      "sizeLines": 3506,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "sizeLines": 39,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".github/workflows/integration_test.yaml",
+      "language": "yaml",
+      "sizeLines": 106,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".github/workflows/lint.yaml",
+      "language": "yaml",
+      "sizeLines": 45,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".github/workflows/unit_test.yaml",
+      "language": "yaml",
+      "sizeLines": 65,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".gitmodules",
+      "language": "unknown",
+      "sizeLines": 4,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "language": "yaml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".python-version",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "configurations/ceiling_agent/base_ceiling_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 252,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/ceiling_agent/stateful_ceiling_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/config.yaml",
+      "language": "yaml",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/experiment/base_experiment.yaml",
+      "language": "yaml",
+      "sizeLines": 113,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/experiment/indoor_scene_generation.yaml",
+      "language": "yaml",
+      "sizeLines": 2,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/floor_plan_agent/base_floor_plan_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 128,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/floor_plan_agent/stateful_floor_plan_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/furniture_agent/base_furniture_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 368,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/furniture_agent/stateful_furniture_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/manipuland_agent/base_manipuland_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 499,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/manipuland_agent/stateful_manipuland_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/wall_agent/base_wall_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 261,
+      "fileCategory": "config"
+    },
+    {
+      "path": "configurations/wall_agent/stateful_wall_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "docker-compose.yaml",
+      "language": "yaml",
+      "sizeLines": 32,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 107,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "main.py",
+      "language": "python",
+      "sizeLines": 129,
+      "fileCategory": "code"
+    },
+    {
+      "path": "media/robot_eval.webp",
+      "language": "webp",
+      "sizeLines": 5177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "media/teaser.webp",
+      "language": "webp",
+      "sizeLines": 5630,
+      "fileCategory": "code"
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "sizeLines": 88,
+      "fileCategory": "config"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 866,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scenesmith/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/action_logger.py",
+      "language": "python",
+      "sizeLines": 353,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_physics_analyzer.py",
+      "language": "python",
+      "sizeLines": 456,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/__init__.py",
+      "language": "python",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/client.py",
+      "language": "python",
+      "sizeLines": 205,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/config.py",
+      "language": "python",
+      "sizeLines": 116,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/data_loader.py",
+      "language": "python",
+      "sizeLines": 327,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/dataclasses.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/retrieval.py",
+      "language": "python",
+      "sizeLines": 239,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/server_app.py",
+      "language": "python",
+      "sizeLines": 458,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/server_manager.py",
+      "language": "python",
+      "sizeLines": 255,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/articulated_retrieval_server/standalone_server.py",
+      "language": "python",
+      "sizeLines": 179,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/asset_manager.py",
+      "language": "python",
+      "sizeLines": 2191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/asset_registry.py",
+      "language": "python",
+      "sizeLines": 266,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/asset_router/__init__.py",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/asset_router/dataclasses.py",
+      "language": "python",
+      "sizeLines": 136,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/asset_router/router.py",
+      "language": "python",
+      "sizeLines": 1844,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/base_stateful_agent.py",
+      "language": "python",
+      "sizeLines": 1010,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/__init__.py",
+      "language": "python",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/annotations.py",
+      "language": "python",
+      "sizeLines": 1405,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/camera_utils.py",
+      "language": "python",
+      "sizeLines": 165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/canonicalization.py",
+      "language": "python",
+      "sizeLines": 260,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/coordinate_frame.py",
+      "language": "python",
+      "sizeLines": 457,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/coordinate_grid_mixin.py",
+      "language": "python",
+      "sizeLines": 311,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/image_overlays.py",
+      "language": "python",
+      "sizeLines": 238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/mesh_conversion.py",
+      "language": "python",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/params.py",
+      "language": "python",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/render_dataclasses.py",
+      "language": "python",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/render_settings.py",
+      "language": "python",
+      "sizeLines": 262,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/renderer.py",
+      "language": "python",
+      "sizeLines": 2843,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/scene_setup_mixin.py",
+      "language": "python",
+      "sizeLines": 114,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/scene_utils.py",
+      "language": "python",
+      "sizeLines": 109,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/server_app.py",
+      "language": "python",
+      "sizeLines": 889,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/server_manager.py",
+      "language": "python",
+      "sizeLines": 794,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/standalone_server.py",
+      "language": "python",
+      "sizeLines": 247,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/surface_rendering_mixin.py",
+      "language": "python",
+      "sizeLines": 547,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/surface_utils.py",
+      "language": "python",
+      "sizeLines": 532,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/view_generation_mixin.py",
+      "language": "python",
+      "sizeLines": 295,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/blender/wall_utils.py",
+      "language": "python",
+      "sizeLines": 175,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/chat_completions_image_filter.py",
+      "language": "python",
+      "sizeLines": 169,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/checkpoint_state.py",
+      "language": "python",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/clearance_zones.py",
+      "language": "python",
+      "sizeLines": 734,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/clip_embeddings.py",
+      "language": "python",
+      "sizeLines": 186,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/convex_decomposition_server/__init__.py",
+      "language": "python",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/convex_decomposition_server/client.py",
+      "language": "python",
+      "sizeLines": 213,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/convex_decomposition_server/models.py",
+      "language": "python",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/convex_decomposition_server/server_app.py",
+      "language": "python",
+      "sizeLines": 289,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/convex_decomposition_server/server_manager.py",
+      "language": "python",
+      "sizeLines": 306,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/convex_decomposition_server/standalone_server.py",
+      "language": "python",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/coordinate_utils.py",
+      "language": "python",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/data/materials.yaml",
+      "language": "yaml",
+      "sizeLines": 113,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/agent_utils/drake_utils.py",
+      "language": "python",
+      "sizeLines": 374,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/__init__.py",
+      "language": "python",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/client.py",
+      "language": "python",
+      "sizeLines": 196,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/cuda_env_setup.py",
+      "language": "python",
+      "sizeLines": 263,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/dataclasses.py",
+      "language": "python",
+      "sizeLines": 131,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/geometry_generation.py",
+      "language": "python",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/gpu_worker.py",
+      "language": "python",
+      "sizeLines": 359,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/hunyuan3d_pipeline_manager.py",
+      "language": "python",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/README.md",
+      "language": "markdown",
+      "sizeLines": 137,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/sam3d_pipeline_manager.py",
+      "language": "python",
+      "sizeLines": 567,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/server_app.py",
+      "language": "python",
+      "sizeLines": 295,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/server_manager.py",
+      "language": "python",
+      "sizeLines": 314,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/standalone_server.py",
+      "language": "python",
+      "sizeLines": 188,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/geometry_generation_server/worker_pool.py",
+      "language": "python",
+      "sizeLines": 584,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/house.py",
+      "language": "python",
+      "sizeLines": 1532,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval_server/__init__.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval_server/client.py",
+      "language": "python",
+      "sizeLines": 198,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval_server/dataclasses.py",
+      "language": "python",
+      "sizeLines": 188,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval_server/server_app.py",
+      "language": "python",
+      "sizeLines": 416,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval_server/server_manager.py",
+      "language": "python",
+      "sizeLines": 260,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval_server/standalone_server.py",
+      "language": "python",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval/__init__.py",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval/alignment.py",
+      "language": "python",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval/clip_similarity.py",
+      "language": "python",
+      "sizeLines": 107,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval/config.py",
+      "language": "python",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval/data_loader.py",
+      "language": "python",
+      "sizeLines": 207,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval/retrieval.py",
+      "language": "python",
+      "sizeLines": 267,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/hssd_retrieval/support_surface_loader.py",
+      "language": "python",
+      "sizeLines": 506,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/image_generation.py",
+      "language": "python",
+      "sizeLines": 647,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/intra_turn_image_filter.py",
+      "language": "python",
+      "sizeLines": 166,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/loop_detector.py",
+      "language": "python",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/material_generator.py",
+      "language": "python",
+      "sizeLines": 369,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/__init__.py",
+      "language": "python",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/client.py",
+      "language": "python",
+      "sizeLines": 201,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/config.py",
+      "language": "python",
+      "sizeLines": 93,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/data_loader.py",
+      "language": "python",
+      "sizeLines": 125,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/dataclasses.py",
+      "language": "python",
+      "sizeLines": 175,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/retrieval.py",
+      "language": "python",
+      "sizeLines": 155,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/server_app.py",
+      "language": "python",
+      "sizeLines": 442,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/server_manager.py",
+      "language": "python",
+      "sizeLines": 253,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials_retrieval_server/standalone_server.py",
+      "language": "python",
+      "sizeLines": 174,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/materials.py",
+      "language": "python",
+      "sizeLines": 81,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/mesh_canonicalization.py",
+      "language": "python",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/mesh_physics_analyzer.py",
+      "language": "python",
+      "sizeLines": 356,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/mesh_utils.py",
+      "language": "python",
+      "sizeLines": 647,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval_server/__init__.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval_server/client.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval_server/dataclasses.py",
+      "language": "python",
+      "sizeLines": 188,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval_server/server_app.py",
+      "language": "python",
+      "sizeLines": 421,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval_server/server_manager.py",
+      "language": "python",
+      "sizeLines": 263,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval_server/standalone_server.py",
+      "language": "python",
+      "sizeLines": 155,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval/__init__.py",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval/clip_similarity.py",
+      "language": "python",
+      "sizeLines": 220,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval/config.py",
+      "language": "python",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval/data_loader.py",
+      "language": "python",
+      "sizeLines": 206,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/objaverse_retrieval/retrieval.py",
+      "language": "python",
+      "sizeLines": 257,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/physical_feasibility.py",
+      "language": "python",
+      "sizeLines": 1781,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/physics_tools.py",
+      "language": "python",
+      "sizeLines": 458,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/physics_validation.py",
+      "language": "python",
+      "sizeLines": 1336,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/placement_noise.py",
+      "language": "python",
+      "sizeLines": 213,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/reachability.py",
+      "language": "python",
+      "sizeLines": 288,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/rendering_manager.py",
+      "language": "python",
+      "sizeLines": 294,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/rendering.py",
+      "language": "python",
+      "sizeLines": 1553,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/rescale_helpers.py",
+      "language": "python",
+      "sizeLines": 172,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/rescale_result.py",
+      "language": "python",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/response_datatypes.py",
+      "language": "python",
+      "sizeLines": 184,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/room.py",
+      "language": "python",
+      "sizeLines": 1908,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/scene_analyzer.py",
+      "language": "python",
+      "sizeLines": 631,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/sceneeval_exporter.py",
+      "language": "python",
+      "sizeLines": 878,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/scheduler.py",
+      "language": "python",
+      "sizeLines": 163,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/scoring.py",
+      "language": "python",
+      "sizeLines": 346,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/sdf_generator.py",
+      "language": "python",
+      "sizeLines": 503,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/sdf_mesh_utils.py",
+      "language": "python",
+      "sizeLines": 332,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/support_surface_extraction.py",
+      "language": "python",
+      "sizeLines": 1441,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/support_surface_filters.py",
+      "language": "python",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/thin_covering_generator.py",
+      "language": "python",
+      "sizeLines": 793,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/turn_trimming_session.py",
+      "language": "python",
+      "sizeLines": 602,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/urdf_to_sdf.py",
+      "language": "python",
+      "sizeLines": 1709,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/vlm_service.py",
+      "language": "python",
+      "sizeLines": 225,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/agent_utils/workflow_tools.py",
+      "language": "python",
+      "sizeLines": 175,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/ceiling_agents/__init__.py",
+      "language": "python",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/ceiling_agents/base_ceiling_agent.py",
+      "language": "python",
+      "sizeLines": 193,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/ceiling_agents/stateful_ceiling_agent.py",
+      "language": "python",
+      "sizeLines": 471,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/ceiling_agents/tools/__init__.py",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/ceiling_agents/tools/ceiling_tools.py",
+      "language": "python",
+      "sizeLines": 803,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/ceiling_agents/tools/response_dataclasses.py",
+      "language": "python",
+      "sizeLines": 146,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/ceiling_agents/tools/vision_tools.py",
+      "language": "python",
+      "sizeLines": 183,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/experiments/__init__.py",
+      "language": "python",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/experiments/base_experiment.py",
+      "language": "python",
+      "sizeLines": 392,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/experiments/indoor_scene_generation.py",
+      "language": "python",
+      "sizeLines": 2022,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/__init__.py",
+      "language": "python",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/base_floor_plan_agent.py",
+      "language": "python",
+      "sizeLines": 137,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/stateful_floor_plan_agent.py",
+      "language": "python",
+      "sizeLines": 1680,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/__init__.py",
+      "language": "python",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/ascii_generator.py",
+      "language": "python",
+      "sizeLines": 719,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/door_window_mixin.py",
+      "language": "python",
+      "sizeLines": 863,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/floor_plan_tools.py",
+      "language": "python",
+      "sizeLines": 1300,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/geometry_cache.py",
+      "language": "python",
+      "sizeLines": 314,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/materials_resolver.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/open_plan_mixin.py",
+      "language": "python",
+      "sizeLines": 710,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/room_placement.py",
+      "language": "python",
+      "sizeLines": 1519,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/vision_tools.py",
+      "language": "python",
+      "sizeLines": 712,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/wall_geometry.py",
+      "language": "python",
+      "sizeLines": 392,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/floor_plan_agents/tools/window_geometry.py",
+      "language": "python",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/base_furniture_agent.py",
+      "language": "python",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/stateful_furniture_agent.py",
+      "language": "python",
+      "sizeLines": 403,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/tools/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/tools/furniture_tools.py",
+      "language": "python",
+      "sizeLines": 988,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/tools/response_dataclasses.py",
+      "language": "python",
+      "sizeLines": 450,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/tools/scene_tools.py",
+      "language": "python",
+      "sizeLines": 722,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/tools/snapping_helpers.py",
+      "language": "python",
+      "sizeLines": 885,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/furniture_agents/tools/vision_tools.py",
+      "language": "python",
+      "sizeLines": 195,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/base_manipuland_agent.py",
+      "language": "python",
+      "sizeLines": 166,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/stateful_manipuland_agent.py",
+      "language": "python",
+      "sizeLines": 874,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/__init__.py",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/arrangement_tools.py",
+      "language": "python",
+      "sizeLines": 766,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/fill_container.py",
+      "language": "python",
+      "sizeLines": 1206,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/fill_tools.py",
+      "language": "python",
+      "sizeLines": 686,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/manipuland_tools.py",
+      "language": "python",
+      "sizeLines": 2245,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/physics_utils.py",
+      "language": "python",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/pile_tools.py",
+      "language": "python",
+      "sizeLines": 854,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/response_dataclasses.py",
+      "language": "python",
+      "sizeLines": 347,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/stack_tools.py",
+      "language": "python",
+      "sizeLines": 466,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/stacking.py",
+      "language": "python",
+      "sizeLines": 417,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/manipuland_agents/tools/vision_tools.py",
+      "language": "python",
+      "sizeLines": 279,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/prompts/__init__.py",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/prompts/data/asset_router/asset_validation_lenient.yaml",
+      "language": "yaml",
+      "sizeLines": 80,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/asset_router/asset_validation.yaml",
+      "language": "yaml",
+      "sizeLines": 253,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/asset_router/request_analysis_ceiling.yaml",
+      "language": "yaml",
+      "sizeLines": 147,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/asset_router/request_analysis_furniture.yaml",
+      "language": "yaml",
+      "sizeLines": 371,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/asset_router/request_analysis_manipuland.yaml",
+      "language": "yaml",
+      "sizeLines": 279,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/asset_router/request_analysis_wall.yaml",
+      "language": "yaml",
+      "sizeLines": 193,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/asset_router/thin_covering_validation.yaml",
+      "language": "yaml",
+      "sizeLines": 100,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/ceiling_agent/designer_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 172,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/ceiling_agent/designer_critique_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/ceiling_agent/designer_initial_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 47,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/ceiling_agent/stateful_critic_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 321,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/ceiling_agent/stateful_critic_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/ceiling_agent/stateful_planner_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 158,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/ceiling_agent/stateful_planner_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/floor_plan_agent/critic_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 410,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/floor_plan_agent/critic_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 42,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/floor_plan_agent/designer_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 404,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/floor_plan_agent/designer_critique_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/floor_plan_agent/designer_initial_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/floor_plan_agent/planner_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 150,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/floor_plan_agent/planner_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 9,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/furniture_agent/designer_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 787,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/furniture_agent/designer_critique_instruction_stateful.yaml",
+      "language": "yaml",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/furniture_agent/designer_initial_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 56,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/furniture_agent/stateful_critic_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 645,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/furniture_agent/stateful_critic_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 102,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/furniture_agent/stateful_planner_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 144,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/furniture_agent/stateful_planner_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/image_generation/asset_image_continuation.yaml",
+      "language": "yaml",
+      "sizeLines": 8,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/image_generation/asset_image_initial.yaml",
+      "language": "yaml",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/image_generation/furniture_context_image.yaml",
+      "language": "yaml",
+      "sizeLines": 12,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/image_generation/manipuland_context_image.yaml",
+      "language": "yaml",
+      "sizeLines": 31,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/analyze_furniture_for_placement.yaml",
+      "language": "yaml",
+      "sizeLines": 143,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/critic_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 549,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/critic_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 96,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/designer_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 789,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/designer_critique_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/designer_initial_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 44,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/planner_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 181,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/planner_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/manipuland_agent/select_context_furniture.yaml",
+      "language": "yaml",
+      "sizeLines": 79,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/material_generation/artwork_image.yaml",
+      "language": "yaml",
+      "sizeLines": 24,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/material_generation/seamless_texture.yaml",
+      "language": "yaml",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/mesh_physics/articulated.yaml",
+      "language": "yaml",
+      "sizeLines": 231,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/mesh_physics/generated.yaml",
+      "language": "yaml",
+      "sizeLines": 153,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/mesh_physics/hssd.yaml",
+      "language": "yaml",
+      "sizeLines": 127,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/robot_eval/policy_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 213,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/robot_eval/scene_prompt_generator.yaml",
+      "language": "yaml",
+      "sizeLines": 195,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/robot_eval/success_validator.yaml",
+      "language": "yaml",
+      "sizeLines": 122,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/robot_eval/validation_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 39,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/session_memory/turn_summarization.yaml",
+      "language": "yaml",
+      "sizeLines": 13,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/wall_agent/designer_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 385,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/wall_agent/designer_critique_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/wall_agent/designer_initial_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/wall_agent/stateful_critic_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 382,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/wall_agent/stateful_critic_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/wall_agent/stateful_planner_agent.yaml",
+      "language": "yaml",
+      "sizeLines": 156,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/data/wall_agent/stateful_planner_runner_instruction.yaml",
+      "language": "yaml",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scenesmith/prompts/manager.py",
+      "language": "python",
+      "sizeLines": 148,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/prompts/registry.py",
+      "language": "python",
+      "sizeLines": 296,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/__init__.py",
+      "language": "python",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/dmd_scene.py",
+      "language": "python",
+      "sizeLines": 562,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/llm_utils.py",
+      "language": "python",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/policy_interface/__init__.py",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/policy_interface/policy_agent.py",
+      "language": "python",
+      "sizeLines": 155,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/policy_interface/predicate_resolver.py",
+      "language": "python",
+      "sizeLines": 385,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/success_validation/__init__.py",
+      "language": "python",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/success_validation/validator_agent.py",
+      "language": "python",
+      "sizeLines": 246,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/task_generation/__init__.py",
+      "language": "python",
+      "sizeLines": 4,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/task_generation/scene_prompt_generator.py",
+      "language": "python",
+      "sizeLines": 204,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/tools/__init__.py",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/tools/response_dataclasses.py",
+      "language": "python",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/tools/state_tools.py",
+      "language": "python",
+      "sizeLines": 523,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/robot_eval/tools/vision_tools.py",
+      "language": "python",
+      "sizeLines": 402,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/collision_utils.py",
+      "language": "python",
+      "sizeLines": 226,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/geometry_utils.py",
+      "language": "python",
+      "sizeLines": 369,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/gltf_generation.py",
+      "language": "python",
+      "sizeLines": 833,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/inertia_utils.py",
+      "language": "python",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/logging.py",
+      "language": "python",
+      "sizeLines": 410,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/material.py",
+      "language": "python",
+      "sizeLines": 130,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/mesh_loading.py",
+      "language": "python",
+      "sizeLines": 214,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/network_utils.py",
+      "language": "python",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/omegaconf.py",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/openai.py",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/package_utils.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/parallel.py",
+      "language": "python",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/path_utils.py",
+      "language": "python",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/print_utils.py",
+      "language": "python",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/sdf_utils.py",
+      "language": "python",
+      "sizeLines": 245,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/utils/shape_analysis.py",
+      "language": "python",
+      "sizeLines": 129,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/__init__.py",
+      "language": "python",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/base_wall_agent.py",
+      "language": "python",
+      "sizeLines": 193,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/stateful_wall_agent.py",
+      "language": "python",
+      "sizeLines": 466,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/tools/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/tools/response_dataclasses.py",
+      "language": "python",
+      "sizeLines": 176,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/tools/vision_tools.py",
+      "language": "python",
+      "sizeLines": 369,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/tools/wall_surface.py",
+      "language": "python",
+      "sizeLines": 661,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scenesmith/wall_agents/tools/wall_tools.py",
+      "language": "python",
+      "sizeLines": 928,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/clean_scene_output.py",
+      "language": "python",
+      "sizeLines": 719,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/compute_ambientcg_embeddings.py",
+      "language": "python",
+      "sizeLines": 408,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/compute_articulated_embeddings.py",
+      "language": "python",
+      "sizeLines": 468,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/convert_dmd_welding.py",
+      "language": "python",
+      "sizeLines": 859,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/convert_partnet_mobility.py",
+      "language": "python",
+      "sizeLines": 647,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/convert_partnet_parallel.sh",
+      "language": "shell",
+      "sizeLines": 136,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/download_ambientcg.py",
+      "language": "python",
+      "sizeLines": 414,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/download_hssd_data.sh",
+      "language": "shell",
+      "sizeLines": 124,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/download_objaverse_data.sh",
+      "language": "shell",
+      "sizeLines": 95,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/export_scene_to_mujoco.py",
+      "language": "python",
+      "sizeLines": 2378,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/fix_artvip_joint_poses.py",
+      "language": "python",
+      "sizeLines": 225,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/fix_usd_isaac_sim.py",
+      "language": "python",
+      "sizeLines": 936,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/install_hunyuan3d.sh",
+      "language": "shell",
+      "sizeLines": 15,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/install_sam3d_docker.sh",
+      "language": "shell",
+      "sizeLines": 144,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/install_sam3d.sh",
+      "language": "shell",
+      "sizeLines": 357,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/prepare_objaverse.py",
+      "language": "python",
+      "sizeLines": 306,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/requirements-mujoco-export.txt",
+      "language": "txt",
+      "sizeLines": 20,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scripts/robot_eval/generate_prompts.py",
+      "language": "python",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/robot_eval/policy_interface.py",
+      "language": "python",
+      "sizeLines": 372,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/robot_eval/validate.py",
+      "language": "python",
+      "sizeLines": 116,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/setup_mujoco_export.sh",
+      "language": "shell",
+      "sizeLines": 38,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/test_asset_retrieval.py",
+      "language": "python",
+      "sizeLines": 640,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/test_material_retrieval.py",
+      "language": "python",
+      "sizeLines": 187,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/conftest.py",
+      "language": "python",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/common.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_asset_generation.py",
+      "language": "python",
+      "sizeLines": 292,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_blender.py",
+      "language": "python",
+      "sizeLines": 382,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_furniture_agent.py",
+      "language": "python",
+      "sizeLines": 219,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_image_persistence.py",
+      "language": "python",
+      "sizeLines": 295,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_manipuland_placement.py",
+      "language": "python",
+      "sizeLines": 908,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_mesh_processing_pipeline.py",
+      "language": "python",
+      "sizeLines": 392,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_parallel_scene_generation.py",
+      "language": "python",
+      "sizeLines": 312,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_rendering_overlays.py",
+      "language": "python",
+      "sizeLines": 448,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_sam3d_pipeline.py",
+      "language": "python",
+      "sizeLines": 300,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_snapping.py",
+      "language": "python",
+      "sizeLines": 670,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_turn_trimming_session.py",
+      "language": "python",
+      "sizeLines": 319,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/test_usd_export_pipeline.py",
+      "language": "python",
+      "sizeLines": 722,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/integration/usd_diagnostics.py",
+      "language": "python",
+      "sizeLines": 145,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/multi_collision_object.sdf",
+      "language": "sdf",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_0.obj",
+      "language": "obj",
+      "sizeLines": 5938,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_1.obj",
+      "language": "obj",
+      "sizeLines": 889,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_10.obj",
+      "language": "obj",
+      "sizeLines": 553,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_11.obj",
+      "language": "obj",
+      "sizeLines": 421,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_12.obj",
+      "language": "obj",
+      "sizeLines": 448,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_13.obj",
+      "language": "obj",
+      "sizeLines": 703,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_14.obj",
+      "language": "obj",
+      "sizeLines": 1489,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_15.obj",
+      "language": "obj",
+      "sizeLines": 517,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_16.obj",
+      "language": "obj",
+      "sizeLines": 2074,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_17.obj",
+      "language": "obj",
+      "sizeLines": 2410,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_18.obj",
+      "language": "obj",
+      "sizeLines": 1192,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_19.obj",
+      "language": "obj",
+      "sizeLines": 655,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_2.obj",
+      "language": "obj",
+      "sizeLines": 1441,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_3.obj",
+      "language": "obj",
+      "sizeLines": 1165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_4.obj",
+      "language": "obj",
+      "sizeLines": 1912,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_5.obj",
+      "language": "obj",
+      "sizeLines": 1909,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_6.obj",
+      "language": "obj",
+      "sizeLines": 2494,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_7.obj",
+      "language": "obj",
+      "sizeLines": 2725,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_8.obj",
+      "language": "obj",
+      "sizeLines": 679,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug_collision_9.obj",
+      "language": "obj",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug.gltf",
+      "language": "gltf",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/coffee_mug.sdf",
+      "language": "sdf",
+      "sizeLines": 325,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/gltf_buffer_0.bin",
+      "language": "bin",
+      "sizeLines": 981,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/gltf_buffer_1.bin",
+      "language": "bin",
+      "sizeLines": 4558,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/gltf_buffer_2.bin",
+      "language": "bin",
+      "sizeLines": 3863,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/manipulands/sdf/coffee_mug_1762992163/gltf_buffer_3.bin",
+      "language": "bin",
+      "sizeLines": 2894,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/gltf_buffer_0.bin",
+      "language": "bin",
+      "sizeLines": 989,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/gltf_buffer_1.bin",
+      "language": "bin",
+      "sizeLines": 3737,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/gltf_buffer_2.bin",
+      "language": "bin",
+      "sizeLines": 7829,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/gltf_buffer_3.bin",
+      "language": "bin",
+      "sizeLines": 3206,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed_collision_0.obj",
+      "language": "obj",
+      "sizeLines": 1468,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed_collision_1.obj",
+      "language": "obj",
+      "sizeLines": 2272,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed_collision_2.obj",
+      "language": "obj",
+      "sizeLines": 2380,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed_collision_3.obj",
+      "language": "obj",
+      "sizeLines": 2326,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed_collision_4.obj",
+      "language": "obj",
+      "sizeLines": 4954,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed_collision_5.obj",
+      "language": "obj",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed_collision_6.obj",
+      "language": "obj",
+      "sizeLines": 85,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed.bin",
+      "language": "bin",
+      "sizeLines": 11522,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed.gltf",
+      "language": "gltf",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/king_bed_1761578419/king_bed.sdf",
+      "language": "sdf",
+      "sizeLines": 130,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/gltf_buffer_0.bin",
+      "language": "bin",
+      "sizeLines": 982,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/gltf_buffer_1.bin",
+      "language": "bin",
+      "sizeLines": 4161,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/gltf_buffer_2.bin",
+      "language": "bin",
+      "sizeLines": 8849,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/gltf_buffer_3.bin",
+      "language": "bin",
+      "sizeLines": 2968,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_0.obj",
+      "language": "obj",
+      "sizeLines": 1516,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_1.obj",
+      "language": "obj",
+      "sizeLines": 658,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_10.obj",
+      "language": "obj",
+      "sizeLines": 589,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_11.obj",
+      "language": "obj",
+      "sizeLines": 544,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_12.obj",
+      "language": "obj",
+      "sizeLines": 373,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_13.obj",
+      "language": "obj",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_14.obj",
+      "language": "obj",
+      "sizeLines": 619,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_15.obj",
+      "language": "obj",
+      "sizeLines": 1969,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_16.obj",
+      "language": "obj",
+      "sizeLines": 670,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_17.obj",
+      "language": "obj",
+      "sizeLines": 409,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_18.obj",
+      "language": "obj",
+      "sizeLines": 2044,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_19.obj",
+      "language": "obj",
+      "sizeLines": 517,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_2.obj",
+      "language": "obj",
+      "sizeLines": 643,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_3.obj",
+      "language": "obj",
+      "sizeLines": 373,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_4.obj",
+      "language": "obj",
+      "sizeLines": 337,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_5.obj",
+      "language": "obj",
+      "sizeLines": 253,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_6.obj",
+      "language": "obj",
+      "sizeLines": 523,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_7.obj",
+      "language": "obj",
+      "sizeLines": 4417,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_8.obj",
+      "language": "obj",
+      "sizeLines": 667,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair_collision_9.obj",
+      "language": "obj",
+      "sizeLines": 526,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair.bin",
+      "language": "bin",
+      "sizeLines": 12512,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair.gltf",
+      "language": "gltf",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/office_chair_1761578426/office_chair.sdf",
+      "language": "sdf",
+      "sizeLines": 325,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/gltf_buffer_0.bin",
+      "language": "bin",
+      "sizeLines": 981,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/gltf_buffer_1.bin",
+      "language": "bin",
+      "sizeLines": 5244,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/gltf_buffer_2.bin",
+      "language": "bin",
+      "sizeLines": 7737,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/gltf_buffer_3.bin",
+      "language": "bin",
+      "sizeLines": 3624,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_0.obj",
+      "language": "obj",
+      "sizeLines": 1747,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_1.obj",
+      "language": "obj",
+      "sizeLines": 331,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_10.obj",
+      "language": "obj",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_11.obj",
+      "language": "obj",
+      "sizeLines": 532,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_12.obj",
+      "language": "obj",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_13.obj",
+      "language": "obj",
+      "sizeLines": 370,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_14.obj",
+      "language": "obj",
+      "sizeLines": 484,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_15.obj",
+      "language": "obj",
+      "sizeLines": 436,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_16.obj",
+      "language": "obj",
+      "sizeLines": 469,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_17.obj",
+      "language": "obj",
+      "sizeLines": 643,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_18.obj",
+      "language": "obj",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_19.obj",
+      "language": "obj",
+      "sizeLines": 592,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_2.obj",
+      "language": "obj",
+      "sizeLines": 757,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_20.obj",
+      "language": "obj",
+      "sizeLines": 676,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_3.obj",
+      "language": "obj",
+      "sizeLines": 268,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_4.obj",
+      "language": "obj",
+      "sizeLines": 295,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_5.obj",
+      "language": "obj",
+      "sizeLines": 1129,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_6.obj",
+      "language": "obj",
+      "sizeLines": 292,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_7.obj",
+      "language": "obj",
+      "sizeLines": 5125,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_8.obj",
+      "language": "obj",
+      "sizeLines": 628,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer_collision_9.obj",
+      "language": "obj",
+      "sizeLines": 1690,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer.bin",
+      "language": "bin",
+      "sizeLines": 12667,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer.gltf",
+      "language": "gltf",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/printer_1761578426/printer.sdf",
+      "language": "sdf",
+      "sizeLines": 340,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/gltf_buffer_0.bin",
+      "language": "bin",
+      "sizeLines": 998,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/gltf_buffer_1.bin",
+      "language": "bin",
+      "sizeLines": 3187,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/gltf_buffer_2.bin",
+      "language": "bin",
+      "sizeLines": 6584,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/gltf_buffer_3.bin",
+      "language": "bin",
+      "sizeLines": 3015,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk_collision_0.obj",
+      "language": "obj",
+      "sizeLines": 565,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk_collision_1.obj",
+      "language": "obj",
+      "sizeLines": 532,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk_collision_2.obj",
+      "language": "obj",
+      "sizeLines": 472,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk_collision_3.obj",
+      "language": "obj",
+      "sizeLines": 640,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk_collision_4.obj",
+      "language": "obj",
+      "sizeLines": 760,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk_collision_5.obj",
+      "language": "obj",
+      "sizeLines": 592,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk_collision_6.obj",
+      "language": "obj",
+      "sizeLines": 697,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk.bin",
+      "language": "bin",
+      "sizeLines": 10227,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk.gltf",
+      "language": "gltf",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/generated_assets/sdf/work_desk_1761578426/work_desk.sdf",
+      "language": "sdf",
+      "sizeLines": 130,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/realistic_scene/room_geometry.sdf",
+      "language": "sdf",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/simple_box.sdf",
+      "language": "sdf",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/simple_room_geometry.sdf",
+      "language": "sdf",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/simple_sphere.sdf",
+      "language": "sdf",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_0.obj",
+      "language": "obj",
+      "sizeLines": 2170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_1.obj",
+      "language": "obj",
+      "sizeLines": 2464,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_10.obj",
+      "language": "obj",
+      "sizeLines": 382,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_11.obj",
+      "language": "obj",
+      "sizeLines": 190,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_12.obj",
+      "language": "obj",
+      "sizeLines": 259,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_13.obj",
+      "language": "obj",
+      "sizeLines": 631,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_14.obj",
+      "language": "obj",
+      "sizeLines": 187,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_15.obj",
+      "language": "obj",
+      "sizeLines": 241,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_16.obj",
+      "language": "obj",
+      "sizeLines": 520,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_17.obj",
+      "language": "obj",
+      "sizeLines": 193,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_18.obj",
+      "language": "obj",
+      "sizeLines": 478,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_19.obj",
+      "language": "obj",
+      "sizeLines": 511,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_2.obj",
+      "language": "obj",
+      "sizeLines": 2389,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_20.obj",
+      "language": "obj",
+      "sizeLines": 304,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_21.obj",
+      "language": "obj",
+      "sizeLines": 256,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_22.obj",
+      "language": "obj",
+      "sizeLines": 451,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_23.obj",
+      "language": "obj",
+      "sizeLines": 475,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_24.obj",
+      "language": "obj",
+      "sizeLines": 226,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_25.obj",
+      "language": "obj",
+      "sizeLines": 448,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_26.obj",
+      "language": "obj",
+      "sizeLines": 754,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_27.obj",
+      "language": "obj",
+      "sizeLines": 403,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_28.obj",
+      "language": "obj",
+      "sizeLines": 292,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_29.obj",
+      "language": "obj",
+      "sizeLines": 943,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_3.obj",
+      "language": "obj",
+      "sizeLines": 2488,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_30.obj",
+      "language": "obj",
+      "sizeLines": 493,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_31.obj",
+      "language": "obj",
+      "sizeLines": 517,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_32.obj",
+      "language": "obj",
+      "sizeLines": 478,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_33.obj",
+      "language": "obj",
+      "sizeLines": 229,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_34.obj",
+      "language": "obj",
+      "sizeLines": 214,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_4.obj",
+      "language": "obj",
+      "sizeLines": 715,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_5.obj",
+      "language": "obj",
+      "sizeLines": 829,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_6.obj",
+      "language": "obj",
+      "sizeLines": 202,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_7.obj",
+      "language": "obj",
+      "sizeLines": 169,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_8.obj",
+      "language": "obj",
+      "sizeLines": 445,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_collision_9.obj",
+      "language": "obj",
+      "sizeLines": 535,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_scaled.sdf",
+      "language": "sdf",
+      "sizeLines": 587,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2_visual.obj",
+      "language": "obj",
+      "sizeLines": 22413,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/stacking_assets/bread_plate/bread_plate_2.sdf",
+      "language": "sdf",
+      "sizeLines": 551,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/support_surface_algorithm/artistic_shelf_canonical.bin",
+      "language": "bin",
+      "sizeLines": 8809,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/support_surface_algorithm/artistic_shelf_canonical.gltf",
+      "language": "gltf",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/support_surface_algorithm/round_table_canonical.bin",
+      "language": "bin",
+      "sizeLines": 10892,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/support_surface_algorithm/round_table_canonical.gltf",
+      "language": "gltf",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/support_surface_algorithm/shelf_3x3_canonical.bin",
+      "language": "bin",
+      "sizeLines": 10088,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/support_surface_algorithm/shelf_3x3_canonical.gltf",
+      "language": "gltf",
+      "sizeLines": 138,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/usd_export_pipeline/articulated_cabinet.sdf",
+      "language": "sdf",
+      "sizeLines": 144,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_data/usd_export_pipeline/cube.obj",
+      "language": "obj",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/__init__.py",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/mock_utils.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_action_logger.py",
+      "language": "python",
+      "sizeLines": 466,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_arrangement_tools.py",
+      "language": "python",
+      "sizeLines": 235,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_asset_generation.py",
+      "language": "python",
+      "sizeLines": 485,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_asset_manager.py",
+      "language": "python",
+      "sizeLines": 1100,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_asset_registry_autosave.py",
+      "language": "python",
+      "sizeLines": 155,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_asset_registry.py",
+      "language": "python",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_asset_router.py",
+      "language": "python",
+      "sizeLines": 294,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_blender_server_retry.py",
+      "language": "python",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_blender.py",
+      "language": "python",
+      "sizeLines": 968,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_clearance_zones.py",
+      "language": "python",
+      "sizeLines": 286,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_collision_utils.py",
+      "language": "python",
+      "sizeLines": 147,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_context_furniture.py",
+      "language": "python",
+      "sizeLines": 191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_convert_dmd_welding.py",
+      "language": "python",
+      "sizeLines": 583,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_download_ambientcg.py",
+      "language": "python",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_fill_container.py",
+      "language": "python",
+      "sizeLines": 567,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_finalize_scene_reset.py",
+      "language": "python",
+      "sizeLines": 274,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_floor_plan_tools.py",
+      "language": "python",
+      "sizeLines": 1029,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_furniture_agent_tools.py",
+      "language": "python",
+      "sizeLines": 1307,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_furniture_agent.py",
+      "language": "python",
+      "sizeLines": 163,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_furniture_checkpoint.py",
+      "language": "python",
+      "sizeLines": 400,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_geometry_cache.py",
+      "language": "python",
+      "sizeLines": 408,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_geometry_generation_client.py",
+      "language": "python",
+      "sizeLines": 251,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_house.py",
+      "language": "python",
+      "sizeLines": 280,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_hssd_retrieval_client.py",
+      "language": "python",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_hssd_retrieval.py",
+      "language": "python",
+      "sizeLines": 312,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_inertia_utils.py",
+      "language": "python",
+      "sizeLines": 160,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_intra_turn_image_filter.py",
+      "language": "python",
+      "sizeLines": 193,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_logging.py",
+      "language": "python",
+      "sizeLines": 136,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_manipuland_agent.py",
+      "language": "python",
+      "sizeLines": 138,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_manipuland_tools.py",
+      "language": "python",
+      "sizeLines": 495,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_material_generator.py",
+      "language": "python",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_materials_retrieval.py",
+      "language": "python",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_mesh_physics_analyzer.py",
+      "language": "python",
+      "sizeLines": 519,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_mesh_utils.py",
+      "language": "python",
+      "sizeLines": 481,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_network_utils.py",
+      "language": "python",
+      "sizeLines": 139,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_objaverse_retrieval.py",
+      "language": "python",
+      "sizeLines": 313,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_openai_agents_image_converter.py",
+      "language": "python",
+      "sizeLines": 207,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_parallel.py",
+      "language": "python",
+      "sizeLines": 161,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_penetration_resolution.py",
+      "language": "python",
+      "sizeLines": 656,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_physical_feasibility.py",
+      "language": "python",
+      "sizeLines": 1443,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_physics_validation.py",
+      "language": "python",
+      "sizeLines": 1446,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_pile.py",
+      "language": "python",
+      "sizeLines": 337,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_placement_noise.py",
+      "language": "python",
+      "sizeLines": 93,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_policy_interface.py",
+      "language": "python",
+      "sizeLines": 241,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_prompts.py",
+      "language": "python",
+      "sizeLines": 376,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_reachability.py",
+      "language": "python",
+      "sizeLines": 491,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_rendering_manager.py",
+      "language": "python",
+      "sizeLines": 340,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_rendering.py",
+      "language": "python",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_room_placement.py",
+      "language": "python",
+      "sizeLines": 994,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_sam3d_generation.py",
+      "language": "python",
+      "sizeLines": 270,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_scene_analyzer.py",
+      "language": "python",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_scene_primitives.py",
+      "language": "python",
+      "sizeLines": 717,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_scene_reset.py",
+      "language": "python",
+      "sizeLines": 124,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_scene_tools.py",
+      "language": "python",
+      "sizeLines": 444,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_scene.py",
+      "language": "python",
+      "sizeLines": 1162,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_sceneeval_exporter.py",
+      "language": "python",
+      "sizeLines": 673,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_sdf_generator.py",
+      "language": "python",
+      "sizeLines": 544,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_sdf_scale.py",
+      "language": "python",
+      "sizeLines": 519,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_stacking.py",
+      "language": "python",
+      "sizeLines": 470,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_strict_round_robin_scheduler.py",
+      "language": "python",
+      "sizeLines": 320,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_support_surface_extraction.py",
+      "language": "python",
+      "sizeLines": 397,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_support_surface_scaling.py",
+      "language": "python",
+      "sizeLines": 253,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_surface_occlusion.py",
+      "language": "python",
+      "sizeLines": 241,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_turn_trimming_session.py",
+      "language": "python",
+      "sizeLines": 633,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_vision_tools.py",
+      "language": "python",
+      "sizeLines": 264,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_vlm_service.py",
+      "language": "python",
+      "sizeLines": 332,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_wall_geometry.py",
+      "language": "python",
+      "sizeLines": 351,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_wall_surface.py",
+      "language": "python",
+      "sizeLines": 487,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_window_geometry.py",
+      "language": "python",
+      "sizeLines": 178,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/unit/test_worker_pool.py",
+      "language": "python",
+      "sizeLines": 345,
+      "fileCategory": "code"
+    },
+    {
+      "path": "text_to_3d_pipeline.md",
+      "language": "markdown",
+      "sizeLines": 264,
+      "fileCategory": "docs"
+    }
+  ],
+  "totalFiles": 580,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "very-large",
+  "stats": {
+    "filesScanned": 580,
+    "byCategory": {
+      "code": 489,
+      "infra": 6,
+      "config": 74,
+      "docs": 4,
+      "script": 7
+    },
+    "byLanguage": {
+      "unknown": 5,
+      "yaml": 77,
+      "dockerfile": 1,
+      "python": 323,
+      "webp": 2,
+      "toml": 1,
+      "markdown": 3,
+      "shell": 7,
+      "txt": 1,
+      "sdf": 13,
+      "obj": 112,
+      "gltf": 8,
+      "bin": 27
+    }
+  }
+}
