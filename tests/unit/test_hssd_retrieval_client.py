@@ -4,8 +4,8 @@ from unittest.mock import MagicMock, patch
 
 import requests
 
-from scenesmith.agent_utils.hssd_retrieval_server.client import HssdRetrievalClient
-from scenesmith.agent_utils.hssd_retrieval_server.dataclasses import (
+from reefsmith.agent_utils.hssd_retrieval_server.client import HssdRetrievalClient
+from reefsmith.agent_utils.hssd_retrieval_server.dataclasses import (
     HssdRetrievalServerRequest,
 )
 

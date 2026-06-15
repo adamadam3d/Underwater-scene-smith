@@ -37,10 +37,10 @@ import logging
 
 from pathlib import Path
 
-from scenesmith.agent_utils.blender import BlenderServer
-from scenesmith.robot_eval import create_robot_eval_config
-from scenesmith.robot_eval.dmd_scene import load_scene_for_validation
-from scenesmith.robot_eval.policy_interface.predicate_resolver import PredicateResolver
+from reefsmith.agent_utils.blender import BlenderServer
+from reefsmith.robot_eval import create_robot_eval_config
+from reefsmith.robot_eval.dmd_scene import load_scene_for_validation
+from reefsmith.robot_eval.policy_interface.predicate_resolver import PredicateResolver
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)

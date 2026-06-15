@@ -12,7 +12,7 @@ import trimesh
 
 from pydrake.all import RigidTransform
 
-from scenesmith.agent_utils.room import (
+from reefsmith.agent_utils.room import (
     ObjectType,
     RoomScene,
     SceneObject,
@@ -20,7 +20,7 @@ from scenesmith.agent_utils.room import (
     UniqueID,
     extract_and_propagate_support_surfaces,
 )
-from scenesmith.agent_utils.support_surface_extraction import (
+from reefsmith.agent_utils.support_surface_extraction import (
     SupportSurfaceExtractionConfig,
 )
 

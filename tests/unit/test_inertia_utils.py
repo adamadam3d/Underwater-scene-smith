@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
-from scenesmith.utils.inertia_utils import ensure_valid_inertia, fix_sdf_file_inertia
+from reefsmith.utils.inertia_utils import ensure_valid_inertia, fix_sdf_file_inertia
 
 
 class TestEnsureValidInertia(unittest.TestCase):

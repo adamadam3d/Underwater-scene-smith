@@ -18,11 +18,11 @@ import bpy  # noqa: F401
 
 # isort: on
 
-from scenesmith.agent_utils.geometry_generation_server import GeometryGenerationServer
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.room import RoomScene
-from scenesmith.furniture_agents.stateful_furniture_agent import StatefulFurnitureAgent
-from scenesmith.utils.logging import ConsoleLogger
+from reefsmith.agent_utils.geometry_generation_server import GeometryGenerationServer
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.room import RoomScene
+from reefsmith.reef_agents.stateful_reef_agent import StatefulReefAgent
+from reefsmith.utils.logging import ConsoleLogger
 from tests.integration.common import (
     has_gpu_available,
     has_hunyuan3d_installed,
@@ -141,16 +141,16 @@ class TestFurnitureAgentIntegration(unittest.TestCase):
 
     def test_complete_furniture_placement_workflow_integration_stateful(self):
         """
-        Test the complete StatefulFurnitureAgent workflow.
+        Test the complete StatefulReefAgent workflow.
         """
         # Load configuration for stateful agent.
         test_config = self._load_test_config("stateful_furniture_agent.yaml")
 
         # Create the agent.
-        agent = StatefulFurnitureAgent(cfg=test_config, logger=self.logger)
+        agent = StatefulReefAgent(cfg=test_config, logger=self.logger)
 
         # Verify basic initialization contract.
-        self.assertIsInstance(agent, StatefulFurnitureAgent)
+        self.assertIsInstance(agent, StatefulReefAgent)
         self.assertIsNotNone(agent.asset_manager, "Asset manager should be initialized")
         self.assertIsNotNone(
             agent.designer_session, "Designer session should be initialized"

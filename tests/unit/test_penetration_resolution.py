@@ -17,9 +17,9 @@ from pydrake.all import (
 )
 from pydrake.geometry.optimization import HPolyhedron, VPolytope
 
-from scenesmith.agent_utils.physical_feasibility import get_object_xy_footprint
-from scenesmith.agent_utils.room import PlacementInfo, SupportSurface, UniqueID
-from scenesmith.manipuland_agents.tools.response_dataclasses import (
+from reefsmith.agent_utils.physical_feasibility import get_object_xy_footprint
+from reefsmith.agent_utils.room import PlacementInfo, SupportSurface, UniqueID
+from reefsmith.micro_habitat_agents.tools.response_dataclasses import (
     ManipulandErrorType,
     PenetrationResolutionResult,
 )

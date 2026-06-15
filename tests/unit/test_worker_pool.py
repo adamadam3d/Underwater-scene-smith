@@ -5,16 +5,16 @@ import unittest
 
 from unittest.mock import MagicMock, patch
 
-from scenesmith.agent_utils.geometry_generation_server.dataclasses import (
+from reefsmith.agent_utils.geometry_generation_server.dataclasses import (
     GeometryGenerationServerRequest,
 )
-from scenesmith.agent_utils.geometry_generation_server.gpu_worker import (
+from reefsmith.agent_utils.geometry_generation_server.gpu_worker import (
     ShutdownRequest,
     WorkerReady,
     WorkRequest,
     WorkResult,
 )
-from scenesmith.agent_utils.geometry_generation_server.worker_pool import (
+from reefsmith.agent_utils.geometry_generation_server.worker_pool import (
     GPUWorkerPool,
     PoolStats,
 )
@@ -25,7 +25,7 @@ class TestGPUDetection(unittest.TestCase):
 
     @patch.dict("os.environ", {}, clear=True)
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
+        "reefsmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
     )
     def test_detect_gpu_ids_multiple_gpus(self, mock_run):
         """Test detection of multiple GPUs via nvidia-smi."""
@@ -43,7 +43,7 @@ class TestGPUDetection(unittest.TestCase):
 
     @patch.dict("os.environ", {}, clear=True)
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
+        "reefsmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
     )
     def test_detect_gpu_ids_single_gpu(self, mock_run):
         """Test detection of single GPU."""
@@ -58,7 +58,7 @@ class TestGPUDetection(unittest.TestCase):
 
     @patch.dict("os.environ", {}, clear=True)
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
+        "reefsmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
     )
     def test_detect_gpu_ids_nvidia_smi_fails(self, mock_run):
         """Test fallback when nvidia-smi fails."""
@@ -71,7 +71,7 @@ class TestGPUDetection(unittest.TestCase):
 
     @patch.dict("os.environ", {}, clear=True)
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
+        "reefsmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
     )
     def test_detect_gpu_ids_command_not_found(self, mock_run):
         """Test fallback when nvidia-smi is not installed."""
@@ -84,7 +84,7 @@ class TestGPUDetection(unittest.TestCase):
 
     @patch.dict("os.environ", {}, clear=True)
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
+        "reefsmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
     )
     def test_detect_gpu_ids_timeout(self, mock_run):
         """Test fallback when nvidia-smi times out."""
@@ -97,7 +97,7 @@ class TestGPUDetection(unittest.TestCase):
 
     @patch.dict("os.environ", {}, clear=True)
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
+        "reefsmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
     )
     def test_detect_gpu_ids_empty_output(self, mock_run):
         """Test handling of empty nvidia-smi output."""
@@ -131,7 +131,7 @@ class TestGPUDetection(unittest.TestCase):
 
     @patch.dict("os.environ", {"CUDA_VISIBLE_DEVICES": ""})
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
+        "reefsmith.agent_utils.geometry_generation_server.worker_pool.subprocess.run"
     )
     def test_detect_gpu_ids_empty_cuda_visible_devices(self, mock_run):
         """Test empty CUDA_VISIBLE_DEVICES falls back to nvidia-smi."""

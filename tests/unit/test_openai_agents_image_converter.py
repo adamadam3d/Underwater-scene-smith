@@ -9,11 +9,11 @@ from agents.models.openai_chatcompletions import Converter
 from agents.run import CallModelData, ModelInputData
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.chat_completions_image_filter import (
+from reefsmith.agent_utils.chat_completions_image_filter import (
     ChatCompletionsToolImageFilter,
     CompositeCallModelInputFilter,
 )
-from scenesmith.agent_utils.intra_turn_image_filter import IntraTurnImageFilter
+from reefsmith.agent_utils.intra_turn_image_filter import IntraTurnImageFilter
 
 
 def _image_tool_output_item() -> dict:

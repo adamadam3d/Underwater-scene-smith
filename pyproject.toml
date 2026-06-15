@@ -1,7 +1,7 @@
 [project]
-name = "scenesmith"
+name = "reefsmith"
 version = "0.1.0"
-description = "Agentic generation of simulation-ready indoor scenes"
+description = "Agentic generation of simulation-ready underwater coral reef environments"
 readme = "README.md"
 requires-python = ">=3.11, <3.12"
 dependencies = [
@@ -59,7 +59,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["scenesmith"]
+packages = ["reefsmith"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -73,7 +73,7 @@ profile = "black"
 line_length = 88
 lines_between_types = 1
 combine_as_imports = true
-known_first_party = ['scenesmith']
+known_first_party = ['reefsmith']
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 import requests
 
-from scenesmith.agent_utils.blender.server_manager import BlenderServer
+from reefsmith.agent_utils.blender.server_manager import BlenderServer
 
 
 class TestBlenderServerRetry(unittest.TestCase):

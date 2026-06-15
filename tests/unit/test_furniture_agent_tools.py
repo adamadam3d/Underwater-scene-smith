@@ -13,16 +13,16 @@ import numpy as np
 from omegaconf import OmegaConf
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
-from scenesmith.furniture_agents.tools.furniture_tools import FurnitureTools
-from scenesmith.furniture_agents.tools.response_dataclasses import (
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.reef_agents.tools.furniture_tools import FurnitureTools
+from reefsmith.reef_agents.tools.response_dataclasses import (
     FurnitureErrorType,
     Position3D,
     Rotation3D,
     SceneObjectInfo,
     SceneStateResult,
 )
-from scenesmith.furniture_agents.tools.scene_tools import SceneTools
+from reefsmith.reef_agents.tools.scene_tools import SceneTools
 
 
 class BaseAgentToolsTest(unittest.TestCase):

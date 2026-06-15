@@ -10,10 +10,10 @@ from unittest.mock import Mock
 
 import yaml
 
-from scenesmith import prompts
-from scenesmith.prompts import FurnitureAgentPrompts, prompt_manager, prompt_registry
-from scenesmith.prompts.manager import PromptManager, PromptNotFoundError
-from scenesmith.prompts.registry import PromptEnum, PromptRegistry
+from reefsmith import prompts
+from reefsmith.prompts import FurnitureAgentPrompts, prompt_manager, prompt_registry
+from reefsmith.prompts.manager import PromptManager, PromptNotFoundError
+from reefsmith.prompts.registry import PromptEnum, PromptRegistry
 
 
 class MockPromptEnum(PromptEnum):

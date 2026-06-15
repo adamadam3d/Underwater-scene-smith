@@ -19,7 +19,7 @@ import shutil
 from pathlib import Path
 from typing import Callable
 
-from scenesmith.utils.parallel import run_parallel_isolated
+from reefsmith.utils.parallel import run_parallel_isolated
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger(__name__)

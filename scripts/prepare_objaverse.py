@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Prepare ObjectThor (Objaverse) data for scenesmith retrieval.
+Prepare ObjectThor (Objaverse) data for reefsmith retrieval.
 
 This script processes ObjectThor data downloaded via download_objaverse_data.sh:
 1. Loads pre-computed CLIP features (3 views, 768-dim, float16)
 2. Averages multi-view embeddings to single embedding per object
 3. Creates metadata index with categories and bounding boxes
-4. Creates object category mapping for scenesmith ObjectTypes
+4. Creates object category mapping for reefsmith ObjectTypes
 5. Outputs preprocessed/ directory ready for ObjaverseRetriever
 
 Usage:
@@ -30,9 +30,9 @@ logger = logging.getLogger(__name__)
 
 
 def map_placement_to_category(metadata: dict) -> str:
-    """Map ObjectThor placement flags to scenesmith categories.
+    """Map ObjectThor placement flags to reefsmith categories.
 
-    ObjectThor has explicit placement constraints that map well to scenesmith types:
+    ObjectThor has explicit placement constraints that map well to reefsmith types:
     - FURNITURE (large_objects): Floor-only items (on_floor=True, on_object=False)
     - MANIPULAND (small_objects): Can go on tables (on_object=True)
     - WALL_MOUNTED (wall_objects): Wall-only (on_wall=True, not on floor)
@@ -42,7 +42,7 @@ def map_placement_to_category(metadata: dict) -> str:
         metadata: Object metadata with placement flags.
 
     Returns:
-        Category string for scenesmith.
+        Category string for reefsmith.
     """
     on_ceiling = metadata.get("onCeiling", False)
     on_wall = metadata.get("onWall", False)
@@ -233,7 +233,7 @@ def create_category_mapping(metadata_index: dict) -> dict[str, list[str]]:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Prepare ObjectThor data for scenesmith retrieval"
+        description="Prepare ObjectThor data for reefsmith retrieval"
     )
     parser.add_argument(
         "--data-path",

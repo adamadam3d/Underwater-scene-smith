@@ -13,10 +13,10 @@ import trimesh
 from omegaconf import OmegaConf
 from pydrake.all import RigidTransform
 
-from scenesmith.agent_utils.asset_manager import AssetManager
-from scenesmith.agent_utils.placement_noise import PlacementNoiseMode
-from scenesmith.agent_utils.room import RoomScene, SupportSurface, UniqueID
-from scenesmith.manipuland_agents.tools.manipuland_tools import ManipulandTools
+from reefsmith.agent_utils.asset_manager import AssetManager
+from reefsmith.agent_utils.placement_noise import PlacementNoiseMode
+from reefsmith.agent_utils.room import RoomScene, SupportSurface, UniqueID
+from reefsmith.micro_habitat_agents.tools.manipuland_tools import ManipulandTools
 
 
 class TestManipulandTools(unittest.TestCase):
@@ -231,7 +231,7 @@ class TestManipulandTools(unittest.TestCase):
         ManipulandTools, "_validate_convex_hull_footprint", return_value=(True, None)
     )
     @patch.object(ManipulandTools, "_is_top_surface", return_value=True)
-    @patch("scenesmith.manipuland_agents.tools.manipuland_tools.apply_placement_noise")
+    @patch("reefsmith.micro_habitat_agents.tools.manipuland_tools.apply_placement_noise")
     def test_move_manipuland_applies_noise(
         self, mock_apply_noise, mock_is_top, mock_validate
     ):
@@ -281,7 +281,7 @@ class TestManipulandTools(unittest.TestCase):
         ManipulandTools, "_validate_convex_hull_footprint", return_value=(True, None)
     )
     @patch.object(ManipulandTools, "_is_top_surface", return_value=True)
-    @patch("scenesmith.manipuland_agents.tools.manipuland_tools.apply_placement_noise")
+    @patch("reefsmith.micro_habitat_agents.tools.manipuland_tools.apply_placement_noise")
     def test_placement_applies_noise(
         self, mock_apply_noise, mock_is_top, mock_validate
     ):

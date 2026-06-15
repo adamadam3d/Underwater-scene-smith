@@ -3,10 +3,10 @@ import unittest
 
 from unittest.mock import MagicMock
 
-from scenesmith.agent_utils.geometry_generation_server.dataclasses import (
+from reefsmith.agent_utils.geometry_generation_server.dataclasses import (
     GeometryGenerationServerRequest,
 )
-from scenesmith.agent_utils.geometry_generation_server.server_app import (
+from reefsmith.agent_utils.geometry_generation_server.server_app import (
     StrictRoundRobinScheduler,
 )
 

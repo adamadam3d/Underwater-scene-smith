@@ -9,8 +9,8 @@ import unittest
 
 import numpy as np
 
-from scenesmith.agent_utils.room import UniqueID
-from scenesmith.agent_utils.scene_analyzer import (
+from reefsmith.agent_utils.room import UniqueID
+from reefsmith.agent_utils.scene_analyzer import (
     SceneAnalyzer,
     _compute_aabb_edge_distance,
 )

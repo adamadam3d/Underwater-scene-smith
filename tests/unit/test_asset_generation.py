@@ -5,10 +5,10 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from scenesmith.agent_utils.geometry_generation_server.geometry_generation import (
+from reefsmith.agent_utils.geometry_generation_server.geometry_generation import (
     generate_geometry_from_image,
 )
-from scenesmith.agent_utils.image_generation import (
+from reefsmith.agent_utils.image_generation import (
     OpenAIImageGenerator,
     _extract_and_save_openai_image,
 )
@@ -71,7 +71,7 @@ class TestOpenAIImageGenerator(unittest.TestCase):
         generator = OpenAIImageGenerator(client=self.mock_client, quality="high")
         self.assertEqual(generator.image_quality, "high")
 
-    @patch("scenesmith.agent_utils.image_generation._extract_and_save_openai_image")
+    @patch("reefsmith.agent_utils.image_generation._extract_and_save_openai_image")
     def test_generate_single_image(self, mock_extract):
         """Test single image generation."""
         # Mock response.
@@ -98,7 +98,7 @@ class TestOpenAIImageGenerator(unittest.TestCase):
         # Verify image extraction happened.
         mock_extract.assert_called_once()
 
-    @patch("scenesmith.agent_utils.image_generation._extract_and_save_openai_image")
+    @patch("reefsmith.agent_utils.image_generation._extract_and_save_openai_image")
     def test_generate_multiple_images(self, mock_extract):
         """Test generating multiple images in parallel."""
         # Mock responses.
@@ -167,11 +167,11 @@ class TestGeometryGeneration(unittest.TestCase):
 
     @patch("hy3dgen.rembg.BackgroundRemover")
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.geometry_generation.Hunyuan3DPipelineManager"
+        "reefsmith.agent_utils.geometry_generation_server.geometry_generation.Hunyuan3DPipelineManager"
     )
     @patch("hy3dgen.shapegen.pipelines.export_to_trimesh")
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.geometry_generation.Image"
+        "reefsmith.agent_utils.geometry_generation_server.geometry_generation.Image"
     )
     def test_generate_geometry_from_image_success(
         self,
@@ -257,7 +257,7 @@ class TestGeometryGeneration(unittest.TestCase):
     @patch("hy3dgen.rembg.BackgroundRemover")
     @patch("hy3dgen.shapegen.pipelines.export_to_trimesh")
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.geometry_generation.Image"
+        "reefsmith.agent_utils.geometry_generation_server.geometry_generation.Image"
     )
     def test_generate_geometry_from_image_without_debug(
         self,
@@ -325,11 +325,11 @@ class TestGeometryGeneration(unittest.TestCase):
 
     @patch("hy3dgen.rembg.BackgroundRemover")
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.geometry_generation.Hunyuan3DPipelineManager"
+        "reefsmith.agent_utils.geometry_generation_server.geometry_generation.Hunyuan3DPipelineManager"
     )
     @patch("hy3dgen.shapegen.pipelines.export_to_trimesh")
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.geometry_generation.Image"
+        "reefsmith.agent_utils.geometry_generation_server.geometry_generation.Image"
     )
     def test_generate_geometry_from_image_with_mini_model(
         self,

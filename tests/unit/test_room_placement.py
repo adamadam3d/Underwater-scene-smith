@@ -2,14 +2,14 @@
 
 import unittest
 
-from scenesmith.agent_utils.house import (
+from reefsmith.agent_utils.house import (
     ConnectionType,
     Door,
     PlacedRoom,
     RoomSpec,
     WallDirection,
 )
-from scenesmith.floor_plan_agents.tools.room_placement import (
+from reefsmith.seabed_agents.tools.room_placement import (
     PlacementConfig,
     PlacementError,
     find_room,

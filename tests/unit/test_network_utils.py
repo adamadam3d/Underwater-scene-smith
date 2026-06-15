@@ -3,7 +3,7 @@ import unittest
 
 from unittest.mock import MagicMock, patch
 
-from scenesmith.utils.network_utils import find_available_port, is_port_available
+from reefsmith.utils.network_utils import find_available_port, is_port_available
 
 
 class TestNetworkUtils(unittest.TestCase):
@@ -56,8 +56,8 @@ class TestNetworkUtils(unittest.TestCase):
                 socket.AF_INET, socket.SOCK_STREAM
             )
 
-    @patch("scenesmith.utils.network_utils.random.shuffle")
-    @patch("scenesmith.utils.network_utils.is_port_available")
+    @patch("reefsmith.utils.network_utils.random.shuffle")
+    @patch("reefsmith.utils.network_utils.is_port_available")
     def test_find_available_port_first_available(
         self, mock_is_port_available, mock_shuffle
     ):
@@ -70,8 +70,8 @@ class TestNetworkUtils(unittest.TestCase):
         self.assertEqual(result, 8000)
         mock_is_port_available.assert_called_once_with("localhost", 8000)
 
-    @patch("scenesmith.utils.network_utils.random.shuffle")
-    @patch("scenesmith.utils.network_utils.is_port_available")
+    @patch("reefsmith.utils.network_utils.random.shuffle")
+    @patch("reefsmith.utils.network_utils.is_port_available")
     def test_find_available_port_second_available(
         self, mock_is_port_available, mock_shuffle
     ):
@@ -86,7 +86,7 @@ class TestNetworkUtils(unittest.TestCase):
         mock_is_port_available.assert_any_call("localhost", 8000)
         mock_is_port_available.assert_any_call("localhost", 8001)
 
-    @patch("scenesmith.utils.network_utils.is_port_available")
+    @patch("reefsmith.utils.network_utils.is_port_available")
     def test_find_available_port_none_available(self, mock_is_port_available):
         """Test find_available_port when no ports are available."""
         mock_is_port_available.return_value = False
@@ -96,7 +96,7 @@ class TestNetworkUtils(unittest.TestCase):
         self.assertIsNone(result)
         self.assertEqual(mock_is_port_available.call_count, 3)  # 8000, 8001, 8002
 
-    @patch("scenesmith.utils.network_utils.is_port_available")
+    @patch("reefsmith.utils.network_utils.is_port_available")
     def test_find_available_port_single_port_range(self, mock_is_port_available):
         """Test find_available_port with single port range."""
         mock_is_port_available.return_value = True
@@ -106,8 +106,8 @@ class TestNetworkUtils(unittest.TestCase):
         self.assertEqual(result, 9000)
         mock_is_port_available.assert_called_once_with("127.0.0.1", 9000)
 
-    @patch("scenesmith.utils.network_utils.random.shuffle")
-    @patch("scenesmith.utils.network_utils.is_port_available")
+    @patch("reefsmith.utils.network_utils.random.shuffle")
+    @patch("reefsmith.utils.network_utils.is_port_available")
     def test_find_available_port_range_order(
         self, mock_is_port_available, mock_shuffle
     ):
@@ -128,7 +128,7 @@ class TestNetworkUtils(unittest.TestCase):
 
     def test_find_available_port_invalid_range(self):
         """Test find_available_port with invalid range (start > end)."""
-        with patch("scenesmith.utils.network_utils.is_port_available") as mock_check:
+        with patch("reefsmith.utils.network_utils.is_port_available") as mock_check:
             result = find_available_port("localhost", (8002, 8000))
 
             self.assertIsNone(result)

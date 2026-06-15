@@ -32,10 +32,10 @@ except ImportError:
 
     sys.modules["sam3d_pipeline"] = sam3d_pipeline
 
-from scenesmith.agent_utils.geometry_generation_server.geometry_generation import (
+from reefsmith.agent_utils.geometry_generation_server.geometry_generation import (
     generate_geometry_from_image,
 )
-from scenesmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager import (
+from reefsmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager import (
     SAM3DPipelineManager,
     generate_3d_from_mask,
     generate_mask,
@@ -54,7 +54,7 @@ class TestSAM3DPipelineManager(unittest.TestCase):
         SAM3DPipelineManager._current_config = None
 
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager.torch"
+        "reefsmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager.torch"
     )
     def test_singleton_pattern(self, mock_torch):
         """Test that SAM3DPipelineManager follows singleton pattern."""
@@ -64,7 +64,7 @@ class TestSAM3DPipelineManager(unittest.TestCase):
         self.assertIs(instance1, instance2)
 
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager.torch"
+        "reefsmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager.torch"
     )
     def test_are_pipelines_loaded(self, mock_torch):
         """Test checking if pipelines are loaded."""
@@ -184,7 +184,7 @@ class TestGeometryGeneration(unittest.TestCase):
     """Test the geometry generation routing."""
 
     @patch(
-        "scenesmith.agent_utils.geometry_generation_server.geometry_generation.generate_with_sam3d"
+        "reefsmith.agent_utils.geometry_generation_server.geometry_generation.generate_with_sam3d"
     )
     def test_backend_routing_sam3d(self, mock_sam3d):
         """Test that backend routing correctly calls SAM3D backend."""

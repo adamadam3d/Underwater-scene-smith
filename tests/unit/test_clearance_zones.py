@@ -8,13 +8,13 @@ import numpy as np
 
 from pydrake.all import RigidTransform
 
-from scenesmith.agent_utils.clearance_zones import (
+from reefsmith.agent_utils.clearance_zones import (
     compute_door_clearance_violations,
     compute_open_connection_blocked_violations,
     compute_window_clearance_violations,
 )
-from scenesmith.agent_utils.house import ClearanceOpeningData, RoomGeometry
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.agent_utils.house import ClearanceOpeningData, RoomGeometry
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
 
 
 class TestClearanceZonesWallFiltering(unittest.TestCase):

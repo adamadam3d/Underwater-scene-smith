@@ -7,8 +7,8 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-from scenesmith.agent_utils.blender.canonicalization import choose_fallback_front_axis
-from scenesmith.agent_utils.mesh_utils import (
+from reefsmith.agent_utils.blender.canonicalization import choose_fallback_front_axis
+from reefsmith.agent_utils.mesh_utils import (
     remove_mesh_floaters,
     scale_mesh_uniformly_to_dimensions,
 )

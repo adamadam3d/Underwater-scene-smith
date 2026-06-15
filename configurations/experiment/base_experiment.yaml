@@ -6,31 +6,36 @@ tasks: [generate_scenes]
 # CSV format: scene_index,prompt (header row required).
 # Example:
 #   scene_index,prompt
-#   4,"A modern kitchen with an island"
-#   7,"A living room with a sectional sofa"
+#   4,"A shallow patch reef on a sandy lagoon floor"
+#   7,"A steep coral wall dropping into a sandy channel"
 # This would produce output directories: scene_004/, scene_007/
 csv_path: null
 
-# List of scene prompts.
+# List of underwater scene prompts.
 prompts: [
-  "A bedroom with a bed, two nightstands, and a wardrobe in the corner of the room.",
-  "A living room with a two-seater sofa against the wall, a square rug in the middle in
-  front of the sofa, and two large plants on the floor near the sofa.",
-  "A classroom with six student desks, each with a chair. A teacher's desk sits at the
-  front near the chalkboard, which hangs on the wall."
+  "A shallow sandy lagoon floor with a cluster of massive brain corals, a few scattered
+  boulders, and patches of seagrass between them.",
+  "A coral reef slope with a large staghorn thicket on a rocky foundation, several tube
+  sponges and sea fans facing the current, and a sandy channel cutting through it.",
+  "A rocky reef wall with overhangs and crevices, dotted with anemones, sea urchins, and
+  a few starfish, dropping off into a deeper sandy trench."
 ]
 
 # Number of parallel workers; 1 = sequential for debugging
 num_workers: 1
 
-# Pipeline stage control
-# Stages run in order: floor_plan → furniture → wall_mounted → manipuland
+# Pipeline stage control.
+# Stages run in order: seabed → reef → accent → micro-habitat.
+# (Internal stage keys remain floor_plan/furniture/wall_mounted/ceiling_mounted/
+#  manipuland for serialization/checkpoint compatibility; they map respectively to
+#  seabed topography, structural reef, reef-surface accents, overhead/canopy accents,
+#  and micro-habitat lifeforms.)
 # Set start_stage to resume from a specific stage (loads previous stage's state)
 # Set stop_stage to stop after a specific stage (saves state for later resumption)
 # Set resume_from_path to branch from a previous experiment's output
 pipeline:
-  start_stage: "floor_plan"  # Options: "floor_plan", "furniture", "wall_mounted", "manipuland"
-  stop_stage: "manipuland"  # Options: "floor_plan", "furniture", "wall_mounted", "manipuland"
+  start_stage: "floor_plan"  # seabed. Options: "floor_plan"(seabed), "furniture"(reef), "wall_mounted"(accent), "manipuland"(micro-habitat)
+  stop_stage: "manipuland"  # micro-habitat. Options as above.
   # Path to source experiment dir (e.g., "outputs/2025-12-21/10-30-45")
   resume_from_path: null
   # Parallelize rooms within a house (mutually exclusive with num_workers > 1).
@@ -69,7 +74,7 @@ materials_retrieval_server:
 # SceneEval export configuration.
 sceneeval_export:
   enabled: true
-  asset_id_prefix: "scenesmith"
+  asset_id_prefix: "reefsmith"
 
 # Physical feasibility post-processing configuration.
 # Two-stage process: projection (IK-based) → simulation (physics settling).

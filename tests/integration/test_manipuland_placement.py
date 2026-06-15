@@ -18,12 +18,12 @@ import numpy as np
 from omegaconf import OmegaConf
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.asset_manager import AssetManager
-from scenesmith.agent_utils.blender.server_manager import BlenderServer
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.physics_validation import compute_scene_collisions
-from scenesmith.agent_utils.rendering_manager import RenderingManager
-from scenesmith.agent_utils.room import (
+from reefsmith.agent_utils.asset_manager import AssetManager
+from reefsmith.agent_utils.blender.server_manager import BlenderServer
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.physics_validation import compute_scene_collisions
+from reefsmith.agent_utils.rendering_manager import RenderingManager
+from reefsmith.agent_utils.room import (
     AgentType,
     ObjectType,
     RoomScene,
@@ -31,10 +31,10 @@ from scenesmith.agent_utils.room import (
     UniqueID,
     extract_and_propagate_support_surfaces,
 )
-from scenesmith.agent_utils.vlm_service import VLMService
-from scenesmith.manipuland_agents.tools.manipuland_tools import ManipulandTools
-from scenesmith.manipuland_agents.tools.vision_tools import ManipulandVisionTools
-from scenesmith.utils.logging import ConsoleLogger
+from reefsmith.agent_utils.vlm_service import VLMService
+from reefsmith.micro_habitat_agents.tools.manipuland_tools import ManipulandTools
+from reefsmith.micro_habitat_agents.tools.vision_tools import ManipulandVisionTools
+from reefsmith.utils.logging import ConsoleLogger
 from tests.integration.common import has_openai_key
 
 console_logger = logging.getLogger(__name__)

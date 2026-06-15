@@ -1,0 +1,20 @@
+name: "asset_image_initial"
+version: "1.0"
+description: "Initial image generation for 3D marine asset conversion"
+template_variables: ["description", "style_prompt"]
+prompt: |
+  Generate a clean, dry studio macro-photography image of: {{ description }}.
+  Style: {{ style_prompt }}.
+  IMPORTANT: Render the marine specimen as a single, isolated, dry studio
+  subject - as if photographed out of water on a black tabletop, NOT
+  submerged. The image must show ONLY the object itself against a fully
+  opaque, plain, solid-colored background that clearly contrasts with the
+  object (e.g., flat black background for light/pale specimens, light
+  background for dark specimens). The background MUST be visible and filled
+  with a solid color - NEVER use transparent or alpha channel backgrounds.
+  STRICTLY FORBIDDEN: underwater water distortion, blue/green water tint,
+  caustics (rippling light patterns), volumetric god-rays, floating particles
+  or marine snow, suspended sediment, bubbles, cast shadows, wireframes,
+  technical drawings, construction lines, blueprints, or CAD elements.
+  Just a clear, photorealistic rendering of the actual specimen with even,
+  diffuse lighting, suitable for conversion to a clean 3D mesh.

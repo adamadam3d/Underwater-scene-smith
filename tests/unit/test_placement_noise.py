@@ -6,7 +6,7 @@ import numpy as np
 
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.placement_noise import (
+from reefsmith.agent_utils.placement_noise import (
     PlacementNoiseMode,
     apply_placement_noise,
 )

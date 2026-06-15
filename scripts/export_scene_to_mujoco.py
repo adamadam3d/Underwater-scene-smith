@@ -35,10 +35,10 @@ import yaml
 from PIL import Image
 from pydrake.all import Quaternion, RigidTransform, RotationMatrix
 
-from scenesmith.agent_utils.drake_utils import create_plant_from_dmd
-from scenesmith.agent_utils.house import HouseScene
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
-from scenesmith.utils.sdf_utils import parse_scale
+from reefsmith.agent_utils.drake_utils import create_plant_from_dmd
+from reefsmith.agent_utils.house import HouseScene
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.utils.sdf_utils import parse_scale
 
 console_logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -217,7 +217,7 @@ def expand_composite_to_members(
     that are grouped together. This function extracts each member so they can be
     individually exported.
 
-    Adapted from scenesmith/robot_eval/dmd_scene.py::_expand_composite_members().
+    Adapted from reefsmith/robot_eval/dmd_scene.py::_expand_composite_members().
 
     Args:
         obj: SceneObject with composite_type in metadata.
@@ -679,7 +679,7 @@ def convert_gltf_to_obj(
             return False, None, None
 
         # GLTF is Y-up, MuJoCo uses Z-up. Apply the same Y-up to Z-up transform
-        # that scenesmith uses for consistency with collision geometry.
+        # that reefsmith uses for consistency with collision geometry.
         # This is a +90° rotation around X axis: x'=x, y'=-z, z'=y.
         yup_to_zup = np.array([[1, 0, 0, 0], [0, 0, -1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
         mesh.apply_transform(yup_to_zup)
@@ -2153,7 +2153,7 @@ def export_to_usd(
         # Open stage and save with comment.
         stage: Usd.Stage = Usd.Stage.Open(asset.path)
         usdex.core.saveStage(
-            stage, comment="Exported from scenesmith via mujoco-usd-converter"
+            stage, comment="Exported from reefsmith via mujoco-usd-converter"
         )
 
         # Fix texture wrap modes for proper tiling support.

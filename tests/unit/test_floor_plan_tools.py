@@ -4,9 +4,9 @@ import json
 import random
 import unittest
 
-from scenesmith.agent_utils.house import HouseLayout, OpeningType, WallDirection
-from scenesmith.floor_plan_agents.tools.floor_plan_tools import FloorPlanTools
-from scenesmith.floor_plan_agents.tools.room_placement import get_shared_edge
+from reefsmith.agent_utils.house import HouseLayout, OpeningType, WallDirection
+from reefsmith.seabed_agents.tools.floor_plan_tools import FloorPlanTools
+from reefsmith.seabed_agents.tools.room_placement import get_shared_edge
 
 
 class TestOpeningPreservation(unittest.TestCase):

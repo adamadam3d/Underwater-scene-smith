@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import trimesh
 
-from scenesmith.floor_plan_agents.tools.wall_geometry import (
+from reefsmith.seabed_agents.tools.wall_geometry import (
     WallDimensions,
     WallOpening,
     apply_box_uv_projection,

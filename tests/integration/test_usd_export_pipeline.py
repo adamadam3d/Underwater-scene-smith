@@ -17,14 +17,14 @@ HAS_USD_EXPORT_ENV = has_usd_export_env()
 if HAS_USD_EXPORT_ENV:
     from pydrake.all import RigidTransform
 
-    from scenesmith.agent_utils.house import (
+    from reefsmith.agent_utils.house import (
         HouseLayout,
         HouseScene,
         PlacedRoom,
         RoomGeometry,
         RoomSpec,
     )
-    from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+    from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
 
 
 @unittest.skipUnless(

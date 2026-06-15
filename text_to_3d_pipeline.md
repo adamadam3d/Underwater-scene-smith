@@ -2,7 +2,7 @@
 
 ## Overview
 
-SceneSmith's pipeline converts a **text description** of a static object into a **simulation-ready 3D model** (Drake SDF) through a 7-stage process. The pipeline is orchestrated by the [`AssetManager`](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/asset_manager.py) class.
+SceneSmith's pipeline converts a **text description** of a static object into a **simulation-ready 3D model** (Drake SDF) through a 7-stage process. The pipeline is orchestrated by the [`AssetManager`](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/asset_manager.py) class.
 
 ```mermaid
 flowchart LR
@@ -22,7 +22,7 @@ flowchart LR
 
 ## Stage 1: Text → Image
 
-**Module**: [image_generation.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/image_generation.py)
+**Module**: [image_generation.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/image_generation.py)
 
 The object description (e.g., `"modern wooden office desk"`) is combined with a **style prompt** (e.g., `"modern minimalist kitchen"`) and sent to an image generation API to produce a reference image.
 
@@ -33,7 +33,7 @@ The object description (e.g., `"modern wooden office desk"`) is combined with a 
 | **OpenAI** (default) | `gpt-image-1.5` | `images.generate()` |
 | **Gemini** | `gemini-3-pro-image-preview` | `models.generate_content()` |
 
-The prompt is constructed from templates in `scenesmith/prompts/` using `ImageGenerationPrompts.ASSET_IMAGE_INITIAL`. Multiple images are generated **in parallel** via `ThreadPoolExecutor`.
+The prompt is constructed from templates in `reefsmith/prompts/` using `ImageGenerationPrompts.ASSET_IMAGE_INITIAL`. Multiple images are generated **in parallel** via `ThreadPoolExecutor`.
 
 **Output**: A PNG image of the object on a neutral background (1024×1024).
 
@@ -41,7 +41,7 @@ The prompt is constructed from templates in `scenesmith/prompts/` using `ImageGe
 
 ## Stage 2: Image → 3D Geometry
 
-**Module**: [geometry_generation.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/geometry_generation_server/geometry_generation.py)
+**Module**: [geometry_generation.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/geometry_generation_server/geometry_generation.py)
 
 A geometry generation server takes the reference image and produces a textured 3D mesh (GLB format).
 
@@ -53,14 +53,14 @@ A geometry generation server takes the reference image and produces a textured 3
 | **Hunyuan3D-2** | Lower | ≥24 GB | Proof-of-concept only |
 
 ### SAM3D Path
-Configured via [sam3d_pipeline_manager.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/geometry_generation_server/sam3d_pipeline_manager.py):
+Configured via [sam3d_pipeline_manager.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/geometry_generation_server/sam3d_pipeline_manager.py):
 1. Load image → RGB
 2. Run SAM3 segmentation (foreground or object-description mode)
 3. Generate 3D mesh from segmented object using SAM 3D Objects model
 4. Export as GLB
 
 ### Hunyuan3D Path
-Configured via [hunyuan3d_pipeline_manager.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/geometry_generation_server/hunyuan3d_pipeline_manager.py):
+Configured via [hunyuan3d_pipeline_manager.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/geometry_generation_server/hunyuan3d_pipeline_manager.py):
 1. Load image → RGBA → remove background
 2. Shape generation (`num_inference_steps=5`, `octree_resolution=256`)
 3. Face reduction
@@ -75,7 +75,7 @@ The server runs as an HTTP service (port 7000) with **multi-GPU worker pool** �
 
 ## Stage 3: GLB → GLTF Conversion
 
-**Where**: [_convert_mesh_to_simulation_asset()](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/asset_manager.py#L1784-L1962)
+**Where**: [_convert_mesh_to_simulation_asset()](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/asset_manager.py#L1784-L1962)
 
 The GLB file is converted to **GLTF with separate textures** using Blender (via `BlenderServer`). This is required because Drake needs GLTF with external texture files, not embedded ones.
 
@@ -101,7 +101,7 @@ This cleans up stray geometry that could affect physics simulation.
 
 ## Stage 5: VLM Physics Analysis
 
-**Module**: [mesh_physics_analyzer.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/mesh_physics_analyzer.py)
+**Module**: [mesh_physics_analyzer.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/mesh_physics_analyzer.py)
 
 A **Vision-Language Model** (VLM) analyzes multi-view renders of the mesh to determine:
 
@@ -124,7 +124,7 @@ The material determines **friction coefficient** and the mass is used for **iner
 
 ## Stage 6: Mesh Canonicalization
 
-**Module**: [mesh_canonicalization.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/mesh_canonicalization.py)
+**Module**: [mesh_canonicalization.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/mesh_canonicalization.py)
 
 The mesh is rotated to SceneSmith's **canonical orientation**:
 - **Z-up** (vertical axis)
@@ -136,7 +136,7 @@ Using the VLM-determined up/front axes, Blender applies the necessary rotation t
 
 ## Stage 7: Scale to Desired Dimensions
 
-**Module**: [mesh_utils.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/mesh_utils.py)
+**Module**: [mesh_utils.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/mesh_utils.py)
 
 If the agent specified `desired_dimensions` (width, depth, height in meters), the mesh is **uniformly scaled** to best-fit those dimensions:
 
@@ -150,7 +150,7 @@ The scaling preserves aspect ratio — it finds the single uniform scale factor 
 
 ## Stage 8: Collision Geometry (Convex Decomposition)
 
-**Module**: [convex_decomposition_server](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/convex_decomposition_server)
+**Module**: [convex_decomposition_server](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/convex_decomposition_server)
 
 The visual mesh is decomposed into **convex pieces** for efficient physics collision detection:
 
@@ -165,7 +165,7 @@ This runs as a separate server process and returns a list of `trimesh.Trimesh` c
 
 ## Stage 9: Drake SDF Generation
 
-**Module**: [sdf_generator.py](file:///c:/Users/adama/Documents/scenesmith/scenesmith/agent_utils/sdf_generator.py#L42-L248)
+**Module**: [sdf_generator.py](file:///c:/Users/adama/Documents/reefsmith/reefsmith/agent_utils/sdf_generator.py#L42-L248)
 
 Everything is packaged into a [Drake](https://drake.mit.edu/) **SDF (Simulation Description Format)** file:
 

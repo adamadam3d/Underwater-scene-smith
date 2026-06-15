@@ -7,9 +7,9 @@ from pathlib import Path
 
 import trimesh
 
-from scenesmith.agent_utils.materials import DEFAULT_FRICTION, get_friction
-from scenesmith.agent_utils.mesh_physics_analyzer import MeshPhysicsAnalysis
-from scenesmith.agent_utils.sdf_generator import (
+from reefsmith.agent_utils.materials import DEFAULT_FRICTION, get_friction
+from reefsmith.agent_utils.mesh_physics_analyzer import MeshPhysicsAnalysis
+from reefsmith.agent_utils.sdf_generator import (
     add_self_collision_filter,
     generate_drake_sdf,
 )

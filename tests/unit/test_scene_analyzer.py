@@ -7,8 +7,8 @@ from unittest.mock import Mock
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.room import RoomScene
-from scenesmith.agent_utils.scene_analyzer import SceneAnalyzer
+from reefsmith.agent_utils.room import RoomScene
+from reefsmith.agent_utils.scene_analyzer import SceneAnalyzer
 
 
 class TestSceneAnalyzer(unittest.TestCase):

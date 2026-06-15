@@ -13,8 +13,8 @@ import trimesh
 from omegaconf import OmegaConf
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
-from scenesmith.furniture_agents.tools.scene_tools import SceneTools
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.reef_agents.tools.scene_tools import SceneTools
 
 
 class TestSnapToObject(unittest.TestCase):

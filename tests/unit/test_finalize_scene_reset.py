@@ -9,10 +9,10 @@ from pathlib import Path
 from typing import Any
 from unittest.mock import MagicMock
 
-from scenesmith.agent_utils.base_stateful_agent import BaseStatefulAgent
-from scenesmith.agent_utils.placement_noise import PlacementNoiseMode
-from scenesmith.agent_utils.room import AgentType
-from scenesmith.agent_utils.scoring import CategoryScore, FurnitureCritiqueWithScores
+from reefsmith.agent_utils.base_stateful_agent import BaseStatefulAgent
+from reefsmith.agent_utils.placement_noise import PlacementNoiseMode
+from reefsmith.agent_utils.room import AgentType
+from reefsmith.agent_utils.scoring import CategoryScore, FurnitureCritiqueWithScores
 
 
 def _make_scores(

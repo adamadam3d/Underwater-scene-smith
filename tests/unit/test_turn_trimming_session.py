@@ -11,7 +11,7 @@ import pytest
 from agents import SQLiteSession
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.turn_trimming_session import (
+from reefsmith.agent_utils.turn_trimming_session import (
     Turn,
     TurnTrimmingSession,
     _contains_base64_image,

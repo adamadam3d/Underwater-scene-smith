@@ -4,8 +4,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from scenesmith.robot_eval import create_robot_eval_config
-from scenesmith.robot_eval.policy_interface import (
+from reefsmith.robot_eval import create_robot_eval_config
+from reefsmith.robot_eval.policy_interface import (
     ObjectBinding,
     PolicyInterfaceAgent,
     PolicyInterfaceOutput,

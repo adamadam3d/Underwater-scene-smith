@@ -22,8 +22,8 @@ import logging
 
 from pathlib import Path
 
-from scenesmith.robot_eval import create_robot_eval_config
-from scenesmith.robot_eval.task_generation.scene_prompt_generator import (
+from reefsmith.robot_eval import create_robot_eval_config
+from reefsmith.robot_eval.task_generation.scene_prompt_generator import (
     generate_scene_prompts,
 )
 

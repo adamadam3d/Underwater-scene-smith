@@ -14,7 +14,7 @@ import numpy as np
 
 from mathutils import Vector
 
-from scenesmith.agent_utils.blender.surface_utils import (
+from reefsmith.agent_utils.blender.surface_utils import (
     find_best_label_position,
     is_point_occluded,
 )

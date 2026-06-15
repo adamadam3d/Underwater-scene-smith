@@ -8,7 +8,7 @@ import trimesh
 
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.room import (
+from reefsmith.agent_utils.room import (
     ObjectType,
     SceneObject,
     SupportSurface,

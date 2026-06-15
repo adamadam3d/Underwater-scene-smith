@@ -1,4 +1,4 @@
-"""Pytest configuration and fixtures for scenesmith tests.
+"""Pytest configuration and fixtures for reefsmith tests.
 
 This module provides pytest hooks and fixtures that apply across all tests.
 """

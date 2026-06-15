@@ -42,15 +42,15 @@ import yaml
 
 from tqdm import tqdm
 
-from scenesmith.agent_utils.articulated_retrieval_server.data_loader import (
+from reefsmith.agent_utils.articulated_retrieval_server.data_loader import (
     get_placement_type_from_options,
 )
-from scenesmith.agent_utils.blender.renderer import (
+from reefsmith.agent_utils.blender.renderer import (
     ARTICULATED_LIGHT_ENERGY,
     BlenderRenderer,
 )
-from scenesmith.agent_utils.clip_embeddings import get_multiview_image_embedding
-from scenesmith.agent_utils.sdf_mesh_utils import combine_sdf_meshes_at_joint_angles
+from reefsmith.agent_utils.clip_embeddings import get_multiview_image_embedding
+from reefsmith.agent_utils.sdf_mesh_utils import combine_sdf_meshes_at_joint_angles
 
 console_logger = logging.getLogger(__name__)
 

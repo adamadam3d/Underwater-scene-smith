@@ -9,8 +9,8 @@ import numpy as np
 
 from pydrake.all import RigidTransform
 
-from scenesmith.agent_utils.asset_registry import AssetRegistry
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.agent_utils.asset_registry import AssetRegistry
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
 
 
 def test_auto_save_on_register():

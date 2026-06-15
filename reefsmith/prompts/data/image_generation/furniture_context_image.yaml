@@ -1,0 +1,17 @@
+name: "furniture_context_image"
+version: "2.0"
+description: "Edit a Blender render of an empty seabed to show structural reef placement"
+template_variables: ["scene_description", "width_m", "length_m"]
+prompt: |
+  Using this top-down render of an empty sandy seabed and rocky foundation as
+  reference, show placement of large structural reef objects (e.g. massive
+  brain corals, boulder clusters, staghorn thickets).
+  The render shows natural trenches, channels, and drop-offs - DO NOT fill or
+  block these flow channels; leave them clear for water current and ROV/AUV
+  passage.
+
+  Seabed: {{ scene_description }}
+  Dimensions: {{ length_m }}m x {{ width_m }}m
+
+  Style: clean overhead survey visualization, structures firmly anchored to
+  the seabed (no floating), seafloor surface clearly visible.

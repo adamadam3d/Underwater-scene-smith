@@ -9,13 +9,13 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from scenesmith.agent_utils.materials_retrieval_server.config import MaterialsConfig
-from scenesmith.agent_utils.materials_retrieval_server.data_loader import (
+from reefsmith.agent_utils.materials_retrieval_server.config import MaterialsConfig
+from reefsmith.agent_utils.materials_retrieval_server.data_loader import (
     MaterialMetadata,
     MaterialsPreprocessedData,
     load_preprocessed_data,
 )
-from scenesmith.agent_utils.materials_retrieval_server.dataclasses import (
+from reefsmith.agent_utils.materials_retrieval_server.dataclasses import (
     MaterialRetrievalResult,
     MaterialsRetrievalServerRequest,
     MaterialsRetrievalServerResponse,

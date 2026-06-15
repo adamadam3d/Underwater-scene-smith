@@ -11,7 +11,7 @@ import trimesh
 from omegaconf import OmegaConf
 from PIL import Image
 
-from scenesmith.agent_utils.mesh_physics_analyzer import (
+from reefsmith.agent_utils.mesh_physics_analyzer import (
     MeshPhysicsAnalysis,
     analyze_mesh_orientation_and_material,
     get_front_axis_from_image_number,
@@ -231,7 +231,7 @@ class TestMeshPhysicsAnalysis(unittest.TestCase):
 class TestVLMResponseParsing(unittest.TestCase):
     """Test VLM response parsing logic."""
 
-    @patch("scenesmith.agent_utils.mesh_physics_analyzer.VLMService")
+    @patch("reefsmith.agent_utils.mesh_physics_analyzer.VLMService")
     def test_parse_vlm_response_valid_json(self, mock_vlm_service):
         """Test VLM response parsing with valid JSON."""
         # Mock VLM response.
@@ -295,7 +295,7 @@ class TestVLMResponseParsing(unittest.TestCase):
             if temp_path.exists():
                 shutil.rmtree(temp_path)
 
-    @patch("scenesmith.agent_utils.mesh_physics_analyzer.VLMService")
+    @patch("reefsmith.agent_utils.mesh_physics_analyzer.VLMService")
     def test_parse_vlm_response_missing_fields(self, mock_vlm_service):
         """Test error handling for malformed VLM response."""
         # Mock VLM response with missing fields.
@@ -343,7 +343,7 @@ class TestVLMResponseParsing(unittest.TestCase):
             if temp_path.exists():
                 shutil.rmtree(temp_path)
 
-    @patch("scenesmith.agent_utils.mesh_physics_analyzer.VLMService")
+    @patch("reefsmith.agent_utils.mesh_physics_analyzer.VLMService")
     def test_parse_vlm_response_negative_axis(self, mock_vlm_service):
         """Test VLM response parsing with negative axis."""
         # Mock VLM response with negative axis.
@@ -399,7 +399,7 @@ class TestVLMResponseParsing(unittest.TestCase):
             if temp_path.exists():
                 shutil.rmtree(temp_path)
 
-    @patch("scenesmith.agent_utils.mesh_physics_analyzer.VLMService")
+    @patch("reefsmith.agent_utils.mesh_physics_analyzer.VLMService")
     def test_hssd_prompt_validation_success(self, mock_vlm_service):
         """Test HSSD validation passes when up_axis is 'z'."""
         # Mock VLM response with up_axis="z" (valid for HSSD).
@@ -456,7 +456,7 @@ class TestVLMResponseParsing(unittest.TestCase):
             if temp_path.exists():
                 shutil.rmtree(temp_path)
 
-    @patch("scenesmith.agent_utils.mesh_physics_analyzer.VLMService")
+    @patch("reefsmith.agent_utils.mesh_physics_analyzer.VLMService")
     def test_hssd_prompt_validation_failure(self, mock_vlm_service):
         """Test HSSD validation fails when up_axis is not 'z'."""
         # Mock VLM response with up_axis="x" (invalid for HSSD).

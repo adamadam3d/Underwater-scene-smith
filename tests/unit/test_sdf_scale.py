@@ -18,8 +18,8 @@ from pathlib import Path
 
 import trimesh
 
-from scenesmith.agent_utils.mesh_physics_analyzer import MeshPhysicsAnalysis
-from scenesmith.agent_utils.sdf_generator import generate_drake_sdf, rescale_sdf
+from reefsmith.agent_utils.mesh_physics_analyzer import MeshPhysicsAnalysis
+from reefsmith.agent_utils.sdf_generator import generate_drake_sdf, rescale_sdf
 
 
 class TestRescaleSdfBasic(unittest.TestCase):

@@ -7,15 +7,15 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from scenesmith.agent_utils.house import HouseLayout, OpeningType, RoomSpec
-from scenesmith.floor_plan_agents.tools.geometry_cache import (
+from reefsmith.agent_utils.house import HouseLayout, OpeningType, RoomSpec
+from reefsmith.seabed_agents.tools.geometry_cache import (
     GeometryCache,
     floor_cache_key,
     wall_cache_key,
     window_cache_key,
 )
-from scenesmith.floor_plan_agents.tools.wall_geometry import WallOpening
-from scenesmith.utils.material import Material
+from reefsmith.seabed_agents.tools.wall_geometry import WallOpening
+from reefsmith.utils.material import Material
 
 
 class TestCacheKeyFunctions(unittest.TestCase):

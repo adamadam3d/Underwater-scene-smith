@@ -22,7 +22,7 @@ echo "Installing dependencies..."
 source "$VENV_DIR/bin/activate"
 uv pip install --prerelease=allow -r "$SCRIPT_DIR/requirements-mujoco-export.txt"
 
-echo "Installing scenesmith (without bpy)..."
+echo "Installing reefsmith (without bpy)..."
 uv pip install --no-deps -e "$PROJECT_DIR"
 
 echo ""

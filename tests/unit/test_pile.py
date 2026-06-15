@@ -9,8 +9,8 @@ import numpy as np
 from omegaconf import OmegaConf
 from pydrake.all import RigidTransform, RotationMatrix
 
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
-from scenesmith.manipuland_agents.tools.pile_tools import (
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.micro_habitat_agents.tools.pile_tools import (
     _random_rotation_matrix,
     compute_pile_spawn_transforms,
     simulate_pile_physics,

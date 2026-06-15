@@ -7,7 +7,7 @@ import unittest
 
 from pathlib import Path
 
-from scenesmith.experiments.indoor_scene_generation import (
+from reefsmith.experiments.underwater_scene_generation import (
     _copy_checkpoint_for_stage,
     _fix_paths_in_json_file,
 )

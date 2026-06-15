@@ -8,8 +8,8 @@ import numpy as np
 
 from pydrake.math import RigidTransform
 
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
-from scenesmith.manipuland_agents.tools.arrangement_tools import (
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.micro_habitat_agents.tools.arrangement_tools import (
     _get_container_bounds_info,
     _validate_item_within_container_bounds,
 )
@@ -185,7 +185,7 @@ class TestGetContainerBoundsInfo(unittest.TestCase):
             bbox_max=np.array([width / 2, depth / 2, height]),
         )
 
-    @patch("scenesmith.manipuland_agents.tools.arrangement_tools.is_circular_object")
+    @patch("reefsmith.micro_habitat_agents.tools.arrangement_tools.is_circular_object")
     def test_rectangular_container_returns_xy_bounds(self, mock_is_circular):
         """Rectangular container returns x and y bound ranges."""
         mock_is_circular.return_value = False
@@ -199,7 +199,7 @@ class TestGetContainerBoundsInfo(unittest.TestCase):
         self.assertAlmostEqual(bounds["y"][0], -0.125, places=4)
         self.assertAlmostEqual(bounds["y"][1], 0.125, places=4)
 
-    @patch("scenesmith.manipuland_agents.tools.arrangement_tools.is_circular_object")
+    @patch("reefsmith.micro_habitat_agents.tools.arrangement_tools.is_circular_object")
     def test_circular_container_returns_radius(self, mock_is_circular):
         """Circular container returns radius (min dimension / 2)."""
         mock_is_circular.return_value = True

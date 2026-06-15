@@ -2,8 +2,8 @@ import unittest
 
 from unittest.mock import Mock
 
-from scenesmith.agent_utils.asset_registry import AssetRegistry
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.agent_utils.asset_registry import AssetRegistry
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
 
 
 class TestAssetRegistry(unittest.TestCase):

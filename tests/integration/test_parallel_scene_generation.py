@@ -7,8 +7,8 @@ from pathlib import Path
 
 from omegaconf import OmegaConf
 
-from scenesmith.experiments.indoor_scene_generation import (
-    IndoorSceneGenerationExperiment,
+from reefsmith.experiments.underwater_scene_generation import (
+    UnderwaterSceneGenerationExperiment,
 )
 from tests.integration.common import (
     has_gpu_available,
@@ -219,7 +219,7 @@ class TestParallelSceneGeneration(unittest.TestCase):
         test_config = OmegaConf.merge(self.base_config, test_overrides)
 
         # Run experiment.
-        experiment = IndoorSceneGenerationExperiment(cfg=test_config)
+        experiment = UnderwaterSceneGenerationExperiment(cfg=test_config)
         experiment.generate_scenes()
 
         # Log generation completion summary.

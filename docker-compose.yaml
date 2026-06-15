@@ -1,5 +1,5 @@
 services:
-  scenesmith:
+  reefsmith:
     build: .
     runtime: nvidia
     environment:

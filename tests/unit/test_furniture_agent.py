@@ -7,13 +7,13 @@ from unittest.mock import ANY, patch
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.room import AgentType
-from scenesmith.furniture_agents.base_furniture_agent import BaseFurnitureAgent
-from scenesmith.furniture_agents.stateful_furniture_agent import StatefulFurnitureAgent
+from reefsmith.agent_utils.room import AgentType
+from reefsmith.reef_agents.base_reef_agent import BaseReefAgent
+from reefsmith.reef_agents.stateful_reef_agent import StatefulReefAgent
 from tests.unit.mock_utils import create_mock_logger
 
 
-class ConcreteFurnitureAgent(BaseFurnitureAgent):
+class ConcreteFurnitureAgent(BaseReefAgent):
     """Concrete implementation for testing abstract base class."""
 
     async def add_furniture(self, scene, scene_prompt):
@@ -21,8 +21,8 @@ class ConcreteFurnitureAgent(BaseFurnitureAgent):
         return "Test furniture added"
 
 
-class TestBaseFurnitureAgent(unittest.TestCase):
-    """Test BaseFurnitureAgent class."""
+class TestBaseReefAgent(unittest.TestCase):
+    """Test BaseReefAgent class."""
 
     def setUp(self):
         """Set up test fixtures."""
@@ -66,11 +66,11 @@ class TestBaseFurnitureAgent(unittest.TestCase):
         """Clean up test fixtures."""
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    @patch("scenesmith.furniture_agents.base_furniture_agent.AssetManager")
-    @patch("scenesmith.furniture_agents.base_furniture_agent.VLMService")
-    @patch("scenesmith.furniture_agents.base_furniture_agent.RenderingManager")
-    @patch("scenesmith.furniture_agents.base_furniture_agent.ConvexDecompositionServer")
-    @patch("scenesmith.furniture_agents.base_furniture_agent.BlenderServer")
+    @patch("reefsmith.reef_agents.base_reef_agent.AssetManager")
+    @patch("reefsmith.reef_agents.base_reef_agent.VLMService")
+    @patch("reefsmith.reef_agents.base_reef_agent.RenderingManager")
+    @patch("reefsmith.reef_agents.base_reef_agent.ConvexDecompositionServer")
+    @patch("reefsmith.reef_agents.base_reef_agent.BlenderServer")
     def test_base_furniture_agent_initialization(
         self,
         mock_blender_server_class,
@@ -118,14 +118,14 @@ class TestBaseFurnitureAgent(unittest.TestCase):
         """Test that abstract method must be implemented."""
         # Cannot instantiate abstract base class directly.
         with self.assertRaises(TypeError):
-            BaseFurnitureAgent(
+            BaseReefAgent(
                 cfg=self.test_config,
                 logger=self.mock_logger,
             )
 
 
-class TestStatefulFurnitureAgent(unittest.TestCase):
-    """Test StatefulFurnitureAgent class."""
+class TestStatefulReefAgent(unittest.TestCase):
+    """Test StatefulReefAgent class."""
 
     def setUp(self):
         """Set up test fixtures."""
@@ -154,9 +154,9 @@ class TestStatefulFurnitureAgent(unittest.TestCase):
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_stateful_agent_class_exists(self):
-        """Test that StatefulFurnitureAgent class can be imported."""
-        self.assertTrue(hasattr(StatefulFurnitureAgent, "add_furniture"))
-        self.assertTrue(callable(getattr(StatefulFurnitureAgent, "add_furniture")))
+        """Test that StatefulReefAgent class can be imported."""
+        self.assertTrue(hasattr(StatefulReefAgent, "add_furniture"))
+        self.assertTrue(callable(getattr(StatefulReefAgent, "add_furniture")))
 
 
 if __name__ == "__main__":

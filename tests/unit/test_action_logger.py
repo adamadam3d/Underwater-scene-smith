@@ -13,13 +13,13 @@ import numpy as np
 
 from pydrake.all import Quaternion, RigidTransform, RotationMatrix
 
-from scenesmith.agent_utils.action_logger import (
+from reefsmith.agent_utils.action_logger import (
     ActionLogEntry,
     _serialize_value,
     load_action_log,
     log_scene_action,
 )
-from scenesmith.agent_utils.room import UniqueID
+from reefsmith.agent_utils.room import UniqueID
 
 
 class TestSerializeValue(unittest.TestCase):

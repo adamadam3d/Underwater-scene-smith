@@ -9,16 +9,16 @@ import numpy as np
 import trimesh
 import yaml
 
-from scenesmith.agent_utils.hssd_retrieval.alignment import (
+from reefsmith.agent_utils.hssd_retrieval.alignment import (
     apply_hssd_alignment_transform,
     compute_rotation_matrix,
 )
-from scenesmith.agent_utils.hssd_retrieval.clip_similarity import (
+from reefsmith.agent_utils.hssd_retrieval.clip_similarity import (
     compute_clip_similarities,
     filter_meshes_by_category,
 )
-from scenesmith.agent_utils.hssd_retrieval.config import HssdConfig
-from scenesmith.agent_utils.hssd_retrieval.data_loader import (
+from reefsmith.agent_utils.hssd_retrieval.config import HssdConfig
+from reefsmith.agent_utils.hssd_retrieval.data_loader import (
     HssdMeshMetadata,
     HssdPreprocessedData,
     construct_hssd_mesh_path,

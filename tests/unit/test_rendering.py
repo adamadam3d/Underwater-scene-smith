@@ -9,11 +9,11 @@ import numpy as np
 
 from pydrake.all import MultibodyPlant, RigidTransform, SceneGraph
 
-from scenesmith.agent_utils.drake_utils import (
+from reefsmith.agent_utils.drake_utils import (
     create_drake_plant_and_scene_graph_from_scene,
 )
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
 
 
 class TestCreateDrakePlantAndSceneGraphFromScene(unittest.TestCase):

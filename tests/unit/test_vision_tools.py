@@ -4,9 +4,9 @@ from unittest.mock import MagicMock, patch
 
 from agents import ToolOutputImage, ToolOutputText
 
-from scenesmith.agent_utils.rendering_manager import RenderingManager
-from scenesmith.agent_utils.room import AgentType, RoomScene
-from scenesmith.furniture_agents.tools.vision_tools import VisionTools
+from reefsmith.agent_utils.rendering_manager import RenderingManager
+from reefsmith.agent_utils.room import AgentType, RoomScene
+from reefsmith.reef_agents.tools.vision_tools import VisionTools
 
 
 class TestVisionTools(unittest.TestCase):
@@ -57,7 +57,7 @@ class TestVisionTools(unittest.TestCase):
         self.assertIsNotNone(tools["check_physics"])
 
     @patch(
-        "scenesmith.furniture_agents.tools.vision_tools.encode_image_to_base64",
+        "reefsmith.reef_agents.tools.vision_tools.encode_image_to_base64",
         return_value="fake_base64_data",
     )
     def test_observe_scene_successful(self, mock_encode):
@@ -147,7 +147,7 @@ class TestVisionTools(unittest.TestCase):
         self.assertEqual(str(context.exception), "Rendering failed")
 
     @patch(
-        "scenesmith.furniture_agents.tools.vision_tools.encode_image_to_base64",
+        "reefsmith.reef_agents.tools.vision_tools.encode_image_to_base64",
         side_effect=IOError("File read error"),
     )
     def test_observe_scene_file_read_exception(self, mock_encode):
@@ -171,7 +171,7 @@ class TestVisionTools(unittest.TestCase):
         self.assertEqual(str(context.exception), "File read error")
 
     @patch(
-        "scenesmith.furniture_agents.tools.vision_tools.encode_image_to_base64",
+        "reefsmith.reef_agents.tools.vision_tools.encode_image_to_base64",
         return_value="dGVzdF9pbWFnZV9kYXRh",  # base64 of "test_image_data"
     )
     def test_observe_scene_image_encoding(self, mock_encode):
@@ -216,7 +216,7 @@ class TestVisionTools(unittest.TestCase):
             self.assertEqual(len(result), 1)
             self.assertIsInstance(result[0], ToolOutputText)
 
-    @patch("scenesmith.furniture_agents.tools.vision_tools.check_physics_violations")
+    @patch("reefsmith.reef_agents.tools.vision_tools.check_physics_violations")
     def test_check_physics_no_violations(self, mock_check_physics):
         """Test physics check when no violations are detected."""
         mock_check_physics.return_value = (
@@ -232,7 +232,7 @@ class TestVisionTools(unittest.TestCase):
             scene=self.mock_scene, cfg=self.mock_cfg, agent_type=AgentType.FURNITURE
         )
 
-    @patch("scenesmith.furniture_agents.tools.vision_tools.check_physics_violations")
+    @patch("reefsmith.reef_agents.tools.vision_tools.check_physics_violations")
     def test_check_physics_with_violations(self, mock_check_physics):
         """Test physics check when violations are detected."""
         mock_check_physics.return_value = (
@@ -249,7 +249,7 @@ class TestVisionTools(unittest.TestCase):
             scene=self.mock_scene, cfg=self.mock_cfg, agent_type=AgentType.FURNITURE
         )
 
-    @patch("scenesmith.furniture_agents.tools.vision_tools.check_physics_violations")
+    @patch("reefsmith.reef_agents.tools.vision_tools.check_physics_violations")
     def test_check_physics_exception(self, mock_check_physics):
         """Test physics check when computation throws exception."""
         mock_check_physics.side_effect = Exception("Physics computation failed")

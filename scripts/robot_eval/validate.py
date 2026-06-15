@@ -27,9 +27,9 @@ import logging
 
 from pathlib import Path
 
-from scenesmith.agent_utils.blender import BlenderServer
-from scenesmith.robot_eval import create_robot_eval_config
-from scenesmith.robot_eval.success_validation.validator_agent import validate_task
+from reefsmith.agent_utils.blender import BlenderServer
+from reefsmith.robot_eval import create_robot_eval_config
+from reefsmith.robot_eval.success_validation.validator_agent import validate_task
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)

@@ -10,22 +10,22 @@ import trimesh
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.asset_manager import (
+from reefsmith.agent_utils.asset_manager import (
     AssetGenerationRequest,
     AssetGenerationResult,
     AssetManager,
     AssetPathConfig,
     FailedAsset,
 )
-from scenesmith.agent_utils.geometry_generation_server.dataclasses import (
+from reefsmith.agent_utils.geometry_generation_server.dataclasses import (
     GeometryGenerationServerResponse,
 )
-from scenesmith.agent_utils.image_generation import (
+from reefsmith.agent_utils.image_generation import (
     AssetOperationType,
     OpenAIImageGenerator,
 )
-from scenesmith.agent_utils.mesh_physics_analyzer import MeshPhysicsAnalysis
-from scenesmith.agent_utils.room import AgentType, ObjectType, SceneObject
+from reefsmith.agent_utils.mesh_physics_analyzer import MeshPhysicsAnalysis
+from reefsmith.agent_utils.room import AgentType, ObjectType, SceneObject
 from tests.unit.mock_utils import create_mock_logger
 
 
@@ -73,10 +73,10 @@ class TestAssetManager(unittest.TestCase):
 
         # Start persistent patches.
         self.patcher_image_gen = patch(
-            "scenesmith.agent_utils.asset_manager.create_image_generator"
+            "reefsmith.agent_utils.asset_manager.create_image_generator"
         )
         self.patcher_geo_client = patch(
-            "scenesmith.agent_utils.asset_manager.GeometryGenerationClient"
+            "reefsmith.agent_utils.asset_manager.GeometryGenerationClient"
         )
         # Patch the entire mesh-to-simulation pipeline to avoid complex file setup.
         self.patcher_mesh_conversion = patch.object(
@@ -169,10 +169,10 @@ class TestAssetManager(unittest.TestCase):
         self.assertEqual(self.asset_manager.output_dir, self.output_dir)
         self.assertEqual(self.asset_manager.logger, self.mock_logger)
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_generate_assets_initial_operation(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -226,10 +226,10 @@ class TestAssetManager(unittest.TestCase):
         self.assertEqual(result.successful_assets[0].object_type, ObjectType.FURNITURE)
         self.assertIn("generation_timestamp", result.successful_assets[0].metadata)
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_generate_assets_multiple_items(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -282,10 +282,10 @@ class TestAssetManager(unittest.TestCase):
             self.assertIsInstance(obj, SceneObject)
             self.assertEqual(obj.object_type, ObjectType.FURNITURE)
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_generate_assets_different_operation_types(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -411,10 +411,10 @@ class TestAssetManager(unittest.TestCase):
         self.assertIsNotNone(self.asset_manager.registry)
         self.assertEqual(self.asset_manager.registry.size(), 0)
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_assets_registered_after_generation(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -480,10 +480,10 @@ class TestAssetManager(unittest.TestCase):
         np.testing.assert_array_equal(bbox_min, [0.0, 0.0, 0.0])
         np.testing.assert_array_equal(bbox_max, [1.0, 2.0, 0.5])
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_generate_assets_with_duplicates_same_dimensions(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -568,10 +568,10 @@ class TestAssetManager(unittest.TestCase):
         expected_names = {"office_desk", "office_chair", "laser_printer"}
         self.assertEqual(result_names, expected_names)
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_generate_assets_with_duplicates_different_dimensions(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -618,10 +618,10 @@ class TestAssetManager(unittest.TestCase):
         # No duplicates should be detected.
         self.assertIsNone(self.asset_manager.last_duplicate_info)
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_generate_assets_no_duplicates(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -666,10 +666,10 @@ class TestAssetManager(unittest.TestCase):
         # No duplicates should be detected.
         self.assertIsNone(self.asset_manager.last_duplicate_info)
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_generate_assets_multiple_duplicates_of_same_item(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -727,10 +727,10 @@ class TestAssetManager(unittest.TestCase):
             self.asset_manager.last_duplicate_info["Dining chair"], [1, 2, 3]
         )
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_partial_success_continues_processing(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -817,10 +817,10 @@ class TestAssetManager(unittest.TestCase):
         # The geometry client should have streamed all 3 geometries.
         self.mock_geometry_client.generate_geometries.assert_called_once()
 
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     @patch("pathlib.Path.glob")
     @patch(
-        "scenesmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
+        "reefsmith.agent_utils.asset_manager.AssetManager._extract_bounds_from_visual_mesh"
     )
     def test_multiple_failures_collected(
         self, mock_extract_bounds, mock_glob, mock_scale_mesh
@@ -953,8 +953,8 @@ class TestAssetManagerDimensionControl(unittest.TestCase):
     def test_validate_dimensions_mismatch(self):
         """Test validation error when dimensions don't match descriptions."""
         with (
-            patch("scenesmith.agent_utils.asset_manager.create_image_generator"),
-            patch("scenesmith.agent_utils.asset_manager.GeometryGenerationClient"),
+            patch("reefsmith.agent_utils.asset_manager.create_image_generator"),
+            patch("reefsmith.agent_utils.asset_manager.GeometryGenerationClient"),
         ):
             asset_manager = AssetManager(
                 logger=self.mock_logger,
@@ -980,10 +980,10 @@ class TestAssetManagerDimensionControl(unittest.TestCase):
 
         self.assertIn("Mismatch between desired_dimensions", str(context.exception))
 
-    @patch("scenesmith.agent_utils.asset_manager.generate_drake_sdf")
-    @patch("scenesmith.agent_utils.asset_manager.canonicalize_mesh")
-    @patch("scenesmith.agent_utils.asset_manager.analyze_mesh_orientation_and_material")
-    @patch("scenesmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
+    @patch("reefsmith.agent_utils.asset_manager.generate_drake_sdf")
+    @patch("reefsmith.agent_utils.asset_manager.canonicalize_mesh")
+    @patch("reefsmith.agent_utils.asset_manager.analyze_mesh_orientation_and_material")
+    @patch("reefsmith.agent_utils.asset_manager.scale_mesh_uniformly_to_dimensions")
     def test_mesh_scaling_when_dimensions_provided(
         self,
         mock_scale_mesh,
@@ -1002,8 +1002,8 @@ class TestAssetManagerDimensionControl(unittest.TestCase):
         )
 
         with (
-            patch("scenesmith.agent_utils.asset_manager.create_image_generator"),
-            patch("scenesmith.agent_utils.asset_manager.GeometryGenerationClient"),
+            patch("reefsmith.agent_utils.asset_manager.create_image_generator"),
+            patch("reefsmith.agent_utils.asset_manager.GeometryGenerationClient"),
         ):
             asset_manager = AssetManager(
                 logger=self.mock_logger,

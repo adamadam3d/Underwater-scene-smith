@@ -6,9 +6,9 @@ import numpy as np
 
 from pydrake.math import RigidTransform, RotationMatrix
 
-from scenesmith.agent_utils.house import Opening, OpeningType, Wall, WallDirection
-from scenesmith.agent_utils.room import UniqueID
-from scenesmith.wall_agents.tools.wall_surface import WallSurface, _create_wall_surface
+from reefsmith.agent_utils.house import Opening, OpeningType, Wall, WallDirection
+from reefsmith.agent_utils.room import UniqueID
+from reefsmith.accent_agents.wall.tools.wall_surface import WallSurface, _create_wall_surface
 
 
 def _create_test_wall_surface(

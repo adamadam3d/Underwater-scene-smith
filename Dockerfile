@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile for scenesmith.
+# Multi-stage Dockerfile for reefsmith.
 # Single-container setup: all servers (geometry generation, retrieval, blender,
 # etc.) are auto-managed by the pipeline inside the container.
 
@@ -85,8 +85,8 @@ FROM sam3d AS app
 COPY . .
 
 # Remove stale bytecode from earlier stages (SAM3D install imports
-# scenesmith, creating .pyc that would shadow updated .py files).
-RUN find /app/scenesmith -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null; true
+# reefsmith, creating .pyc that would shadow updated .py files).
+RUN find /app/reefsmith -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null; true
 
 # Activate the virtual environment by prepending it to PATH.
 ENV VIRTUAL_ENV=/app/.venv
@@ -96,12 +96,12 @@ ENV PYTHONUNBUFFERED=1
 
 # Default command: print usage help.
 CMD ["python", "-c", \
-    "print('scenesmith Docker container\\n')\n\
+    "print('reefsmith Docker container\\n')\n\
 print('Usage examples:\\n')\n\
 print('  # Smoke test')\n\
-print('  docker run --gpus all scenesmith python -c \"import torch; print(torch.cuda.is_available()); import scenesmith\"\\n')\n\
+print('  docker run --gpus all reefsmith python -c \"import torch; print(torch.cuda.is_available()); import reefsmith\"\\n')\n\
 print('  # Run unit tests')\n\
-print('  docker run --gpus all scenesmith pytest tests/unit/ -x\\n')\n\
+print('  docker run --gpus all reefsmith pytest tests/unit/ -x\\n')\n\
 print('  # Run scene generation (requires data volumes and API keys)')\n\
 print('  docker compose up\\n')\n\
 print('See README.md for full documentation.')"]

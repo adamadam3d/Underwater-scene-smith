@@ -118,7 +118,7 @@ def load_house_state(state_path: Path) -> dict:
     if not state_path.exists():
         raise FileNotFoundError(
             f"house_state.json not found at {state_path}. "
-            "This script requires scenesmith metadata to determine object types."
+            "This script requires reefsmith metadata to determine object types."
         )
     with open(state_path) as f:
         return json.load(f)

@@ -4,7 +4,7 @@ import os
 import signal
 import unittest
 
-from scenesmith.utils.parallel import run_parallel_isolated
+from reefsmith.utils.parallel import run_parallel_isolated
 
 
 def _successful_task(value: int, name: str) -> dict:

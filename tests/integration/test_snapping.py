@@ -18,12 +18,12 @@ import numpy as np
 from omegaconf import DictConfig, OmegaConf
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.blender.server_manager import BlenderServer
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.physics_validation import compute_scene_collisions
-from scenesmith.agent_utils.rendering import render_scene_for_agent_observation
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
-from scenesmith.furniture_agents.tools.scene_tools import SceneTools
+from reefsmith.agent_utils.blender.server_manager import BlenderServer
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.physics_validation import compute_scene_collisions
+from reefsmith.agent_utils.rendering import render_scene_for_agent_observation
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.reef_agents.tools.scene_tools import SceneTools
 
 console_logger = logging.getLogger(__name__)
 

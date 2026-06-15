@@ -10,8 +10,8 @@ import numpy as np
 
 from pydrake.all import RigidTransform
 
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
 
 
 class TestSceneReset(unittest.TestCase):

@@ -4,9 +4,9 @@ import unittest
 
 from unittest.mock import MagicMock
 
-from scenesmith.agent_utils.asset_router import AssetRouter
-from scenesmith.agent_utils.asset_router.dataclasses import AnalysisResult, AssetItem
-from scenesmith.agent_utils.room import AgentType, ObjectType
+from reefsmith.agent_utils.asset_router import AssetRouter
+from reefsmith.agent_utils.asset_router.dataclasses import AnalysisResult, AssetItem
+from reefsmith.agent_utils.room import AgentType, ObjectType
 
 
 class TestAnalysisResultWasModified(unittest.TestCase):

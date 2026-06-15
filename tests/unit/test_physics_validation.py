@@ -9,14 +9,14 @@ import numpy as np
 from pydrake.all import RigidTransform
 from pydrake.math import RollPitchYaw
 
-from scenesmith.agent_utils.clearance_zones import (
+from reefsmith.agent_utils.clearance_zones import (
     DoorClearanceViolation,
     OpenConnectionBlockedViolation,
     WallHeightExceededViolation,
     WindowClearanceViolation,
 )
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.physics_validation import (
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.physics_validation import (
     CollisionPair,
     ThinCoveringBoundaryViolation,
     ThinCoveringOverlap,
@@ -31,7 +31,7 @@ from scenesmith.agent_utils.physics_validation import (
     filter_wall_height_violations_by_agent,
     filter_window_violations_by_agent,
 )
-from scenesmith.agent_utils.room import (
+from reefsmith.agent_utils.room import (
     AgentType,
     ObjectType,
     PlacementInfo,
@@ -41,10 +41,10 @@ from scenesmith.agent_utils.room import (
     UniqueID,
     serialize_rigid_transform,
 )
-from scenesmith.manipuland_agents.tools.physics_utils import (
+from reefsmith.micro_habitat_agents.tools.physics_utils import (
     load_collision_bounds_for_scene_object,
 )
-from scenesmith.manipuland_agents.tools.stacking import (
+from reefsmith.micro_habitat_agents.tools.stacking import (
     compute_initial_stack_transforms,
     simulate_stack_stability,
 )

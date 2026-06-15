@@ -9,10 +9,18 @@ openai:
   #   "priority" - Lower latency, premium pricing
   service_tier: "default"
 
+# NOTE: The Hydra config-group names below (floor_plan_agent, furniture_agent,
+# wall_agent, ceiling_agent, manipuland_agent) are retained as stable internal
+# keys. In the ReefSmith (underwater) domain they map to the ecological agents:
+#   floor_plan_agent  -> Seabed Agent       (seafloor topography)
+#   furniture_agent   -> Reef Agent         (structural corals / boulders)
+#   wall_agent        -> Accent Agent       (reef-surface accents: sea fans, sponges)
+#   ceiling_agent     -> Accent Agent       (overhead / canopy accents)
+#   manipuland_agent  -> Micro-Habitat Agent (starfish, anemones, urchins, crabs)
 defaults:
-  - experiment: indoor_scene_generation # Experiment yaml file name in configurations/experiment folder
-  - floor_plan_agent: stateful_floor_plan_agent # Floor plan agent config in configurations/floor_plan_agent folder
-  - furniture_agent: stateful_furniture_agent # Furniture agent yaml file name in configurations/furniture_agent folder
-  - wall_agent: stateful_wall_agent # Wall agent yaml file name in configurations/wall_agent folder
-  - ceiling_agent: stateful_ceiling_agent # Ceiling agent yaml file name in configurations/ceiling_agent folder
-  - manipuland_agent: stateful_manipuland_agent # Manipuland agent yaml file name in configurations/manipuland_agent folder
+  - experiment: underwater_scene_generation # Experiment yaml file name in configurations/experiment folder
+  - floor_plan_agent: stateful_floor_plan_agent # Seabed agent config in configurations/floor_plan_agent folder
+  - furniture_agent: stateful_furniture_agent # Reef agent config in configurations/furniture_agent folder
+  - wall_agent: stateful_wall_agent # Reef-surface accent agent config in configurations/wall_agent folder
+  - ceiling_agent: stateful_ceiling_agent # Overhead/canopy accent agent config in configurations/ceiling_agent folder
+  - manipuland_agent: stateful_manipuland_agent # Micro-habitat agent config in configurations/manipuland_agent folder

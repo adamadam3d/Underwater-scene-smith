@@ -10,8 +10,8 @@ import numpy as np
 
 from pydrake.all import RigidTransform, RollPitchYaw, RotationMatrix
 
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.physical_feasibility import (
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.physical_feasibility import (
     _apply_floor_penetration_fallback,
     _get_colliding_object_ids,
     apply_forward_simulation,
@@ -19,7 +19,7 @@ from scenesmith.agent_utils.physical_feasibility import (
     apply_physical_feasibility_postprocessing,
     compute_tilt_angle_degrees,
 )
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
 
 # Path to test data.
 TEST_DATA_DIR = Path(__file__).parent.parent / "test_data"

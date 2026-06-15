@@ -12,7 +12,7 @@ import numpy as np
 
 from PIL import Image
 
-from scenesmith.agent_utils.material_generator import (
+from reefsmith.agent_utils.material_generator import (
     MaterialGenerator,
     MaterialGeneratorConfig,
     create_flat_normal_map,

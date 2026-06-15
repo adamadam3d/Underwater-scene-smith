@@ -59,33 +59,33 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-from scenesmith.agent_utils.articulated_retrieval_server.config import (
+from reefsmith.agent_utils.articulated_retrieval_server.config import (
     ArticulatedConfig,
     ArticulatedSourceConfig,
 )
-from scenesmith.agent_utils.articulated_retrieval_server.data_loader import (
+from reefsmith.agent_utils.articulated_retrieval_server.data_loader import (
     load_preprocessed_data_multi_source,
 )
-from scenesmith.agent_utils.blender.renderer import (
+from reefsmith.agent_utils.blender.renderer import (
     ARTICULATED_LIGHT_ENERGY,
     VLM_ANALYSIS_LIGHT_ENERGY,
     BlenderRenderer,
 )
-from scenesmith.agent_utils.clip_embeddings import (
+from reefsmith.agent_utils.clip_embeddings import (
     compute_clip_similarities,
     get_text_embedding,
 )
-from scenesmith.agent_utils.hssd_retrieval.data_loader import load_preprocessed_data
-from scenesmith.agent_utils.objaverse_retrieval.clip_similarity import (
+from reefsmith.agent_utils.hssd_retrieval.data_loader import load_preprocessed_data
+from reefsmith.agent_utils.objaverse_retrieval.clip_similarity import (
     compute_clip_similarities as compute_objaverse_clip_similarities,
     get_objaverse_text_embedding,
 )
-from scenesmith.agent_utils.objaverse_retrieval.config import ObjaverseConfig
-from scenesmith.agent_utils.objaverse_retrieval.data_loader import (
+from reefsmith.agent_utils.objaverse_retrieval.config import ObjaverseConfig
+from reefsmith.agent_utils.objaverse_retrieval.data_loader import (
     construct_objaverse_mesh_path,
     load_preprocessed_data as load_objaverse_preprocessed_data,
 )
-from scenesmith.agent_utils.sdf_mesh_utils import combine_sdf_meshes_at_joint_angles
+from reefsmith.agent_utils.sdf_mesh_utils import combine_sdf_meshes_at_joint_angles
 
 console_logger = logging.getLogger(__name__)
 
@@ -364,7 +364,7 @@ def load_mesh(
     """
     try:
         if source == "hssd":
-            from scenesmith.agent_utils.hssd_retrieval.data_loader import (
+            from reefsmith.agent_utils.hssd_retrieval.data_loader import (
                 construct_hssd_mesh_path,
             )
 

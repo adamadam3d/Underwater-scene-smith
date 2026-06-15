@@ -16,7 +16,7 @@ from PIL import Image, ImageDraw
 # Configure CUDA environment before any CUDA-dependent imports.
 # This is required for nvdiffrast JIT compilation used by SAM 3D Objects.
 try:
-    from scenesmith.agent_utils.geometry_generation_server.cuda_env_setup import (
+    from reefsmith.agent_utils.geometry_generation_server.cuda_env_setup import (
         ensure_cuda_env,
     )
 
@@ -27,13 +27,13 @@ except (ImportError, RuntimeError) as e:
     logging.getLogger(__name__).warning(f"CUDA environment setup skipped: {e}")
 # isort: on
 
-from scenesmith.agent_utils.geometry_generation_server.geometry_generation import (
+from reefsmith.agent_utils.geometry_generation_server.geometry_generation import (
     generate_geometry_from_image,
 )
-from scenesmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager import (
+from reefsmith.agent_utils.geometry_generation_server.sam3d_pipeline_manager import (
     SAM3DPipelineManager,
 )
-from scenesmith.agent_utils.mesh_utils import load_mesh_as_trimesh
+from reefsmith.agent_utils.mesh_utils import load_mesh_as_trimesh
 from tests.integration.common import has_gpu_available, is_github_actions
 
 console_logger = logging.getLogger(__name__)

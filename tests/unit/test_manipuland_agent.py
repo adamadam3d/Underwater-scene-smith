@@ -8,12 +8,12 @@ from unittest.mock import ANY, MagicMock, patch
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.room import AgentType, RoomScene
-from scenesmith.manipuland_agents.base_manipuland_agent import BaseManipulandAgent
+from reefsmith.agent_utils.room import AgentType, RoomScene
+from reefsmith.micro_habitat_agents.base_micro_habitat_agent import BaseMicroHabitatAgent
 from tests.unit.mock_utils import create_mock_logger
 
 
-class ConcreteManipulandAgent(BaseManipulandAgent):
+class ConcreteManipulandAgent(BaseMicroHabitatAgent):
     """Concrete implementation for testing abstract base class."""
 
     async def add_manipulands(self, scene):
@@ -21,8 +21,8 @@ class ConcreteManipulandAgent(BaseManipulandAgent):
         return "Test manipulands added"
 
 
-class TestBaseManipulandAgent(unittest.TestCase):
-    """Test BaseManipulandAgent class."""
+class TestBaseMicroHabitatAgent(unittest.TestCase):
+    """Test BaseMicroHabitatAgent class."""
 
     def setUp(self):
         """Set up test fixtures."""
@@ -55,13 +55,13 @@ class TestBaseManipulandAgent(unittest.TestCase):
         """Clean up test fixtures."""
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.AssetManager")
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.VLMService")
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.RenderingManager")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.AssetManager")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.VLMService")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.RenderingManager")
     @patch(
-        "scenesmith.manipuland_agents.base_manipuland_agent.ConvexDecompositionServer"
+        "reefsmith.micro_habitat_agents.base_micro_habitat_agent.ConvexDecompositionServer"
     )
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.BlenderServer")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.BlenderServer")
     def test_initialization(
         self,
         mock_blender_server_class,
@@ -70,7 +70,7 @@ class TestBaseManipulandAgent(unittest.TestCase):
         mock_vlm_service_class,
         mock_asset_manager_class,
     ):
-        """Test BaseManipulandAgent initialization."""
+        """Test BaseMicroHabitatAgent initialization."""
         # Configure mock BlenderServer.
         mock_blender_server_class.return_value.is_running.return_value = True
 
@@ -102,13 +102,13 @@ class TestBaseManipulandAgent(unittest.TestCase):
             cfg=self.config.rendering, logger=self.mock_logger
         )
 
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.AssetManager")
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.VLMService")
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.RenderingManager")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.AssetManager")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.VLMService")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.RenderingManager")
     @patch(
-        "scenesmith.manipuland_agents.base_manipuland_agent.ConvexDecompositionServer"
+        "reefsmith.micro_habitat_agents.base_micro_habitat_agent.ConvexDecompositionServer"
     )
-    @patch("scenesmith.manipuland_agents.base_manipuland_agent.BlenderServer")
+    @patch("reefsmith.micro_habitat_agents.base_micro_habitat_agent.BlenderServer")
     def test_abstract_method_implemented(
         self,
         mock_blender_server_class,
@@ -131,7 +131,7 @@ class TestBaseManipulandAgent(unittest.TestCase):
     def test_abstract_method_not_implemented_raises_error(self):
         """Test that instantiating abstract class directly raises TypeError."""
         with self.assertRaises(TypeError):
-            BaseManipulandAgent(cfg=self.config, logger=self.mock_logger)
+            BaseMicroHabitatAgent(cfg=self.config, logger=self.mock_logger)
 
 
 if __name__ == "__main__":

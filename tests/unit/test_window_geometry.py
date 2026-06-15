@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import trimesh
 
-from scenesmith.floor_plan_agents.tools.window_geometry import (
+from reefsmith.seabed_agents.tools.window_geometry import (
     WindowDimensions,
     WindowStyle,
     create_simple_window_mesh,

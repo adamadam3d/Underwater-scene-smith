@@ -1,0 +1,33 @@
+name: "manipuland_context_image"
+version: "1.0"
+description: "Edit a Blender render of a reef structure to show micro-life nestled on it"
+template_variables: [
+  "furniture_description",
+  "furniture_dimensions",
+  "suggested_items",
+  "prompt_constraints",
+  "style_notes"
+]
+prompt: |
+  Edit this image of a {{ furniture_description }} by nestling realistic
+  micro-habitat marine life (e.g. starfish, anemones, sea urchins, crabs)
+  into its crevices and onto its support surfaces.
+
+  REEF STRUCTURE DIMENSIONS (for scale reference):
+  {{ furniture_dimensions }}
+
+  LIFEFORMS TO ADD:
+  {{ suggested_items }}
+
+  REQUIREMENTS:
+  {{ prompt_constraints }}
+
+  STYLE:
+  {{ style_notes }}
+
+  INSTRUCTIONS:
+  - Keep the reef structure EXACTLY as shown
+  - Add only specified lifeforms, settled into ecologically valid niches
+  - Scale lifeforms realistically relative to the structure's dimensions
+  - Lifeforms must rest on / cling to surfaces and crevices (never floating)
+  - Maintain consistent lighting

@@ -8,8 +8,8 @@ from unittest.mock import Mock, patch
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.rendering_manager import RenderingManager
-from scenesmith.agent_utils.room import RoomScene
+from reefsmith.agent_utils.rendering_manager import RenderingManager
+from reefsmith.agent_utils.room import RoomScene
 from tests.unit.mock_utils import create_mock_logger
 
 
@@ -70,7 +70,7 @@ class TestRenderingManager(unittest.TestCase):
         self.assertEqual(self.rendering_manager._render_cache, {})
 
     @patch(
-        "scenesmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
+        "reefsmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
     )
     def test_render_scene_success(self, mock_render_function):
         """Test successful scene rendering."""
@@ -126,7 +126,7 @@ class TestRenderingManager(unittest.TestCase):
         self.assertEqual(self.rendering_manager._render_counter, 1)
 
     @patch(
-        "scenesmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
+        "reefsmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
     )
     def test_render_scene_with_content_based_caching(self, mock_render_function):
         """Test that render caching works correctly with content-based keys."""
@@ -167,9 +167,9 @@ class TestRenderingManager(unittest.TestCase):
             self.rendering_manager._render_cache[expected_cache_key], result1
         )
 
-    @patch("scenesmith.agent_utils.rendering_manager.time.sleep")
+    @patch("reefsmith.agent_utils.rendering_manager.time.sleep")
     @patch(
-        "scenesmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
+        "reefsmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
     )
     def test_render_scene_with_retry_logic(self, mock_render_function, mock_sleep):
         """Test retry logic on rendering failures."""
@@ -204,7 +204,7 @@ class TestRenderingManager(unittest.TestCase):
         self.assertEqual(mock_sleep.call_count, 2)
 
     @patch(
-        "scenesmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
+        "reefsmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
     )
     def test_render_scene_all_attempts_fail(self, mock_render_function):
         """Test that RuntimeError is raised when all attempts fail."""
@@ -224,7 +224,7 @@ class TestRenderingManager(unittest.TestCase):
         self.assertEqual(mock_render_function.call_count, 3)
 
     @patch(
-        "scenesmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
+        "reefsmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
     )
     def test_render_scene_empty_image_grid_failure(self, mock_render_function):
         """Test handling of empty image path list."""
@@ -241,7 +241,7 @@ class TestRenderingManager(unittest.TestCase):
         self.assertIn("No images", str(context.exception))
 
     @patch(
-        "scenesmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
+        "reefsmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
     )
     def test_scene_checkpoint_saving(self, mock_render_function):
         """Test that scene checkpoints are saved correctly via logger."""
@@ -302,7 +302,7 @@ class TestRenderingManager(unittest.TestCase):
     def test_render_scene_with_different_content_hashes(self):
         """Test rendering with different content hashes doesn't use caching."""
         with patch(
-            "scenesmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
+            "reefsmith.agent_utils.rendering_manager.render_scene_for_agent_observation"
         ) as mock_render:
             # Mock successful rendering - returns list of paths.
             mock_image_paths = [Path(self.temp_dir / f"view_{i}.png") for i in range(2)]

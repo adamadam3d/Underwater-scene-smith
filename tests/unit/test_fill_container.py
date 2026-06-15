@@ -10,8 +10,8 @@ import trimesh
 from pydrake.all import RigidTransform
 from pydrake.math import RotationMatrix
 
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
-from scenesmith.manipuland_agents.tools.fill_container import (
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.micro_habitat_agents.tools.fill_container import (
     ContainerInteriorBounds,
     _compute_fill_object_rotation,
     _should_flip_for_thick_end_up,

@@ -1,0 +1,42 @@
+name: "validation_instruction"
+version: "1.0"
+description: "Per-task instruction for the validation agent"
+template_variables: ["task_description"]
+
+prompt: |
+  Validate whether the following underwater ROV/AUV task has been completed
+  successfully:
+
+  TASK: {{ task_description }}
+
+  Follow these steps:
+
+  1. EXTRACT REQUIREMENTS
+     - Identify ONLY the ROV/AUV actions stated in the task
+     - Do NOT add implied requirements (e.g., if task says "inspect the brain
+       coral", only check that the coral was inspected in range/in view - do NOT
+       check "the coral is undamaged" unless stated)
+     - IMPORTANT: Distinguish scene references from ROV actions:
+       * "collect a sample from a sponge ON THE REEF WALL" → only requirement is
+         "a sample from the sponge is in the basket"
+       * "ON THE REEF WALL" describes which sponge (scene reference), NOT an action
+       * Only evaluate what the ROV changed, not pre-existing reef conditions
+
+  2. GATHER EVIDENCE (BE EXHAUSTIVE)
+     - Use list_objects() to identify ALL candidate objects
+     - For "fruit on plate": list ALL fruits AND ALL plates (plates are often stacked!)
+     - Test EVERY candidate pair before concluding failure
+     - Use get_support() for "on" relationships, observe_objects() for "inside"
+     - Only ONE successful pair needed; ALL must fail to score "none"
+     - Use observe_scene() to visually verify
+
+  3. EVALUATE EACH REQUIREMENT
+     - Score as "full" if completely satisfied
+     - Score as "partial" if technically there but not quite right
+     - Score as "none" if not satisfied at all
+     - Provide specific evidence for each score
+
+  4. PROVIDE VALIDATION RESULT
+     - Include the original task
+     - List each requirement with its score and reasoning
+     - Summarize overall completion status

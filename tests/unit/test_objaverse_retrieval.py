@@ -10,12 +10,12 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from scenesmith.agent_utils.objaverse_retrieval.clip_similarity import (
+from reefsmith.agent_utils.objaverse_retrieval.clip_similarity import (
     compute_clip_similarities,
     filter_meshes_by_category,
 )
-from scenesmith.agent_utils.objaverse_retrieval.config import ObjaverseConfig
-from scenesmith.agent_utils.objaverse_retrieval.data_loader import (
+from reefsmith.agent_utils.objaverse_retrieval.config import ObjaverseConfig
+from reefsmith.agent_utils.objaverse_retrieval.data_loader import (
     ObjaverseMeshMetadata,
     ObjaversePreprocessedData,
     construct_objaverse_mesh_path,

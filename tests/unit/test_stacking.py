@@ -9,12 +9,12 @@ import trimesh
 
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
-from scenesmith.manipuland_agents.tools.physics_utils import (
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.micro_habitat_agents.tools.physics_utils import (
     compute_collision_bounds,
     load_collision_bounds_for_scene_object,
 )
-from scenesmith.manipuland_agents.tools.stacking import (
+from reefsmith.micro_habitat_agents.tools.stacking import (
     compute_actual_stack_height,
     compute_initial_stack_transforms,
     simulate_stack_stability,

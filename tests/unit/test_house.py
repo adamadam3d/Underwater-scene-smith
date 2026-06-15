@@ -4,7 +4,7 @@ import unittest
 
 from pathlib import Path
 
-from scenesmith.agent_utils.house import (
+from reefsmith.agent_utils.house import (
     ConnectionType,
     Door,
     HouseLayout,
@@ -17,7 +17,7 @@ from scenesmith.agent_utils.house import (
     WallDirection,
     Window,
 )
-from scenesmith.utils.material import Material
+from reefsmith.utils.material import Material
 
 
 class TestRoundTrip(unittest.TestCase):

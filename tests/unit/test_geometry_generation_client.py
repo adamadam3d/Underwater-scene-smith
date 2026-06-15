@@ -4,10 +4,10 @@ from unittest.mock import MagicMock, patch
 
 import requests
 
-from scenesmith.agent_utils.geometry_generation_server.client import (
+from reefsmith.agent_utils.geometry_generation_server.client import (
     GeometryGenerationClient,
 )
-from scenesmith.agent_utils.geometry_generation_server.dataclasses import (
+from reefsmith.agent_utils.geometry_generation_server.dataclasses import (
     GeometryGenerationError,
     GeometryGenerationServerRequest,
     GeometryGenerationServerResponse,

@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from scenesmith.agent_utils.house import (
+from reefsmith.agent_utils.house import (
     HouseLayout,
     HouseScene,
     Opening,
@@ -17,7 +17,7 @@ from scenesmith.agent_utils.house import (
     Wall,
     WallDirection,
 )
-from scenesmith.agent_utils.sceneeval_exporter import (
+from reefsmith.agent_utils.sceneeval_exporter import (
     SceneEvalExportConfig,
     SceneEvalExporter,
 )
@@ -350,7 +350,7 @@ class TestExportHouse(unittest.TestCase):
         """
         from pydrake.math import RigidTransform, RotationMatrix
 
-        from scenesmith.agent_utils.room import ObjectType
+        from reefsmith.agent_utils.room import ObjectType
 
         with tempfile.TemporaryDirectory() as tmpdir:
             output_dir = Path(tmpdir)

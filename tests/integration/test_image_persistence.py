@@ -19,12 +19,12 @@ from agents import Agent, Runner, SQLiteSession
 from omegaconf import OmegaConf
 from pydrake.all import RigidTransform
 
-from scenesmith.agent_utils.blender import BlenderServer
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.rendering_manager import RenderingManager
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject
-from scenesmith.furniture_agents.tools.vision_tools import VisionTools
-from scenesmith.utils.logging import ConsoleLogger
+from reefsmith.agent_utils.blender import BlenderServer
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.rendering_manager import RenderingManager
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject
+from reefsmith.reef_agents.tools.vision_tools import VisionTools
+from reefsmith.utils.logging import ConsoleLogger
 from tests.integration.common import has_openai_key
 
 console_logger = logging.getLogger(__name__)

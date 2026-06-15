@@ -9,8 +9,8 @@ import trimesh
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.room import SupportSurface
-from scenesmith.agent_utils.support_surface_extraction import (
+from reefsmith.agent_utils.room import SupportSurface
+from reefsmith.agent_utils.support_surface_extraction import (
     SupportSurfaceExtractionConfig,
     extract_support_surfaces_from_mesh,
 )

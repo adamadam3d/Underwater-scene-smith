@@ -3,7 +3,7 @@
 from pathlib import Path
 from unittest.mock import Mock
 
-from scenesmith.utils.logging import BaseLogger
+from reefsmith.utils.logging import BaseLogger
 
 
 def create_mock_logger(output_dir: Path) -> Mock:

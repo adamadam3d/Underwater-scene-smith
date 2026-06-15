@@ -11,13 +11,13 @@ from omegaconf import OmegaConf
 from PIL import Image as PILImage
 from pydrake.all import RigidTransform, RollPitchYaw
 
-from scenesmith.agent_utils.blender import BlenderServer
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.rendering import (
+from reefsmith.agent_utils.blender import BlenderServer
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.rendering import (
     render_scene,
     render_scene_for_agent_observation,
 )
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
 
 
 class TestBlenderIntegration(unittest.TestCase):

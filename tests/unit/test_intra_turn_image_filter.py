@@ -10,7 +10,7 @@ from unittest.mock import MagicMock
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.intra_turn_image_filter import IntraTurnImageFilter
+from reefsmith.agent_utils.intra_turn_image_filter import IntraTurnImageFilter
 
 
 def make_config(enabled: bool = True, keep_last_n: int = 2) -> OmegaConf:

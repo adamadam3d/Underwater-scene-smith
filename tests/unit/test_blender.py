@@ -10,16 +10,16 @@ import flask
 
 from mathutils import Vector
 
-from scenesmith.agent_utils.blender import (
+from reefsmith.agent_utils.blender import (
     BlenderRenderApp,
     BlenderRenderer,
     BlenderServer,
     RenderParams,
 )
-from scenesmith.agent_utils.blender.annotations import annotate_image_with_coordinates
-from scenesmith.agent_utils.blender.coordinate_frame import create_coordinate_frame
-from scenesmith.agent_utils.blender.scene_utils import get_floor_bounds
-from scenesmith.agent_utils.blender.server_manager import (
+from reefsmith.agent_utils.blender.annotations import annotate_image_with_coordinates
+from reefsmith.agent_utils.blender.coordinate_frame import create_coordinate_frame
+from reefsmith.agent_utils.blender.scene_utils import get_floor_bounds
+from reefsmith.agent_utils.blender.server_manager import (
     find_available_port,
     is_port_available,
 )
@@ -88,8 +88,8 @@ class TestBlenderRenderer(unittest.TestCase):
         self.assertEqual(renderer._blend_file, self.blend_file)
         self.assertEqual(renderer._bpy_settings_file, self.settings_file)
 
-    @patch("scenesmith.agent_utils.blender.scene_setup_mixin.bpy")
-    @patch("scenesmith.agent_utils.blender.renderer.bpy")
+    @patch("reefsmith.agent_utils.blender.scene_setup_mixin.bpy")
+    @patch("reefsmith.agent_utils.blender.renderer.bpy")
     def test_reset_scene(self, mock_renderer_bpy, mock_setup_bpy):
         """Test that reset_scene resets Blender scene and removes default objects."""
         # Mock the data objects in scene_setup_mixin (where reset_scene is defined).
@@ -106,7 +106,7 @@ class TestBlenderRenderer(unittest.TestCase):
         for obj in mock_setup_bpy.data.objects:
             obj.select_set.assert_called_with(True)
 
-    @patch("scenesmith.agent_utils.blender.renderer.bpy")
+    @patch("reefsmith.agent_utils.blender.renderer.bpy")
     def test_add_default_light_source(self, mock_bpy):
         """Test that add_default_light_source adds a point light."""
         mock_light = MagicMock()
@@ -127,10 +127,10 @@ class TestBlenderRenderer(unittest.TestCase):
         self.assertEqual(mock_light.energy, 1000)
         self.assertEqual(mock_light_object.location, (4.0, 1.0, 6.0))
 
-    @patch("scenesmith.agent_utils.blender.scene_setup_mixin.bpy")
-    @patch("scenesmith.agent_utils.blender.render_settings.bpy")
-    @patch("scenesmith.agent_utils.blender.camera_utils.bpy")
-    @patch("scenesmith.agent_utils.blender.renderer.bpy")
+    @patch("reefsmith.agent_utils.blender.scene_setup_mixin.bpy")
+    @patch("reefsmith.agent_utils.blender.render_settings.bpy")
+    @patch("reefsmith.agent_utils.blender.camera_utils.bpy")
+    @patch("reefsmith.agent_utils.blender.renderer.bpy")
     def test_render_image_creates_output_file(
         self, mock_renderer_bpy, mock_camera_bpy, mock_settings_bpy, mock_setup_bpy
     ):
@@ -236,7 +236,7 @@ class TestBlenderRenderApp(unittest.TestCase):
     def test_blender_render_app_init(self):
         """Test BlenderRenderApp initialization."""
         app = BlenderRenderApp(temp_dir=self.temp_dir)
-        self.assertEqual(app.name, "scenesmith_blender_render")
+        self.assertEqual(app.name, "reefsmith_blender_render")
         self.assertEqual(app._temp_dir, self.temp_dir)
         self.assertIsInstance(app._blender, BlenderRenderer)
 
@@ -468,7 +468,7 @@ class TestBlenderServer(unittest.TestCase):
         self.assertEqual(url, "http://localhost:8080")
 
     @patch(
-        "scenesmith.agent_utils.blender.server_manager.is_port_available",
+        "reefsmith.agent_utils.blender.server_manager.is_port_available",
         return_value=True,
     )
     @patch("tempfile.TemporaryDirectory")
@@ -637,7 +637,7 @@ class TestMetricRendering(unittest.TestCase):
                     # Standard endpoint should only call standard rendering.
                     mock_standard_render.assert_called_once_with(mock_params)
 
-    @patch("scenesmith.agent_utils.blender.coordinate_frame.bpy")
+    @patch("reefsmith.agent_utils.blender.coordinate_frame.bpy")
     def test_metric_overlays_add_coordinate_frame_and_grid(self, mock_bpy):
         """Test that metric overlays add coordinate frame and grid markers."""
         bbox_center = Vector((0, 0, 0))
@@ -707,7 +707,7 @@ class TestMetricRendering(unittest.TestCase):
         # Verify that materials were created for the coordinate frames (one per axis).
         self.assertGreaterEqual(mock_bpy.data.materials.new.call_count, 3)
 
-    @patch("scenesmith.agent_utils.blender.camera_utils.world_to_camera_view")
+    @patch("reefsmith.agent_utils.blender.camera_utils.world_to_camera_view")
     def test_strategic_marker_placement_generates_exactly_nine_markers(
         self, mock_world_to_camera
     ):
@@ -767,7 +767,7 @@ class TestMetricRendering(unittest.TestCase):
         expected_positions_set = set(expected_positions)
         self.assertEqual(actual_positions, expected_positions_set)
 
-    @patch("scenesmith.agent_utils.blender.camera_utils.world_to_camera_view")
+    @patch("reefsmith.agent_utils.blender.camera_utils.world_to_camera_view")
     def test_half_meter_precision_rounding(self, mock_world_to_camera):
         """Test that strategic markers use floor bounds directly without rounding."""
         renderer = BlenderRenderer()
@@ -896,7 +896,7 @@ class TestMetricRendering(unittest.TestCase):
 
         self.assertIn("No client objects available", str(context.exception))
 
-    @patch("scenesmith.agent_utils.blender.coordinate_frame.bpy")
+    @patch("reefsmith.agent_utils.blender.coordinate_frame.bpy")
     def test_camera_distance_fallback_in_test_environment(self, mock_bpy):
         """Test camera distance calculation fallback for test environments."""
         # Mock camera with invalid location (empty).

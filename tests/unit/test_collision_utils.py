@@ -6,8 +6,8 @@ from pathlib import Path
 
 from pydrake.math import RigidTransform
 
-from scenesmith.agent_utils.room import ObjectType, SceneObject, UniqueID
-from scenesmith.utils.collision_utils import compute_pairwise_collisions
+from reefsmith.agent_utils.room import ObjectType, SceneObject, UniqueID
+from reefsmith.utils.collision_utils import compute_pairwise_collisions
 
 # Path to test data directory.
 TEST_DATA_DIR = Path(__file__).parent.parent / "test_data"

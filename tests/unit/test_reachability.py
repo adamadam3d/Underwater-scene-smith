@@ -8,14 +8,14 @@ import numpy as np
 
 from pydrake.all import RigidTransform, RotationMatrix
 
-from scenesmith.agent_utils.house import RoomGeometry
-from scenesmith.agent_utils.reachability import (
+from reefsmith.agent_utils.house import RoomGeometry
+from reefsmith.agent_utils.reachability import (
     ReachabilityResult,
     compute_reachability,
     format_reachability_for_critic,
     format_reachability_result,
 )
-from scenesmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
+from reefsmith.agent_utils.room import ObjectType, RoomScene, SceneObject, UniqueID
 
 
 class TestReachability(unittest.TestCase):

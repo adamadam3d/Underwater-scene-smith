@@ -23,19 +23,19 @@ import trimesh
 
 from omegaconf import OmegaConf
 
-from scenesmith.agent_utils.blender.server_manager import BlenderServer
-from scenesmith.agent_utils.convex_decomposition_server import ConvexDecompositionServer
-from scenesmith.agent_utils.mesh_canonicalization import canonicalize_mesh
-from scenesmith.agent_utils.mesh_physics_analyzer import (
+from reefsmith.agent_utils.blender.server_manager import BlenderServer
+from reefsmith.agent_utils.convex_decomposition_server import ConvexDecompositionServer
+from reefsmith.agent_utils.mesh_canonicalization import canonicalize_mesh
+from reefsmith.agent_utils.mesh_physics_analyzer import (
     analyze_mesh_orientation_and_material,
 )
-from scenesmith.agent_utils.mesh_utils import (
+from reefsmith.agent_utils.mesh_utils import (
     convert_glb_to_gltf,
     scale_mesh_uniformly_to_dimensions,
 )
-from scenesmith.agent_utils.room import ObjectType
-from scenesmith.agent_utils.sdf_generator import generate_drake_sdf
-from scenesmith.agent_utils.vlm_service import VLMService
+from reefsmith.agent_utils.room import ObjectType
+from reefsmith.agent_utils.sdf_generator import generate_drake_sdf
+from reefsmith.agent_utils.vlm_service import VLMService
 from tests.integration.common import has_openai_key
 
 
