@@ -71,6 +71,28 @@ materials_retrieval_server:
   embeddings_path: "data/materials/embeddings"
   use_top_k: 5
 
+# Hydrodynamics: water current field and ROV/AUV clearance-check settings.
+# Consumed by reefsmith.utils.hydrodynamics (buoyancy/drag/current field) and
+# reefsmith.agent_utils.rov_clearance (3D volumetric navigability). Not yet
+# wired into the generation pipeline itself - see each module's docstring
+# for the intended integration points (SDF generation for buoyancy/drag,
+# accent placement for current-facing orientation, reef placement for
+# ROV clearance validation).
+hydrodynamics:
+  seawater_density: 1025.0  # kg/m^3, typical reef temperature/salinity.
+  current:
+    direction: [1.0, 0.0, 0.0]  # World-XY current direction (need not be unit length).
+    speed: 0.3                  # Background current speed, m/s.
+    # Flow channels (e.g. from carved seabed trenches) accelerate flow beyond
+    # the background speed within a radius of their centerline. Populated at
+    # runtime from the Seabed Agent's carved TrenchSpecs via
+    # reefsmith.agent_utils.seafloor_topography.trenches_to_flow_channels;
+    # left empty here since channel geometry is scene-specific.
+    channels: []
+  rov_clearance:
+    rov_radius_m: 0.3      # Assumed ROV/AUV body radius for clearance checks.
+    voxel_size_m: 0.25      # Grid resolution for 3D volumetric clearance checks.
+
 # SceneEval export configuration.
 sceneeval_export:
   enabled: true
