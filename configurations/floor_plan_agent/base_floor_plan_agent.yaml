@@ -56,6 +56,10 @@ wall_thickness: 0.05  # 5cm per wall
 # Floor thickness in meters
 floor_thickness: 0.1  # 10cm floor
 
+# Seafloor heightfield grid resolution in meters, used when a room's terrain
+# hasn't been sculpted yet (see reefsmith.seabed_agents.tools.seafloor_tools).
+seafloor_cell_size: 0.5
+
 # Room placement algorithm configuration
 room_placement:
   # Backtracking search timeout (finds optimal if completes, best-so-far otherwise).

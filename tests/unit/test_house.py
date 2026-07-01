@@ -4,6 +4,8 @@ import unittest
 
 from pathlib import Path
 
+import numpy as np
+
 from reefsmith.agent_utils.house import (
     ConnectionType,
     Door,
@@ -17,6 +19,7 @@ from reefsmith.agent_utils.house import (
     WallDirection,
     Window,
 )
+from reefsmith.agent_utils.seafloor_topography import add_rock_plateau, flat_seafloor
 from reefsmith.utils.material import Material
 
 
@@ -274,6 +277,73 @@ class TestRoundTrip(unittest.TestCase):
         assert len(restored.placed_rooms) == 1
         assert restored.placed_rooms[0].room_id == original.placed_rooms[0].room_id
         assert restored.boundary_labels == original.boundary_labels
+
+    def test_house_layout_seafloor_grids_round_trip(self) -> None:
+        """HouseLayout.seafloor_grids survives to_dict/from_dict."""
+        grid = flat_seafloor(10.0, 8.0, cell_size=0.5, base_height=-2.0)
+        grid = add_rock_plateau(grid, np.array([5.0, 4.0]), radius=1.5, height=1.0)
+        original = HouseLayout(seafloor_grids={"reef_main": grid})
+
+        restored = HouseLayout.from_dict(original.to_dict())
+
+        assert "reef_main" in restored.seafloor_grids
+        assert np.allclose(
+            restored.seafloor_grids["reef_main"].heights, grid.heights
+        )
+        assert restored.seafloor_grids["reef_main"].cell_size == grid.cell_size
+
+
+class TestGetOrInitSeafloorGrid(unittest.TestCase):
+    """Tests for HouseLayout.get_or_init_seafloor_grid."""
+
+    def setUp(self) -> None:
+        self.layout = HouseLayout()
+        self.layout.room_specs = [RoomSpec(room_id="reef_main", width=8.0, length=10.0)]
+        self.layout.placed_rooms = [
+            PlacedRoom(
+                room_id="reef_main", position=(0.0, 0.0), width=10.0, depth=8.0, walls=[]
+            )
+        ]
+
+    def test_returns_none_for_unplaced_room(self) -> None:
+        """No PlacedRoom for the given room_id returns None."""
+        assert self.layout.get_or_init_seafloor_grid("nonexistent") is None
+
+    def test_lazily_initializes_flat_grid(self) -> None:
+        """First call creates a flat grid matching the room's dimensions and
+        stores it on seafloor_grids."""
+        grid = self.layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        assert grid is not None
+        assert np.allclose(grid.heights, 0.0)
+        xmin, xmax, ymin, ymax = grid.world_extent
+        assert xmax - xmin == 10.0
+        assert ymax - ymin == 8.0
+        assert self.layout.seafloor_grids["reef_main"] is grid
+
+    def test_reuses_existing_matching_grid(self) -> None:
+        """A grid matching the room's current bounds is reused, not reset."""
+        grid = self.layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        grid = add_rock_plateau(grid, np.array([5.0, 4.0]), radius=1.0, height=1.0)
+        self.layout.seafloor_grids["reef_main"] = grid
+
+        reused = self.layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        assert reused.height_at(np.array([5.0, 4.0])) > 0.5
+
+    def test_resets_to_flat_after_dimension_mismatch(self) -> None:
+        """A room resize invalidates the old grid's bounds; it resets to flat
+        rather than silently stretching/cropping sculpted terrain."""
+        grid = self.layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        grid = add_rock_plateau(grid, np.array([5.0, 4.0]), radius=1.0, height=1.0)
+        self.layout.seafloor_grids["reef_main"] = grid
+
+        self.layout.placed_rooms[0] = PlacedRoom(
+            room_id="reef_main", position=(0.0, 0.0), width=6.0, depth=5.0, walls=[]
+        )
+        reset = self.layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        assert np.allclose(reset.heights, 0.0)
+        xmin, xmax, ymin, ymax = reset.world_extent
+        assert xmax - xmin == 6.0
+        assert ymax - ymin == 5.0
 
 
 if __name__ == "__main__":

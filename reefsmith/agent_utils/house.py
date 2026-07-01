@@ -20,7 +20,7 @@ from reefsmith.agent_utils.sceneeval_exporter import (
     SceneEvalExportConfig,
     SceneEvalExporter,
 )
-from reefsmith.agent_utils.seafloor_topography import SeafloorGrid
+from reefsmith.agent_utils.seafloor_topography import SeafloorGrid, flat_seafloor
 from reefsmith.utils.material import Material
 from reefsmith.utils.package_utils import create_package_xml
 from reefsmith.utils.path_utils import safe_relative_path
@@ -849,6 +849,16 @@ class HouseLayout:
     room_geometries: dict[str, RoomGeometry] = field(default_factory=dict)
     """Generated room geometry for each room (room_id -> RoomGeometry)."""
 
+    seafloor_grids: dict[str, SeafloorGrid] = field(default_factory=dict)
+    """Sculpted seafloor heightfield per room (room_id -> SeafloorGrid).
+
+    Lives here (rather than only on RoomGeometry) because sculpting tools
+    operate on a room's terrain before RoomGeometry exists / after it has
+    been invalidated. get_or_init_seafloor_grid() is the single entry point
+    both the Seabed Agent's geometry generation step and its sculpting tools
+    use to read/lazily-create a room's grid.
+    """
+
     house_dir: Path | None = None
     """Directory for house-level outputs."""
 
@@ -926,6 +936,45 @@ class HouseLayout:
             if placed_room.room_id == room_id:
                 return placed_room
         return None
+
+    def get_or_init_seafloor_grid(
+        self, room_id: str, cell_size: float = 0.5
+    ) -> SeafloorGrid | None:
+        """Get this room's seafloor heightfield, initializing a flat one if absent.
+
+        If an existing grid's extent no longer matches the room's current
+        placed bounds (e.g. after a resize), it is reset to flat at the new
+        size rather than silently stretched/cropped - a resize discards any
+        prior terrain sculpting for that room.
+
+        Args:
+            room_id: The room ID to look up.
+            cell_size: Grid resolution in meters, used only when a new flat
+                grid needs to be created.
+
+        Returns:
+            SeafloorGrid, or None if the room hasn't been placed yet.
+        """
+        placed_room = self.get_placed_room(room_id)
+        if placed_room is None:
+            return None
+
+        grid = self.seafloor_grids.get(room_id)
+        if grid is not None:
+            xmin, xmax, ymin, ymax = grid.world_extent
+            if (
+                abs((xmax - xmin) - placed_room.width) < 1e-6
+                and abs((ymax - ymin) - placed_room.depth) < 1e-6
+            ):
+                return grid
+            console_logger.info(
+                f"Seafloor grid for '{room_id}' no longer matches room bounds "
+                "after resize; resetting to flat."
+            )
+
+        grid = flat_seafloor(placed_room.width, placed_room.depth, cell_size=cell_size)
+        self.seafloor_grids[room_id] = grid
+        return grid
 
     def get_room_geometry(self, room_id: str) -> RoomGeometry | None:
         """Get generated geometry for a room.
@@ -1025,6 +1074,9 @@ class HouseLayout:
             "connectivity_valid": self.connectivity_valid,
             "boundary_labels": {k: list(v) for k, v in self.boundary_labels.items()},
             "room_geometries": room_geometries_data,
+            "seafloor_grids": {
+                room_id: grid.to_dict() for room_id, grid in self.seafloor_grids.items()
+            },
         }
 
     def to_drake_directive(self, base_dir: Path | None = None) -> str:
@@ -1157,12 +1209,18 @@ class HouseLayout:
                     geom_data, scene_dir=house_dir
                 )
 
+        seafloor_grids = {
+            room_id: SeafloorGrid.from_dict(grid_data)
+            for room_id, grid_data in data.get("seafloor_grids", {}).items()
+        }
+
         return cls(
             wall_height=data.get("wall_height", 2.5),
             house_prompt=data.get("house_prompt", ""),
             room_specs=room_specs,
             house_dir=house_dir,
             room_geometries=room_geometries,
+            seafloor_grids=seafloor_grids,
             placed_rooms=placed_rooms,
             doors=doors,
             windows=windows,

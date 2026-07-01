@@ -58,6 +58,7 @@ from reefsmith.seabed_agents.tools.geometry_cache import (
     wall_cache_key,
     window_cache_key,
 )
+from reefsmith.seabed_agents.tools.seafloor_tools import SeafloorTools
 from reefsmith.seabed_agents.tools.vision_tools import FloorPlanVisionTools
 from reefsmith.seabed_agents.tools.wall_geometry import (
     WallDimensions,
@@ -189,12 +190,17 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
             room_dim_max=self.cfg.max_floor_plan_dim_m,
         )
 
+        seafloor_tools = SeafloorTools(
+            layout=self.layout, cell_size=self.cfg.seafloor_cell_size
+        )
+
         vision_tools = self._get_vision_tools()
 
         workflow_tools = WorkflowTools()
 
         return (
             list(floor_plan_tools.tools.values())
+            + list(seafloor_tools.tools.values())
             + list(vision_tools.tools.values())
             + list(workflow_tools.tools.values())
         )
@@ -205,6 +211,8 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
         Critic needs:
         - observe_scene, render_ascii (vision_tools) - for visual context
         - validate (floor_plan_tools) - for layout/connectivity status
+        - find_seafloor_anchor_zones (seafloor_tools) - read-only, to judge
+          whether sculpted terrain has suitable anchor points
 
         Returns:
             List of function tools for floor plan critique.
@@ -227,7 +235,15 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
             room_dim_max=self.cfg.max_floor_plan_dim_m,
         )
 
-        return list(vision_tools.tools.values()) + [floor_plan_tools.tools["validate"]]
+        seafloor_tools = SeafloorTools(
+            layout=self.layout, cell_size=self.cfg.seafloor_cell_size
+        )
+
+        return (
+            list(vision_tools.tools.values())
+            + [floor_plan_tools.tools["validate"]]
+            + [seafloor_tools.tools["find_seafloor_anchor_zones"]]
+        )
 
     def _create_designer_agent(self, tools: list[FunctionTool]) -> Agent:
         """Create the designer agent.
@@ -1268,6 +1284,12 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
                 placed_room = pr
                 break
 
+        # Seed/reuse this room's seafloor heightfield (flat by default, or
+        # whatever the Seabed Agent has sculpted via SeafloorTools so far).
+        seafloor_grid = self.layout.get_or_init_seafloor_grid(
+            room_spec.room_id, cell_size=self.cfg.seafloor_cell_size
+        )
+
         if not placed_room:
             raise ValueError(
                 f"No placed room found for room_id '{room_spec.room_id}'. "
@@ -1375,6 +1397,7 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
             wall_height=wall_height,
             wall_thickness=wall_thickness,
             openings=openings,
+            seafloor_grid=seafloor_grid,
         )
 
     @staticmethod
