@@ -32,6 +32,7 @@ from pygltflib import (
     TextureInfo,
 )
 
+from reefsmith.agent_utils.seafloor_topography import SeafloorGrid
 from reefsmith.utils.material import Material
 
 console_logger = logging.getLogger(__name__)
@@ -830,4 +831,170 @@ def create_floor_gltf(
         center_x=center_x,
         center_y=center_y,
         center_z=center_z,
+    )
+
+
+def create_heightfield_floor_gltf(
+    grid: SeafloorGrid,
+    thickness: float,
+    material: Material,
+    output_path: Path,
+    texture_scale: float = 0.5,
+    center_x: float = 0.0,
+    center_y: float = 0.0,
+) -> None:
+    """
+    Create a textured, triangulated heightfield floor mesh and save as GLTF.
+
+    The heightfield analog of create_floor_gltf's flat box: builds a
+    watertight solid with a top surface following the grid's elevation
+    profile, a flat bottom `thickness` below the grid's lowest point, and
+    side walls stitching the two together around the perimeter.
+
+    NOT YET VISUALLY OR PHYSICALLY VERIFIED - written without pydrake/bpy
+    available in this environment to actually render or simulate it.
+    Known simplifications/risks a reviewer should check before relying on
+    this in production:
+      1. Side-wall face winding was derived by hand, not tested. Verify with
+         trimesh (e.g. `mesh.is_winding_consistent`, `mesh.is_watertight`)
+         and by visually inspecting a render before trusting it for physics
+         collision.
+      2. Vertex normals are smooth-shaded across the top/wall seam (the
+         boundary vertices are shared between the top surface and the wall
+         quads, not duplicated for hard edges). This is a cosmetic choice,
+         not a correctness bug, but will look different from the crisp
+         edges of the old box floor.
+      3. UV coordinates use a single planar XY projection for top, bottom,
+         and walls alike, so wall texturing will look stretched/duplicated
+         compared to a purpose-built wall UV unwrap. Fine for a mostly-flat
+         terrain with occasional shallow features; likely to look wrong on
+         a room with a deep trench or tall plateau.
+
+    Args:
+        grid: Seafloor heightfield to build a mesh from.
+        thickness: Minimum solid thickness below the grid's lowest point,
+            in meters.
+        material: PBR material with textures.
+        output_path: Where to save the GLTF file.
+        texture_scale: Meters per texture tile (for UV tiling), default 0.5m.
+        center_x: X position of the floor's center in Drake Z-up coordinates
+            (the grid is recentered here, matching create_floor_gltf's
+            center-based box convention).
+        center_y: Y position of the floor's center in Drake Z-up coordinates.
+    """
+    import trimesh
+
+    textures = material.get_all_textures()
+    output_abs = output_path.resolve()
+    color_uri = Path(
+        os.path.relpath(textures["color"].resolve(), output_abs.parent)
+    ).as_posix()
+    normal_uri = Path(
+        os.path.relpath(textures["normal"].resolve(), output_abs.parent)
+    ).as_posix()
+    roughness_uri = Path(
+        os.path.relpath(textures["roughness"].resolve(), output_abs.parent)
+    ).as_posix()
+
+    nx, ny = grid.shape
+    xmin, xmax, ymin, ymax = grid.world_extent
+    width = xmax - xmin
+    depth = ymax - ymin
+
+    # Recenter the grid's XY so it spans [center-half, center+half], matching
+    # create_floor_gltf's box convention.
+    origin_x = center_x - width / 2.0
+    origin_y = center_y - depth / 2.0
+    xs = origin_x + np.arange(nx) * grid.cell_size
+    ys = origin_y + np.arange(ny) * grid.cell_size
+    xx, yy = np.meshgrid(xs, ys, indexing="ij")  # Each (nx, ny).
+
+    bottom_z = float(grid.heights.min()) - thickness
+
+    top_vertices = np.stack([xx, yy, grid.heights], axis=-1).reshape(-1, 3)
+    bottom_vertices = np.stack(
+        [xx, yy, np.full_like(grid.heights, bottom_z)], axis=-1
+    ).reshape(-1, 3)
+    n_top = top_vertices.shape[0]
+    vertices_zup = np.concatenate([top_vertices, bottom_vertices], axis=0).astype(
+        np.float32
+    )
+
+    def idx(i: int, j: int) -> int:
+        return i * ny + j
+
+    faces: list[list[int]] = []
+
+    # Top surface: CCW winding viewed from +Z (upward-facing normals).
+    for i in range(nx - 1):
+        for j in range(ny - 1):
+            v00, v10 = idx(i, j), idx(i + 1, j)
+            v01, v11 = idx(i, j + 1), idx(i + 1, j + 1)
+            faces.append([v00, v10, v11])
+            faces.append([v00, v11, v01])
+
+    # Bottom surface: reversed winding vs. top (downward-facing normals).
+    for i in range(nx - 1):
+        for j in range(ny - 1):
+            v00, v10 = n_top + idx(i, j), n_top + idx(i + 1, j)
+            v01, v11 = n_top + idx(i, j + 1), n_top + idx(i + 1, j + 1)
+            faces.append([v00, v11, v10])
+            faces.append([v00, v01, v11])
+
+    # Side walls: stitch the four perimeter edges (top ring -> bottom ring).
+    # NOTE: winding direction per edge was derived by hand - see docstring.
+    for j in range(ny - 1):  # -X edge (i=0).
+        t_a, t_b = idx(0, j), idx(0, j + 1)
+        b_a, b_b = n_top + t_a, n_top + t_b
+        faces.append([t_a, b_a, b_b])
+        faces.append([t_a, b_b, t_b])
+    for j in range(ny - 1):  # +X edge (i=nx-1).
+        t_a, t_b = idx(nx - 1, j), idx(nx - 1, j + 1)
+        b_a, b_b = n_top + t_a, n_top + t_b
+        faces.append([t_a, t_b, b_b])
+        faces.append([t_a, b_b, b_a])
+    for i in range(nx - 1):  # -Y edge (j=0).
+        t_a, t_b = idx(i, 0), idx(i + 1, 0)
+        b_a, b_b = n_top + t_a, n_top + t_b
+        faces.append([t_a, t_b, b_b])
+        faces.append([t_a, b_b, b_a])
+    for i in range(nx - 1):  # +Y edge (j=ny-1).
+        t_a, t_b = idx(i, ny - 1), idx(i + 1, ny - 1)
+        b_a, b_b = n_top + t_a, n_top + t_b
+        faces.append([t_a, b_a, b_b])
+        faces.append([t_a, b_b, t_b])
+
+    faces_arr = np.array(faces, dtype=np.int64)
+
+    # Use trimesh only to compute smooth vertex normals from the face list
+    # above (process=False keeps our exact vertex/face indexing, since we
+    # rely on it for the UV correspondence below).
+    mesh_zup = trimesh.Trimesh(vertices=vertices_zup, faces=faces_arr, process=False)
+    normals_zup = np.asarray(mesh_zup.vertex_normals, dtype=np.float32)
+
+    vertices = zup_to_yup_transform(vertices_zup)
+    normals = zup_to_yup_transform(normals_zup)
+
+    uvs = np.stack(
+        [
+            (vertices_zup[:, 0] - origin_x) / texture_scale,
+            (vertices_zup[:, 1] - origin_y) / texture_scale,
+        ],
+        axis=-1,
+    ).astype(np.float32)
+
+    create_gltf_from_mesh_data(
+        vertices=vertices,
+        normals=normals,
+        uvs=uvs,
+        indices=faces_arr.astype(np.uint32),
+        color_uri=color_uri,
+        normal_uri=normal_uri,
+        roughness_uri=roughness_uri,
+        output_path=output_path,
+    )
+
+    console_logger.info(
+        f"Created heightfield floor GLTF: {output_path.name} "
+        f"({width}m x {depth}m, {nx}x{ny} grid, at ({center_x}, {center_y}))"
     )

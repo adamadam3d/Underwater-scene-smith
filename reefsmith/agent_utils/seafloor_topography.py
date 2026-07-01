@@ -28,6 +28,8 @@ Drake-dependent modules that are unavailable in this environment - keeping this
 module dependency-light lets it be imported and unit-tested standalone.
 """
 
+import hashlib
+import json
 import logging
 import math
 
@@ -125,6 +127,32 @@ class SeafloorGrid:
             cell_size=data["cell_size"],
             origin=np.array(data["origin"], dtype=float),
         )
+
+    def content_hash(self) -> str:
+        """Generate a deterministic content hash of this heightfield.
+
+        Used as part of the heightfield-mesh floor's GLTF cache key
+        (floor_cache_key's terrain_hash) so sculpting a room's terrain
+        (carve_seafloor_trench, add_seafloor_rock_plateau) invalidates any
+        floor geometry cached before the terrain existed or changed. Flat
+        (unsculpted) grids use the cheap box-mesh floor path instead, which
+        doesn't call this.
+        """
+        state = {
+            "heights": self.heights.tolist(),
+            "cell_size": self.cell_size,
+            "origin": self.origin.tolist(),
+        }
+        content_json = json.dumps(state, sort_keys=True)
+        return hashlib.sha256(content_json.encode()).hexdigest()[:16]
+
+    def is_flat(self) -> bool:
+        """True if every cell has the same height (unsculpted terrain).
+
+        Used to decide whether floor generation can use the cheap flat-box
+        path or needs the triangulated heightfield-mesh path.
+        """
+        return bool(np.allclose(self.heights, self.heights.flat[0]))
 
     def to_trimesh(self):
         """Convert the heightfield to a triangulated surface mesh.

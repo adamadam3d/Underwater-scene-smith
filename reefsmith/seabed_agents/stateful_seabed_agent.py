@@ -49,6 +49,7 @@ from reefsmith.agent_utils.scoring import (
     log_critique_scores,
     scores_to_dict,
 )
+from reefsmith.agent_utils.seafloor_topography import SeafloorGrid
 from reefsmith.agent_utils.workflow_tools import WorkflowTools
 from reefsmith.seabed_agents.base_seabed_agent import BaseSeabedAgent
 from reefsmith.seabed_agents.tools.floor_plan_tools import FloorPlanTools
@@ -68,7 +69,11 @@ from reefsmith.seabed_agents.tools.wall_geometry import (
 )
 from reefsmith.seabed_agents.tools.window_geometry import create_window_mesh
 from reefsmith.prompts.registry import FloorPlanAgentPrompts
-from reefsmith.utils.gltf_generation import create_floor_gltf, get_zup_to_yup_matrix
+from reefsmith.utils.gltf_generation import (
+    create_floor_gltf,
+    create_heightfield_floor_gltf,
+    get_zup_to_yup_matrix,
+)
 from reefsmith.utils.logging import BaseLogger
 from reefsmith.utils.material import Material
 
@@ -808,10 +813,18 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
         floor_thickness: float,
         floors_dir: Path,
         link_element: ET.Element,
+        seafloor_grid: SeafloorGrid | None = None,
     ) -> Path:
         """Generate floor GLTF and add to SDF.
 
         Uses geometry cache to reuse unchanged floors across iterations.
+
+        If seafloor_grid is sculpted (not SeafloorGrid.is_flat()), builds a
+        triangulated heightfield mesh + a grid of box collision primitives
+        approximating the terrain instead of the flat box used otherwise.
+        UNVERIFIED: this heightfield path has not been rendered or simulated
+        in this environment - see create_heightfield_floor_gltf's docstring
+        and _add_heightfield_floor_collision's docstring for known risks.
 
         Args:
             placed_room: The placed room with dimensions.
@@ -820,29 +833,54 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
             floor_thickness: Floor thickness in meters.
             floors_dir: Directory to save floor GLTF.
             link_element: SDF link element to add floor to.
+            seafloor_grid: This room's sculpted terrain, if any. None or a
+                flat grid uses the original flat-box floor path unchanged.
 
         Returns:
             Path to the generated floor GLTF file.
         """
-        cache_key = floor_cache_key(
-            width=placed_room.width,
-            depth=placed_room.depth,
-            thickness=floor_thickness,
-            material=floor_material,
-        )
+        is_sculpted = seafloor_grid is not None and not seafloor_grid.is_flat()
 
-        def create_fn(output_path: Path) -> None:
-            create_floor_gltf(
+        if is_sculpted:
+            cache_key = floor_cache_key(
                 width=placed_room.width,
                 depth=placed_room.depth,
                 thickness=floor_thickness,
                 material=floor_material,
-                output_path=output_path,
-                texture_scale=0.5,
-                center_x=0.0,
-                center_y=0.0,
-                center_z=-floor_thickness / 2,
+                terrain_hash=seafloor_grid.content_hash(),
             )
+
+            def create_fn(output_path: Path) -> None:
+                create_heightfield_floor_gltf(
+                    grid=seafloor_grid,
+                    thickness=floor_thickness,
+                    material=floor_material,
+                    output_path=output_path,
+                    texture_scale=0.5,
+                    center_x=0.0,
+                    center_y=0.0,
+                )
+
+        else:
+            cache_key = floor_cache_key(
+                width=placed_room.width,
+                depth=placed_room.depth,
+                thickness=floor_thickness,
+                material=floor_material,
+            )
+
+            def create_fn(output_path: Path) -> None:
+                create_floor_gltf(
+                    width=placed_room.width,
+                    depth=placed_room.depth,
+                    thickness=floor_thickness,
+                    material=floor_material,
+                    output_path=output_path,
+                    texture_scale=0.5,
+                    center_x=0.0,
+                    center_y=0.0,
+                    center_z=-floor_thickness / 2,
+                )
 
         assert self._geometry_cache is not None
         floor_gltf_path = self._geometry_cache.get_or_create_floor(
@@ -852,9 +890,14 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
         # Add floor to SDF.
         floor_gltf_rel = f"../floor_plans/{room_id}/floors/floor.gltf"
         self._add_gltf_floor_visual(link_element, floor_gltf_rel)
-        self._add_floor_collision(
-            link_element, length=placed_room.width, width=placed_room.depth
-        )
+        if is_sculpted:
+            self._add_heightfield_floor_collision(
+                link_element, grid=seafloor_grid, thickness=floor_thickness
+            )
+        else:
+            self._add_floor_collision(
+                link_element, length=placed_room.width, width=placed_room.depth
+            )
 
         return floor_gltf_path
 
@@ -1327,6 +1370,7 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
             floor_thickness=floor_thickness,
             floors_dir=floors_dir,
             link_element=link_item,
+            seafloor_grid=seafloor_grid,
         )
 
         # Generate walls and collect wall specs.
@@ -1595,6 +1639,85 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
         size.text = f"{length} {width} 0.1"
         pose = ET.SubElement(collision, "pose")
         pose.text = "0 0 -0.05 0 0 0"
+
+    @staticmethod
+    def _add_heightfield_floor_collision(
+        link_element: ET.Element, grid: SeafloorGrid, thickness: float
+    ) -> None:
+        """Add heightfield floor collision geometry to SDF link element.
+
+        Approximates the sculpted terrain as a grid of box collision
+        primitives, one per heightfield cell, each sized to that cell's
+        average height. This keeps every individual collision shape a
+        simple convex box (well-supported by Drake, same as the original
+        flat floor) rather than feeding Drake a single non-convex terrain
+        mesh.
+
+        UNVERIFIED: written without pydrake available to actually build a
+        MultibodyPlant and check contact behavior. Known risks a reviewer
+        should check before relying on this:
+          1. Cell count is (grid.shape[0]-1) * (grid.shape[1]-1) - for a
+             fine seafloor_cell_size over a large room this can be
+             hundreds of collision primitives, which may be slow in
+             Drake's broadphase/narrowphase. Consider coarsening
+             seafloor_cell_size for large sculpted rooms, or downsampling
+             this collision grid independently of the visual mesh's
+             resolution if that turns out to matter.
+          2. Each box uses the AVERAGE of its 4 corner heights as a flat
+             top - a genuinely steep single cell (e.g. right at a
+             plateau/trench edge) will have its box top over/undershoot
+             the actual surface there by up to that cell's local height
+             variation. Finer cell_size reduces this error.
+          3. Boxes are placed edge-to-edge with no overlap/gap tolerance;
+             floating-point cell boundaries meeting exactly at each edge
+             could in principle leave a hairline gap for Drake's collision
+             checker, though this is a common technique and usually fine
+             in practice.
+
+        Args:
+            link_element: SDF link element to add collision to.
+            grid: Sculpted seafloor heightfield (must not be flat - callers
+                should route flat grids to _add_floor_collision instead).
+            thickness: Minimum solid thickness below the grid's lowest
+                point, in meters (matches
+                create_heightfield_floor_gltf's thickness).
+        """
+        nx, ny = grid.shape
+        xmin, xmax, ymin, ymax = grid.world_extent
+        width = xmax - xmin
+        depth = ymax - ymin
+        origin_x = -width / 2.0
+        origin_y = -depth / 2.0
+        bottom_z = float(grid.heights.min()) - thickness
+
+        for i in range(nx - 1):
+            for j in range(ny - 1):
+                cell_top = float(
+                    np.mean(
+                        [
+                            grid.heights[i, j],
+                            grid.heights[i + 1, j],
+                            grid.heights[i, j + 1],
+                            grid.heights[i + 1, j + 1],
+                        ]
+                    )
+                )
+                cell_center_x = origin_x + (i + 0.5) * grid.cell_size
+                cell_center_y = origin_y + (j + 0.5) * grid.cell_size
+                cell_center_z = (bottom_z + cell_top) / 2.0
+                cell_height = cell_top - bottom_z
+
+                collision = ET.SubElement(
+                    link_element, "collision", name=f"floor_collision_{i}_{j}"
+                )
+                geometry = ET.SubElement(collision, "geometry")
+                box = ET.SubElement(geometry, "box")
+                size = ET.SubElement(box, "size")
+                size.text = f"{grid.cell_size} {grid.cell_size} {cell_height}"
+                pose = ET.SubElement(collision, "pose")
+                pose.text = (
+                    f"{cell_center_x} {cell_center_y} {cell_center_z} 0 0 0"
+                )
 
     @staticmethod
     def _add_wall_collision(

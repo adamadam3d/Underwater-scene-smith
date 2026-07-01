@@ -64,6 +64,32 @@ class TestCacheKeyFunctions(unittest.TestCase):
         key = floor_cache_key(width=5.0, depth=4.0, thickness=0.1, material=None)
         assert len(key) == 16  # SHA-256 truncated to 16 chars.
 
+    def test_floor_cache_key_default_terrain_hash_matches_unsculpted_calls(
+        self,
+    ) -> None:
+        """Omitting terrain_hash produces the same key as before terrain
+        support was added - unsculpted rooms' floor caches aren't
+        invalidated by this change."""
+        key_explicit_empty = floor_cache_key(
+            width=5.0, depth=4.0, thickness=0.1, material=None, terrain_hash=""
+        )
+        key_default = floor_cache_key(width=5.0, depth=4.0, thickness=0.1, material=None)
+        assert key_explicit_empty == key_default
+
+    def test_floor_cache_key_different_terrain_hash_produces_different_key(
+        self,
+    ) -> None:
+        """Sculpting a room's terrain (different terrain_hash) invalidates
+        the floor cache even if width/depth/thickness/material are
+        unchanged."""
+        key1 = floor_cache_key(
+            width=5.0, depth=4.0, thickness=0.1, material=None, terrain_hash="abc123"
+        )
+        key2 = floor_cache_key(
+            width=5.0, depth=4.0, thickness=0.1, material=None, terrain_hash="def456"
+        )
+        assert key1 != key2
+
     def test_wall_cache_key_deterministic(self) -> None:
         """Same inputs produce same key."""
         key1 = wall_cache_key(

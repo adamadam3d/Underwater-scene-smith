@@ -25,6 +25,7 @@ def floor_cache_key(
     thickness: float,
     material: Material | None,
     texture_scale: float = 0.5,
+    terrain_hash: str = "",
 ) -> str:
     """Generate cache key for floor GLTF.
 
@@ -34,6 +35,9 @@ def floor_cache_key(
         thickness: Floor thickness in meters.
         material: Floor material.
         texture_scale: UV scale for texturing.
+        terrain_hash: SeafloorGrid.content_hash() for sculpted rooms, or ""
+            for the flat box-mesh floor path (default keeps existing cache
+            keys for unsculpted rooms unchanged).
 
     Returns:
         SHA-256 hash string (first 16 chars).
@@ -44,6 +48,7 @@ def floor_cache_key(
         "thickness": thickness,
         "material": str(material.path) if material else None,
         "texture_scale": texture_scale,
+        "terrain_hash": terrain_hash,
     }
     content_json = json.dumps(state, sort_keys=True)
     return hashlib.sha256(content_json.encode()).hexdigest()[:16]

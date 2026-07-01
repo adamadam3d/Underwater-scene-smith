@@ -86,6 +86,27 @@ def test_to_dict_is_json_serializable():
     json.dumps(grid.to_dict())  # Should not raise.
 
 
+def test_is_flat_true_for_unsculpted_grid():
+    grid = flat_seafloor(5.0, 5.0, cell_size=0.5, base_height=-3.0)
+    assert grid.is_flat()
+
+
+def test_is_flat_false_after_sculpting():
+    grid = flat_seafloor(5.0, 5.0, cell_size=0.5)
+    grid = add_rock_plateau(grid, np.array([2.5, 2.5]), radius=1.0, height=0.5)
+    assert not grid.is_flat()
+
+
+def test_content_hash_deterministic_and_sensitive_to_terrain():
+    grid = flat_seafloor(5.0, 5.0, cell_size=0.5)
+    h1 = grid.content_hash()
+    h2 = grid.content_hash()
+    assert h1 == h2
+
+    sculpted = add_rock_plateau(grid, np.array([2.5, 2.5]), radius=1.0, height=0.5)
+    assert sculpted.content_hash() != h1
+
+
 def test_to_trimesh_produces_valid_mesh():
     trimesh = pytest.importorskip("trimesh")
     grid = flat_seafloor(4.0, 4.0, cell_size=1.0)
