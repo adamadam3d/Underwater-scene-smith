@@ -67,6 +67,7 @@ class WallTools:
         wall_surfaces: list[WallSurface],
         asset_manager: AssetManager,
         cfg: DictConfig,
+        current_velocity_world: np.ndarray | None = None,
     ):
         """Initialize wall tools.
 
@@ -75,11 +76,19 @@ class WallTools:
             wall_surfaces: List of wall surfaces for placement.
             asset_manager: Asset manager for generating 3D assets.
             cfg: Configuration object containing loop detection and noise settings.
+            current_velocity_world: Optional world-frame water current velocity
+                (e.g. from a WaterCurrentField, per configurations/experiment/
+                base_experiment.yaml's hydrodynamics.current section) used by
+                suggest_current_facing_rotation() for flow-sensitive accents
+                (sea fans / gorgonians). Not yet threaded through from config
+                by any caller - defaults to None, in which case that tool
+                reports no current data is available.
         """
         self.scene = scene
         self.wall_surfaces = wall_surfaces
         self.asset_manager = asset_manager
         self.cfg = cfg
+        self.current_velocity_world = current_velocity_world
 
         # Index surfaces by ID for O(1) lookup when placing objects.
         self.surfaces_by_id: dict[str, WallSurface] = {
@@ -224,15 +233,65 @@ class WallTools:
             }
             return json.dumps(result, indent=2, default=str)
 
-        # NOTE(current-facing accents): for flow-sensitive accents (sea fans /
-        # gorgonians), the designer's chosen `rotation_degrees` below can be
-        # cross-checked or pre-suggested by a caller using
-        # reefsmith.utils.hydrodynamics.surface_current_facing_angle_degrees(
-        # surface_normal, surface_up, current_velocity), which computes the
-        # in-plane heading that faces the accent into the current (a wall
-        # mount only rotates in-plane, so it cannot tilt to face a current
-        # that flows straight into the wall). Not yet wired up: no current
-        # direction is currently threaded into this agent's context.
+        @function_tool
+        def suggest_current_facing_rotation(wall_surface_id: str) -> str:
+            """Suggest a rotation_degrees for a flow-sensitive accent (sea fan,
+            gorgonian) so its broad face turns toward the water current.
+
+            Wall-mounted objects always face into the room regardless of
+            rotation_degrees; that parameter only tilts the object about its
+            fixed facing axis. This tool computes the tilt that best faces a
+            current-sensitive accent's broad plane into the current's
+            in-wall-plane component, and should be used before place_wall_object
+            when placing current-facing species (sea fans, gorgonians). For
+            species that are not current-sensitive (e.g. most sponges,
+            encrusting corals), a chosen rotation_degrees does not need to
+            follow this suggestion.
+
+            Args:
+                wall_surface_id: ID of the wall surface to compute the
+                    suggestion for. Use list_wall_surfaces() to see available
+                    surfaces.
+
+            Returns:
+                JSON with the suggested rotation_degrees, or a message
+                explaining that no current data is configured for this scene.
+            """
+            console_logger.info(
+                f"Tool called: suggest_current_facing_rotation("
+                f"wall_surface_id={wall_surface_id})"
+            )
+            if self.current_velocity_world is None:
+                return json.dumps(
+                    {
+                        "available": False,
+                        "message": (
+                            "No water current is configured for this scene; "
+                            "any rotation_degrees is acceptable."
+                        ),
+                    }
+                )
+
+            surface = self.surfaces_by_id.get(wall_surface_id)
+            if surface is None:
+                return json.dumps(
+                    {
+                        "available": False,
+                        "message": f"Wall surface '{wall_surface_id}' not found.",
+                    }
+                )
+
+            rotation_degrees = surface.current_facing_rotation_degrees(
+                self.current_velocity_world
+            )
+            return json.dumps(
+                {
+                    "available": True,
+                    "wall_surface_id": wall_surface_id,
+                    "suggested_rotation_degrees": rotation_degrees,
+                }
+            )
+
         @function_tool
         def place_wall_object(
             asset_id: str,
@@ -378,6 +437,7 @@ class WallTools:
         return {
             "generate_wall_assets": generate_wall_assets,
             "list_wall_surfaces": list_wall_surfaces,
+            "suggest_current_facing_rotation": suggest_current_facing_rotation,
             "place_wall_object": place_wall_object,
             "move_wall_object": move_wall_object,
             "remove_wall_object": remove_wall_object,

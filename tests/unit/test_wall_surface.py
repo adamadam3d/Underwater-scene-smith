@@ -329,6 +329,76 @@ class TestToWorldPoseRotation(unittest.TestCase):
         )
 
 
+class TestCurrentFacingRotationDegrees(unittest.TestCase):
+    """Test current_facing_rotation_degrees() for underwater current-facing
+    accents (sea fans / gorgonians)."""
+
+    def _create_wall(self, wall_direction: WallDirection) -> WallSurface:
+        directions = {
+            WallDirection.NORTH: ((0.0, 5.0), (1.0, 0.0)),
+            WallDirection.EAST: ((5.0, 0.0), (0.0, -1.0)),
+        }
+        start_point, wall_vec = directions[wall_direction]
+        return _create_test_wall_surface(
+            wall_direction=wall_direction,
+            start_point=start_point,
+            wall_vec=wall_vec,
+            wall_length=4.0,
+        )
+
+    def _assert_up_axis_aligns_with_current(
+        self, wall: WallSurface, current_velocity_world: np.ndarray
+    ) -> None:
+        """The resulting 'up' axis (from to_world_pose) must align with the
+        current's component perpendicular to the object's facing direction."""
+        rotation_deg = wall.current_facing_rotation_degrees(current_velocity_world)
+        pose = wall.to_world_pose(position_x=1.0, position_z=1.0, rotation_deg=rotation_deg)
+        up_world = pose.rotation().matrix()[:, 2]
+
+        wall_normal_world = wall.transform.rotation().matrix() @ np.array([0.0, 1.0, 0.0])
+        object_front_world = -wall_normal_world
+        n = object_front_world / np.linalg.norm(object_front_world)
+        target_in_plane = current_velocity_world - (current_velocity_world @ n) * n
+        target_in_plane_unit = target_in_plane / np.linalg.norm(target_in_plane)
+
+        alignment = float(up_world @ target_in_plane_unit)
+        self.assertAlmostEqual(alignment, 1.0, places=6)
+
+    def test_current_facing_alignment_north_wall(self) -> None:
+        wall = self._create_wall(WallDirection.NORTH)
+        for current in [
+            np.array([1.0, 0.3, 0.2]),
+            np.array([-0.5, 0.8, 0.1]),
+            np.array([0.2, 0.9, -0.6]),
+        ]:
+            self._assert_up_axis_aligns_with_current(wall, current)
+
+    def test_current_facing_alignment_east_wall(self) -> None:
+        wall = self._create_wall(WallDirection.EAST)
+        for current in [
+            np.array([1.0, 0.3, 0.2]),
+            np.array([-0.5, 0.8, 0.1]),
+        ]:
+            self._assert_up_axis_aligns_with_current(wall, current)
+
+    def test_zero_when_current_along_facing_axis(self) -> None:
+        """Current flowing straight into the wall (no perpendicular
+        component) leaves no in-plane direction to face - returns 0."""
+        wall = self._create_wall(WallDirection.NORTH)
+        wall_normal_world = wall.transform.rotation().matrix() @ np.array([0.0, 1.0, 0.0])
+        current_straight_in = wall_normal_world  # Along the object's facing axis.
+        rotation_deg = wall.current_facing_rotation_degrees(current_straight_in)
+        self.assertAlmostEqual(rotation_deg, 0.0, places=6)
+
+    def test_does_not_affect_position(self) -> None:
+        """current_facing_rotation_degrees is read-only; it must not mutate
+        the wall surface or its transform."""
+        wall = self._create_wall(WallDirection.NORTH)
+        transform_before = wall.transform.translation().copy()
+        wall.current_facing_rotation_degrees(np.array([1.0, 0.5, 0.2]))
+        np.testing.assert_allclose(wall.transform.translation(), transform_before)
+
+
 class TestExcludedRegionCoordinates(unittest.TestCase):
     """Test that excluded regions (doors/windows) are correctly positioned.
 

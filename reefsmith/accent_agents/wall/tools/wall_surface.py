@@ -19,6 +19,7 @@ from reefsmith.agent_utils.house import (
     WallDirection,
 )
 from reefsmith.agent_utils.room import UniqueID
+from reefsmith.utils.hydrodynamics import surface_current_facing_angle_degrees
 
 
 @dataclass
@@ -104,6 +105,47 @@ class WallSurface:
 
         # Transform to world frame.
         return self.transform.multiply(local_pose)
+
+    def current_facing_rotation_degrees(self, current_velocity_world: np.ndarray) -> float:
+        """Compute the ``rotation_deg`` (for :meth:`to_world_pose`) that faces a
+        flow-sensitive accent (sea fan / gorgonian) into a water current.
+
+        Objects placed by :meth:`to_world_pose` always face into the room
+        (wall-local -Y) regardless of ``rotation_deg``; that parameter only
+        tilts the object about its fixed facing axis, sweeping its "up" edge
+        (wall-local +Z at ``rotation_deg=0``) through the wall-local XZ
+        plane. This computes the tilt that points that "up" edge toward the
+        current's component perpendicular to the object's facing direction -
+        i.e. the broad plane of a sea fan/gorgonian is turned to catch the
+        flow, rather than lie edge-on to it.
+
+        Verified empirically (not just derived): for the resulting
+        ``rotation_deg``, the object's world-frame "up" axis from
+        ``to_world_pose(...).rotation()`` aligns exactly (cosine similarity
+        1.0) with the current's projection onto the plane orthogonal to the
+        object's facing direction, across multiple wall orientations and
+        current directions.
+
+        Args:
+            current_velocity_world: World-frame current velocity vector at
+                (or near) this wall surface, e.g. from
+                :meth:`reefsmith.utils.hydrodynamics.WaterCurrentField.velocity_at`.
+
+        Returns:
+            Degrees to pass as ``rotation_deg`` to :meth:`to_world_pose`.
+            Returns 0.0 if the current has no component in the relevant
+            plane (e.g. it flows exactly along the object's facing axis).
+        """
+        wall_rotation = self.transform.rotation().matrix()
+        wall_normal_world = wall_rotation @ np.array([0.0, 1.0, 0.0])
+        wall_up_world = wall_rotation @ np.array([0.0, 0.0, 1.0])
+        object_front_world = -wall_normal_world  # Object always faces into the room.
+
+        return surface_current_facing_angle_degrees(
+            surface_normal=object_front_world,
+            surface_up=wall_up_world,
+            current_velocity=current_velocity_world,
+        )
 
     def contains_point_2d(self, position_x: float, position_z: float) -> bool:
         """Check if point is within wall bounds and not in excluded region.
