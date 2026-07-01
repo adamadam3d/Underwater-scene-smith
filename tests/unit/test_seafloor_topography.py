@@ -70,6 +70,22 @@ def test_copy_is_independent():
     assert grid.heights[0, 0] != 999.0
 
 
+def test_to_dict_from_dict_roundtrip():
+    grid = flat_seafloor(6.0, 4.0, cell_size=0.5, base_height=-2.0)
+    grid = add_rock_plateau(grid, np.array([3.0, 2.0]), radius=1.0, height=0.5)
+    restored = SeafloorGrid.from_dict(grid.to_dict())
+    assert np.allclose(restored.heights, grid.heights)
+    assert restored.cell_size == grid.cell_size
+    assert np.allclose(restored.origin, grid.origin)
+
+
+def test_to_dict_is_json_serializable():
+    import json
+
+    grid = flat_seafloor(4.0, 4.0, cell_size=1.0)
+    json.dumps(grid.to_dict())  # Should not raise.
+
+
 def test_to_trimesh_produces_valid_mesh():
     trimesh = pytest.importorskip("trimesh")
     grid = flat_seafloor(4.0, 4.0, cell_size=1.0)

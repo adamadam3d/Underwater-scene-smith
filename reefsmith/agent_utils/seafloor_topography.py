@@ -109,6 +109,23 @@ class SeafloorGrid:
         h1 = h01 * (1 - tx) + h11 * tx
         return float(h0 * (1 - ty) + h1 * ty)
 
+    def to_dict(self) -> dict:
+        """Serialize to dictionary for JSON storage (e.g. checkpoint/resume)."""
+        return {
+            "heights": self.heights.tolist(),
+            "cell_size": self.cell_size,
+            "origin": self.origin.tolist(),
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "SeafloorGrid":
+        """Deserialize from dictionary produced by :meth:`to_dict`."""
+        return cls(
+            heights=np.array(data["heights"], dtype=float),
+            cell_size=data["cell_size"],
+            origin=np.array(data["origin"], dtype=float),
+        )
+
     def to_trimesh(self):
         """Convert the heightfield to a triangulated surface mesh.
 

@@ -20,6 +20,7 @@ from reefsmith.agent_utils.sceneeval_exporter import (
     SceneEvalExportConfig,
     SceneEvalExporter,
 )
+from reefsmith.agent_utils.seafloor_topography import SeafloorGrid
 from reefsmith.utils.material import Material
 from reefsmith.utils.package_utils import create_package_xml
 from reefsmith.utils.path_utils import safe_relative_path
@@ -658,6 +659,14 @@ class RoomGeometry:
     openings: list["ClearanceOpeningData"] = field(default_factory=list)
     """All door/window/open openings with physics and rendering data."""
 
+    seafloor_grid: SeafloorGrid | None = None
+    """Optional seafloor heightfield (rock plateaus, trenches, drop-offs).
+
+    None means the floor is the legacy flat plane (Z=0). Not yet consumed by
+    SDF export or rendering - carried here so the Seabed Agent can attach
+    terrain data ahead of wiring those consumers.
+    """
+
     def content_hash(self) -> str:
         """Generate content hash for this floor plan."""
         floor_plan_dict = {
@@ -733,6 +742,9 @@ class RoomGeometry:
             "openings": [o.to_dict() for o in self.openings],
             "floor": floor_data,
             "wall_normals": wall_normals_data,
+            "seafloor_grid": (
+                self.seafloor_grid.to_dict() if self.seafloor_grid else None
+            ),
         }
 
     @classmethod
@@ -803,6 +815,11 @@ class RoomGeometry:
             openings=[
                 ClearanceOpeningData.from_dict(o) for o in data.get("openings", [])
             ],
+            seafloor_grid=(
+                SeafloorGrid.from_dict(data["seafloor_grid"])
+                if data.get("seafloor_grid")
+                else None
+            ),
         )
 
 
