@@ -19,6 +19,7 @@ import trimesh
 
 from reefsmith.agent_utils.materials import get_friction
 from reefsmith.agent_utils.mesh_physics_analyzer import MeshPhysicsAnalysis
+from reefsmith.utils.hydrodynamics import MarineMaterial, estimate_hydrodynamic_properties
 from reefsmith.utils.inertia_utils import fix_sdf_file_inertia
 from reefsmith.utils.sdf_utils import (
     parse_pose,
@@ -30,6 +31,13 @@ from reefsmith.utils.sdf_utils import (
 )
 
 console_logger = logging.getLogger(__name__)
+
+# Custom namespace for ReefSmith-specific SDF extensions (buoyancy/drag).
+# Unrecognized namespaced elements are a standard SDFormat extension
+# mechanism and are ignored by parsers (including Drake) that don't know
+# about them, mirroring how this module already attaches Drake-specific
+# extensions (e.g. "{drake.mit.edu}declare_convex" below).
+REEFSMITH_SDF_NAMESPACE = "reefsmith.dev"
 
 
 # Y-up to Z-up coordinate transformation (90° rotation around X-axis).
@@ -146,6 +154,10 @@ def generate_drake_sdf(
     friction = get_friction(physics_analysis.material)
 
     # Create SDF XML structure.
+    # Register a readable prefix for the ReefSmith extension namespace
+    # (mirrors the "drake" prefix registered for {drake.mit.edu} elements
+    # in add_self_collision_filter below).
+    ET.register_namespace("reefsmith", REEFSMITH_SDF_NAMESPACE)
     sdf = ET.Element("sdf", version="1.7")
     model = ET.SubElement(sdf, "model", name=asset_name)
 
@@ -176,6 +188,49 @@ def generate_drake_sdf(
         ET.SubElement(inertia, "iyz").text = f"{inertia_tensor[1, 2]:.6e}"
     # If inertia_tensor is None, omit the <inertia> tag entirely.
     # Drake will use default values (I_xx=I_yy=I_zz=1.0, products=0.0).
+
+    # Hydrodynamic properties (buoyancy, drag) as a custom SDF extension.
+    # Best-effort: never fails asset generation if the estimate can't be
+    # computed (e.g. a degenerate bounding box), since these properties are
+    # supplementary to the required mass/inertia already written above.
+    try:
+        marine_material = MarineMaterial.from_label(physics_analysis.material)
+        # Guard against a zero-thickness bounding box dimension (e.g. a very
+        # flat sea fan/gorgonian), which would make the shape-based drag
+        # coefficient estimate ill-defined.
+        min_extent = 1e-4
+        extents = np.maximum(visual_mesh.bounding_box.extents, min_extent)
+        hydro = estimate_hydrodynamic_properties(
+            volume_m3=volume,
+            extents=extents,
+            material=marine_material,
+            body_density=density,
+        )
+        hydro_elem = ET.SubElement(
+            link, f"{{{REEFSMITH_SDF_NAMESPACE}}}hydrodynamics"
+        )
+        ET.SubElement(hydro_elem, "material").text = marine_material.label
+        ET.SubElement(hydro_elem, "buoyant_force_n").text = f"{hydro.buoyant_force_n:.6f}"
+        ET.SubElement(
+            hydro_elem, "net_buoyant_force_n"
+        ).text = f"{hydro.net_buoyant_force_n:.6f}"
+        ET.SubElement(
+            hydro_elem, "apparent_submerged_weight_n"
+        ).text = f"{hydro.apparent_submerged_weight_n:.6f}"
+        ET.SubElement(
+            hydro_elem, "drag_coefficient"
+        ).text = f"{hydro.drag_coefficient:.4f}"
+        ET.SubElement(
+            hydro_elem, "reference_area_m2"
+        ).text = f"{hydro.reference_area_m2:.6f}"
+        ET.SubElement(hydro_elem, "positively_buoyant").text = (
+            "true" if hydro.positively_buoyant else "false"
+        )
+    except Exception as e:
+        console_logger.warning(
+            f"Failed to compute hydrodynamic properties for '{asset_name}': {e}. "
+            f"Continuing without them (mass/inertia are unaffected)."
+        )
 
     # Visual geometry (external mesh reference).
     visual = ET.SubElement(link, "visual", name="visual")
