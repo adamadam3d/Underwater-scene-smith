@@ -224,6 +224,15 @@ class WallTools:
             }
             return json.dumps(result, indent=2, default=str)
 
+        # NOTE(current-facing accents): for flow-sensitive accents (sea fans /
+        # gorgonians), the designer's chosen `rotation_degrees` below can be
+        # cross-checked or pre-suggested by a caller using
+        # reefsmith.utils.hydrodynamics.surface_current_facing_angle_degrees(
+        # surface_normal, surface_up, current_velocity), which computes the
+        # in-plane heading that faces the accent into the current (a wall
+        # mount only rotates in-plane, so it cannot tilt to face a current
+        # that flows straight into the wall). Not yet wired up: no current
+        # direction is currently threaded into this agent's context.
         @function_tool
         def place_wall_object(
             asset_id: str,

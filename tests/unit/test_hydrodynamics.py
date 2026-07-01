@@ -22,6 +22,7 @@ from reefsmith.utils.hydrodynamics import (
     is_positively_buoyant,
     net_buoyant_force,
     reference_area,
+    surface_current_facing_angle_degrees,
     yaw_to_quaternion,
 )
 
@@ -234,6 +235,78 @@ def test_alignment_quaternion_rotates_local_x_into_current():
 def test_yaw_quaternion_is_unit():
     q = yaw_to_quaternion(1.234)
     assert np.linalg.norm(q) == pytest.approx(1.0)
+
+
+# --- Surface-mounted current facing (wall/accent placement) --------------- #
+
+
+def test_surface_facing_zero_when_current_already_aligned_with_up():
+    # Wall faces +X; "rotation_degrees=0" reference axis is +Z.
+    angle = surface_current_facing_angle_degrees(
+        surface_normal=np.array([1.0, 0.0, 0.0]),
+        surface_up=np.array([0.0, 0.0, 1.0]),
+        current_velocity=np.array([0.0, 0.0, 2.0]),
+    )
+    assert angle == pytest.approx(0.0)
+
+
+def test_surface_facing_ninety_degrees_for_perpendicular_in_plane_current():
+    # right_in_plane = normal x up = X x Z = -Y, so a current along -Y is a
+    # pure 90-degree in-plane rotation away from the "up" reference axis.
+    angle = surface_current_facing_angle_degrees(
+        surface_normal=np.array([1.0, 0.0, 0.0]),
+        surface_up=np.array([0.0, 0.0, 1.0]),
+        current_velocity=np.array([0.0, -3.0, 0.0]),
+    )
+    assert angle == pytest.approx(90.0)
+
+
+def test_surface_facing_zero_when_current_hits_surface_head_on():
+    # Current flows straight along the surface normal - no in-plane
+    # component to face into.
+    angle = surface_current_facing_angle_degrees(
+        surface_normal=np.array([1.0, 0.0, 0.0]),
+        surface_up=np.array([0.0, 0.0, 1.0]),
+        current_velocity=np.array([5.0, 0.0, 0.0]),
+    )
+    assert angle == pytest.approx(0.0)
+
+
+def test_surface_facing_handles_non_orthogonal_up_by_projecting():
+    # surface_up need not be exactly orthogonal to the normal.
+    angle = surface_current_facing_angle_degrees(
+        surface_normal=np.array([1.0, 0.0, 0.0]),
+        surface_up=np.array([0.3, 0.0, 1.0]),  # has a component along normal
+        current_velocity=np.array([0.0, 0.0, 4.0]),
+    )
+    assert angle == pytest.approx(0.0)
+
+
+def test_surface_facing_rejects_zero_normal():
+    with pytest.raises(ValueError):
+        surface_current_facing_angle_degrees(
+            surface_normal=np.array([0.0, 0.0, 0.0]),
+            surface_up=np.array([0.0, 0.0, 1.0]),
+            current_velocity=np.array([1.0, 0.0, 0.0]),
+        )
+
+
+def test_surface_facing_rejects_up_parallel_to_normal():
+    with pytest.raises(ValueError):
+        surface_current_facing_angle_degrees(
+            surface_normal=np.array([1.0, 0.0, 0.0]),
+            surface_up=np.array([2.0, 0.0, 0.0]),
+            current_velocity=np.array([0.0, 1.0, 0.0]),
+        )
+
+
+def test_surface_facing_rejects_bad_shapes():
+    with pytest.raises(ValueError):
+        surface_current_facing_angle_degrees(
+            surface_normal=np.array([1.0, 0.0]),
+            surface_up=np.array([0.0, 0.0, 1.0]),
+            current_velocity=np.array([0.0, 1.0, 0.0]),
+        )
 
 
 def _rotate_vector_by_quaternion(v: np.ndarray, q: np.ndarray) -> np.ndarray:

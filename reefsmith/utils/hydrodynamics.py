@@ -385,3 +385,67 @@ def align_quaternion_to_current(current_velocity: np.ndarray) -> np.ndarray:
     Combines :func:`current_alignment_yaw` and :func:`yaw_to_quaternion`.
     """
     return yaw_to_quaternion(current_alignment_yaw(current_velocity))
+
+
+def surface_current_facing_angle_degrees(
+    surface_normal: np.ndarray,
+    surface_up: np.ndarray,
+    current_velocity: np.ndarray,
+) -> float:
+    """In-plane rotation (degrees) to face a surface-mounted accent into the
+    current, for placement APIs that expose a single "rotation about the
+    surface normal" degree of freedom rather than a full 3D orientation.
+
+    This is the practical variant of :func:`current_alignment_yaw` for
+    accents like sea fans / gorgonians mounted flush against a reef surface
+    (e.g. via a ``place_wall_object(..., rotation_degrees=...)``-style tool):
+    such placement is normally an in-plane spin about the surface normal, so
+    the object cannot be tilted to directly face a current that flows
+    *into* the surface - only its in-plane heading can be adjusted to face
+    whatever component of the current runs *along* the surface.
+
+    Args:
+        surface_normal: Outward-facing normal of the mounting surface.
+        surface_up: The surface's own "zero rotation" reference axis (e.g.
+            the axis ``rotation_degrees=0`` currently points along), used to
+            measure the returned angle against. Need not be exactly
+            orthogonal to ``surface_normal``; it is projected into the
+            surface plane first.
+        current_velocity: World-space current velocity vector (e.g. from
+            :meth:`WaterCurrentField.velocity_at`).
+
+    Returns:
+        Degrees to rotate about the surface normal so the object's reference
+        axis points into the current's in-plane component. Returns 0.0 if the
+        current has (near) zero component within the surface plane (e.g. it
+        flows straight into/out of the surface).
+    """
+    normal = np.asarray(surface_normal, dtype=float)
+    up_raw = np.asarray(surface_up, dtype=float)
+    current = np.asarray(current_velocity, dtype=float)
+    if normal.shape != (3,) or up_raw.shape != (3,) or current.shape != (3,):
+        raise ValueError("surface_normal, surface_up, current_velocity must be (3,)")
+
+    normal_norm = np.linalg.norm(normal)
+    if normal_norm < 1e-12:
+        raise ValueError("surface_normal must be non-zero")
+    normal = normal / normal_norm
+
+    # Project surface_up into the plane orthogonal to normal.
+    up_in_plane = up_raw - (up_raw @ normal) * normal
+    up_norm = np.linalg.norm(up_in_plane)
+    if up_norm < 1e-12:
+        raise ValueError("surface_up must not be parallel to surface_normal")
+    up_in_plane = up_in_plane / up_norm
+    right_in_plane = np.cross(normal, up_in_plane)
+
+    # Project the current into the same plane.
+    current_in_plane = current - (current @ normal) * normal
+    current_norm = np.linalg.norm(current_in_plane)
+    if current_norm < 1e-12:
+        return 0.0
+    current_in_plane = current_in_plane / current_norm
+
+    x = float(current_in_plane @ up_in_plane)
+    y = float(current_in_plane @ right_in_plane)
+    return math.degrees(math.atan2(y, x))
