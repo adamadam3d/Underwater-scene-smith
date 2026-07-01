@@ -320,10 +320,24 @@ clearance_zones:
   # Meters of clearance for approaching open connections
   open_connection_clearance: 0.7
 
-# Reachability checking configuration
+# Reachability checking configuration (legacy 2D floor-bound check; see
+# rov_clearance below for the underwater-appropriate 3D volumetric check).
 reachability:
   # Side length of square robot footprint for passage width validation (meters).
   robot_width: 0.3
+
+# 3D volumetric ROV/AUV clearance checking configuration. An ROV swims freely
+# in 3D and can pass over/under reef structures that the flat 2D reachability
+# check above would flag as a dead end - see
+# reefsmith.agent_utils.rov_clearance for details.
+rov_clearance:
+  # Assumed ROV/AUV body radius for clearance checks (meters).
+  rov_radius_m: 0.3
+  # Grid resolution for 3D volumetric clearance checks (meters).
+  voxel_size_m: 0.25
+  # Vertical extent of the checked water volume above the seabed (meters).
+  # Reef structures taller than this are only checked up to this height.
+  check_height_m: 3.0
 
 # Snap to object configuration
 snap_to_object:

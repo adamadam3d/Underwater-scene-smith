@@ -1,7 +1,7 @@
 name: "stateful_critic_runner_instruction"
 version: "1.0"
 description: "Runner instruction for stateful critic agent evaluation"
-template_variables: ["physics_context", "placement_style", "reachability_context", "robot_width"]
+template_variables: ["physics_context", "placement_style", "reachability_context", "robot_width", "rov_clearance_context"]
 prompt: |
   Evaluate this furniture arrangement comprehensively. Provide both critical feedback on
   issues AND suggestions for enhancement opportunities.
@@ -84,6 +84,22 @@ prompt: |
   - If blocking furniture is identified → mention specific IDs and suggest fixes
   {% else %}
   No reachability issues - all areas of the room are accessible.
+  {% endif %}
+
+  ## ROV/AUV Volumetric Clearance:
+  Note: the reachability check above assumes a floor-bound robot. An ROV/AUV
+  swims freely in 3D and can pass over or under a reef structure that check
+  would flag as blocking - the following is the 3D-aware result and should
+  take priority over the reachability check above when they disagree.
+  {% if rov_clearance_context %}
+  The following ROV/AUV clearance issues were detected:
+  {{ rov_clearance_context }}
+
+  Your reachability score MUST reflect this data:
+  - If disconnected navigable regions exist → score ≤ 6
+  - If blocking structures are identified → mention specific IDs and suggest fixes
+  {% else %}
+  No ROV/AUV clearance issues - the full water volume is navigable in 3D.
   {% endif %}
 
   ## Orientation Validation:

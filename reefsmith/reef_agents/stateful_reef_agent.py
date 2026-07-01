@@ -10,6 +10,8 @@ import logging
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 from agents import Agent, FunctionTool, Runner, RunResult
 from omegaconf import DictConfig
 
@@ -22,7 +24,12 @@ from reefsmith.agent_utils.reachability import (
     compute_reachability,
     format_reachability_for_critic,
 )
-from reefsmith.agent_utils.room import AgentType, RoomScene
+from reefsmith.agent_utils.room import AgentType, ObjectType, RoomScene
+from reefsmith.agent_utils.rov_clearance import (
+    ClearanceObstacle,
+    compute_rov_clearance,
+    format_rov_clearance_result,
+)
 from reefsmith.agent_utils.scoring import (
     FurnitureCritiqueWithScores,
     log_agent_response,
@@ -384,20 +391,73 @@ class StatefulReefAgent(BaseStatefulAgent, BaseReefAgent):
         """
         self.furniture_tools.set_noise_profile(mode)
 
-    def _get_extra_critique_kwargs(self) -> dict[str, Any]:
-        """Get extra kwargs for critic prompt (reachability context).
+    def _build_rov_clearance_obstacles(self) -> list[ClearanceObstacle]:
+        """Build ROV clearance obstacles from reef structures in the scene.
 
-        Computes room reachability and formats it for critic context injection.
-        This allows the critic to score reachability based on computed metrics.
+        Mirrors reachability.py's furniture-OBB extraction (_get_furniture_obbs),
+        but keeps the full 3D world AABB rather than a 2D XY-projected polygon,
+        since ROV clearance is a volumetric (not floor-plane) check.
 
         Returns:
-            Dict with reachability_context and robot_width for prompt template.
+            List of ClearanceObstacle for every structural reef object with
+            valid bounds (excludes thin coverings, matching reachability.py).
+        """
+        obstacles: list[ClearanceObstacle] = []
+        for obj_id, obj in self.scene.objects.items():
+            if obj.object_type != ObjectType.FURNITURE:
+                continue
+            if obj.metadata.get("asset_source") == "thin_covering":
+                continue
+            world_bounds = obj.compute_world_bounds()
+            if world_bounds is None:
+                console_logger.error(
+                    f"Skipping {obj_id} in ROV clearance check: no bounding box"
+                )
+                continue
+            bbox_min, bbox_max = world_bounds
+            obstacles.append(ClearanceObstacle(str(obj_id), bbox_min, bbox_max))
+        return obstacles
+
+    def _get_extra_critique_kwargs(self) -> dict[str, Any]:
+        """Get extra kwargs for critic prompt (reachability + ROV clearance context).
+
+        Computes both the legacy 2D floor-bound reachability check and the
+        3D volumetric ROV/AUV clearance check, formatting each for critic
+        context injection. The 3D check can find a scene fully navigable
+        (e.g. an ROV swimming over a low coral spanning the whole seabed)
+        even when the 2D check reports it as blocked.
+
+        Returns:
+            Dict with reachability_context, robot_width, and
+            rov_clearance_context for prompt template.
         """
         robot_width = self.cfg.reachability.robot_width
         result = compute_reachability(scene=self.scene, robot_width=robot_width)
         reachability_context = format_reachability_for_critic(result)
 
+        rov_cfg = self.cfg.rov_clearance
+        room_geometry = self.scene.room_geometry
+        bounds_min = np.array([0.0, 0.0, 0.0])
+        bounds_max = np.array(
+            [room_geometry.length, room_geometry.width, rov_cfg.check_height_m]
+        )
+        rov_result = compute_rov_clearance(
+            bounds_min=bounds_min,
+            bounds_max=bounds_max,
+            obstacles=self._build_rov_clearance_obstacles(),
+            voxel_size=rov_cfg.voxel_size_m,
+            rov_radius=rov_cfg.rov_radius_m,
+        )
+        # Empty when fully navigable, matching format_reachability_for_critic's
+        # convention so the prompt template's {% if %} check works identically.
+        rov_clearance_context = (
+            ""
+            if rov_result.is_fully_reachable
+            else format_rov_clearance_result(rov_result)
+        )
+
         return {
             "reachability_context": reachability_context,
             "robot_width": robot_width,
+            "rov_clearance_context": rov_clearance_context,
         }
