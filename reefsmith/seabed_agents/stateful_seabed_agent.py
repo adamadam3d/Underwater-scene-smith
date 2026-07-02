@@ -896,7 +896,10 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
             )
         else:
             self._add_floor_collision(
-                link_element, length=placed_room.width, width=placed_room.depth
+                link_element,
+                length=placed_room.width,
+                width=placed_room.depth,
+                thickness=floor_thickness,
             )
 
         return floor_gltf_path
@@ -1623,7 +1626,7 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
 
     @staticmethod
     def _add_floor_collision(
-        link_element: ET.Element, length: float, width: float
+        link_element: ET.Element, length: float, width: float, thickness: float = 0.1
     ) -> None:
         """Add floor collision geometry to SDF link element.
 
@@ -1631,14 +1634,19 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
             link_element: SDF link element to add collision to.
             length: Floor length in meters.
             width: Floor width in meters.
+            thickness: Collision box thickness in meters. Pass the room's
+                floor_thickness so the collision solid matches the visual
+                floor's depth (previously hardcoded to 0.1, which left part
+                of a thicker visual floor with no collision beneath it and
+                diverged from the heightfield path's thickness handling).
         """
         collision = ET.SubElement(link_element, "collision", name="floor_collision")
         geometry = ET.SubElement(collision, "geometry")
         box = ET.SubElement(geometry, "box")
         size = ET.SubElement(box, "size")
-        size.text = f"{length} {width} 0.1"
+        size.text = f"{length} {width} {thickness}"
         pose = ET.SubElement(collision, "pose")
-        pose.text = "0 0 -0.05 0 0 0"
+        pose.text = f"0 0 {-thickness / 2} 0 0 0"
 
     @staticmethod
     def _add_heightfield_floor_collision(
@@ -1690,18 +1698,17 @@ class StatefulSeabedAgent(BaseStatefulAgent, BaseSeabedAgent):
         origin_y = -depth / 2.0
         bottom_z = float(grid.heights.min()) - thickness
 
+        # Per-cell top = average of the cell's 4 corner heights, computed
+        # for all cells at once. A follow-up worth doing if Drake broadphase
+        # cost shows up in profiles: greedily merge runs of equal-height
+        # cells (the flat majority of a typical seabed) into fewer, larger
+        # boxes instead of one box per cell.
+        h = grid.heights
+        cell_tops = 0.25 * (h[:-1, :-1] + h[1:, :-1] + h[:-1, 1:] + h[1:, 1:])
+
         for i in range(nx - 1):
             for j in range(ny - 1):
-                cell_top = float(
-                    np.mean(
-                        [
-                            grid.heights[i, j],
-                            grid.heights[i + 1, j],
-                            grid.heights[i, j + 1],
-                            grid.heights[i + 1, j + 1],
-                        ]
-                    )
-                )
+                cell_top = float(cell_tops[i, j])
                 cell_center_x = origin_x + (i + 0.5) * grid.cell_size
                 cell_center_y = origin_y + (j + 0.5) * grid.cell_size
                 cell_center_z = (bottom_z + cell_top) / 2.0

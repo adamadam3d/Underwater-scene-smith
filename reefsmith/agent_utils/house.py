@@ -697,6 +697,13 @@ class RoomGeometry:
         floor_plan_dict["walls"] = [wall.content_hash() for wall in self.walls]
         floor_plan_dict["floor"] = self.floor.content_hash() if self.floor else None
 
+        # Terrain shapes the floor mesh via a fixed-path GLTF whose contents
+        # this hash never reads, so hash the heightfield itself (None for the
+        # legacy flat floor keeps pre-terrain hashes unchanged).
+        floor_plan_dict["seafloor_grid"] = (
+            self.seafloor_grid.content_hash() if self.seafloor_grid else None
+        )
+
         # Convert to JSON string with sorted keys for determinism.
         content_json = json.dumps(floor_plan_dict, sort_keys=True)
 
@@ -961,11 +968,20 @@ class HouseLayout:
 
         grid = self.seafloor_grids.get(room_id)
         if grid is not None:
-            xmin, xmax, ymin, ymax = grid.world_extent
-            if (
-                abs((xmax - xmin) - placed_room.width) < 1e-6
-                and abs((ymax - ymin) - placed_room.depth) < 1e-6
-            ):
+            # Compare against the shape flat_seafloor would build for the
+            # room's CURRENT dims at the stored grid's own resolution - not
+            # against the raw room width. flat_seafloor rounds the extent to
+            # whole cells, so a grid's extent generally differs from the room
+            # width (e.g. 7.3m at 0.5m cells -> 7.5m extent); comparing raw
+            # width would wrongly reset sculpted terrain on every access for
+            # any room not sized in exact cell multiples.
+            expected_nx = max(
+                2, int(round(placed_room.width / grid.cell_size)) + 1
+            )
+            expected_ny = max(
+                2, int(round(placed_room.depth / grid.cell_size)) + 1
+            )
+            if grid.shape == (expected_nx, expected_ny):
                 return grid
             console_logger.info(
                 f"Seafloor grid for '{room_id}' no longer matches room bounds "
@@ -1270,6 +1286,14 @@ class HouseLayout:
             "exterior_material": (
                 str(self.exterior_material.path) if self.exterior_material else None
             ),
+            # Sculpted terrain changes the generated floor mesh/collision, so
+            # it must invalidate render caches and critique dedup keyed on
+            # this hash (flat/unsculpted rooms have no entry, keeping hashes
+            # for terrain-free layouts identical to before this field).
+            "seafloor_grids": {
+                room_id: grid.content_hash()
+                for room_id, grid in sorted(self.seafloor_grids.items())
+            },
         }
         content_json = json.dumps(state, sort_keys=True)
         return hashlib.sha256(content_json.encode()).hexdigest()[:16]

@@ -851,20 +851,17 @@ def create_heightfield_floor_gltf(
     profile, a flat bottom `thickness` below the grid's lowest point, and
     side walls stitching the two together around the perimeter.
 
-    NOT YET VISUALLY OR PHYSICALLY VERIFIED - written without pydrake/bpy
-    available in this environment to actually render or simulate it.
-    Known simplifications/risks a reviewer should check before relying on
-    this in production:
-      1. Side-wall face winding was derived by hand, not tested. Verify with
-         trimesh (e.g. `mesh.is_winding_consistent`, `mesh.is_watertight`)
-         and by visually inspecting a render before trusting it for physics
-         collision.
-      2. Vertex normals are smooth-shaded across the top/wall seam (the
+    Mesh topology is verified (trimesh: watertight, winding-consistent,
+    outward normals on all faces), but NOT yet visually rendered or
+    physically simulated - written without pydrake/bpy available in this
+    environment. Known simplifications/risks a reviewer should check before
+    relying on this in production:
+      1. Vertex normals are smooth-shaded across the top/wall seam (the
          boundary vertices are shared between the top surface and the wall
          quads, not duplicated for hard edges). This is a cosmetic choice,
          not a correctness bug, but will look different from the crisp
          edges of the old box floor.
-      3. UV coordinates use a single planar XY projection for top, bottom,
+      2. UV coordinates use a single planar XY projection for top, bottom,
          and walls alike, so wall texturing will look stretched/duplicated
          compared to a purpose-built wall UV unwrap. Fine for a mostly-flat
          terrain with occasional shallow features; likely to look wrong on
@@ -942,27 +939,28 @@ def create_heightfield_floor_gltf(
             faces.append([v00, v01, v11])
 
     # Side walls: stitch the four perimeter edges (top ring -> bottom ring).
-    # NOTE: winding direction per edge was derived by hand - see docstring.
+    # Winding verified with trimesh (is_winding_consistent, outward-facing
+    # per-wall normals) against this exact construction.
     for j in range(ny - 1):  # -X edge (i=0).
         t_a, t_b = idx(0, j), idx(0, j + 1)
         b_a, b_b = n_top + t_a, n_top + t_b
-        faces.append([t_a, b_a, b_b])
-        faces.append([t_a, b_b, t_b])
+        faces.append([t_a, t_b, b_b])
+        faces.append([t_a, b_b, b_a])
     for j in range(ny - 1):  # +X edge (i=nx-1).
         t_a, t_b = idx(nx - 1, j), idx(nx - 1, j + 1)
         b_a, b_b = n_top + t_a, n_top + t_b
-        faces.append([t_a, t_b, b_b])
-        faces.append([t_a, b_b, b_a])
+        faces.append([t_a, b_a, b_b])
+        faces.append([t_a, b_b, t_b])
     for i in range(nx - 1):  # -Y edge (j=0).
         t_a, t_b = idx(i, 0), idx(i + 1, 0)
         b_a, b_b = n_top + t_a, n_top + t_b
-        faces.append([t_a, t_b, b_b])
-        faces.append([t_a, b_b, b_a])
+        faces.append([t_a, b_a, b_b])
+        faces.append([t_a, b_b, t_b])
     for i in range(nx - 1):  # +Y edge (j=ny-1).
         t_a, t_b = idx(i, ny - 1), idx(i + 1, ny - 1)
         b_a, b_b = n_top + t_a, n_top + t_b
-        faces.append([t_a, b_a, b_b])
-        faces.append([t_a, b_b, t_b])
+        faces.append([t_a, t_b, b_b])
+        faces.append([t_a, b_b, b_a])
 
     faces_arr = np.array(faces, dtype=np.int64)
 

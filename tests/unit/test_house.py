@@ -345,6 +345,75 @@ class TestGetOrInitSeafloorGrid(unittest.TestCase):
         assert xmax - xmin == 6.0
         assert ymax - ymin == 5.0
 
+    def test_non_cell_multiple_dims_retain_sculpted_terrain(self) -> None:
+        """Regression: rooms whose dims aren't exact cell_size multiples must
+        keep sculpted terrain across accesses. flat_seafloor rounds the grid
+        extent to whole cells (7.3m at 0.5m cells -> 7.5m extent), so the
+        match check must compare against the grid's own reconstruction rule,
+        not the raw room width - the old raw-width check wiped terrain to
+        flat on EVERY access for such rooms."""
+        self.layout.placed_rooms[0] = PlacedRoom(
+            room_id="reef_main", position=(0.0, 0.0), width=7.3, depth=5.7, walls=[]
+        )
+        grid = self.layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        grid = add_rock_plateau(grid, np.array([3.0, 3.0]), radius=1.0, height=1.0)
+        self.layout.seafloor_grids["reef_main"] = grid
+
+        kept = self.layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        assert not np.allclose(kept.heights, 0.0), (
+            "sculpted terrain was wiped for a room with non-cell-multiple dims"
+        )
+        assert kept is grid
+
+
+class TestContentHashTerrainSensitivity(unittest.TestCase):
+    """Sculpting terrain must invalidate content hashes, or the render cache
+    and critique dedup (both keyed on HouseLayout.content_hash) serve stale
+    pre-sculpt results."""
+
+    def _make_layout(self) -> HouseLayout:
+        layout = HouseLayout()
+        layout.room_specs = [RoomSpec(room_id="reef_main", width=8.0, length=10.0)]
+        layout.placed_rooms = [
+            PlacedRoom(
+                room_id="reef_main", position=(0.0, 0.0), width=10.0, depth=8.0, walls=[]
+            )
+        ]
+        return layout
+
+    def test_house_layout_hash_changes_when_terrain_sculpted(self) -> None:
+        layout = self._make_layout()
+        hash_flat = layout.content_hash()
+
+        grid = layout.get_or_init_seafloor_grid("reef_main", cell_size=0.5)
+        layout.seafloor_grids["reef_main"] = add_rock_plateau(
+            grid, np.array([5.0, 4.0]), radius=1.0, height=1.0
+        )
+
+        assert layout.content_hash() != hash_flat
+
+    def test_house_layout_hash_unchanged_without_terrain(self) -> None:
+        """Layouts that never touch terrain keep deterministic hashes."""
+        layout = self._make_layout()
+        assert layout.content_hash() == self._make_layout().content_hash()
+
+    def test_room_geometry_hash_changes_with_seafloor_grid(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        from reefsmith.agent_utils.house import RoomGeometry
+
+        tree = ET.ElementTree(ET.Element("sdf"))
+        flat = RoomGeometry(sdf_tree=tree, sdf_path=None)
+        grid = add_rock_plateau(
+            flat_seafloor(10.0, 8.0, cell_size=0.5),
+            np.array([5.0, 4.0]),
+            radius=1.0,
+            height=1.0,
+        )
+        sculpted = RoomGeometry(sdf_tree=tree, sdf_path=None, seafloor_grid=grid)
+
+        assert flat.content_hash() != sculpted.content_hash()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -29,7 +29,6 @@ module dependency-light lets it be imported and unit-tested standalone.
 """
 
 import hashlib
-import json
 import logging
 import math
 
@@ -138,13 +137,12 @@ class SeafloorGrid:
         (unsculpted) grids use the cheap box-mesh floor path instead, which
         doesn't call this.
         """
-        state = {
-            "heights": self.heights.tolist(),
-            "cell_size": self.cell_size,
-            "origin": self.origin.tolist(),
-        }
-        content_json = json.dumps(state, sort_keys=True)
-        return hashlib.sha256(content_json.encode()).hexdigest()[:16]
+        hasher = hashlib.sha256()
+        hasher.update(np.ascontiguousarray(self.heights).tobytes())
+        hasher.update(str(self.heights.shape).encode())
+        hasher.update(str(self.cell_size).encode())
+        hasher.update(np.ascontiguousarray(self.origin).tobytes())
+        return hasher.hexdigest()[:16]
 
     def is_flat(self) -> bool:
         """True if every cell has the same height (unsculpted terrain).
