@@ -6,26 +6,35 @@
 # Built-in defaults (always excluded unless negated):
 #   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
 #
+
 # --- From .gitignore (uncomment to exclude) ---
 
 # .mujoco_venv
 # *.egg-info
-# outputs
+outputs
 # .serena
-# debug_asset_gen
-# debug_rendering
-# debug_furniture_agent
+debug_asset_gen
+debug_rendering
+debug_furniture_agent
 # .testmondata*
-# .pytest_cache/
+.pytest_cache/
 # .mcp.json
+
+# --- Project-specific asset/data directories ---
+data/
+materials/
+media/
+external/
+--output/
 
 # --- Detected directories (uncomment to exclude) ---
 
-# tests/
-# scripts/
+tests/
+docs/
+scripts/
 
 # --- Test file patterns (uncomment to exclude) ---
 
-# *.test.*
-# *.spec.*
-# *.snap
+*.test.*
+*.spec.*
+*.snap

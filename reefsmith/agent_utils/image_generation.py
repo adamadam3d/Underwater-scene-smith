@@ -8,6 +8,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from enum import Enum
 from pathlib import Path
 
+import requests
+
 from google import genai
 from google.genai import types
 from omegaconf import DictConfig
@@ -574,6 +576,151 @@ class GeminiImageGenerator(BaseImageGenerator):
         return result
 
 
+class OpenRouterImageGenerator(BaseImageGenerator):
+    """Image generation using OpenRouter's chat-completions image models.
+
+    Unlike OpenAI's Images API, OpenRouter exposes image generation through its
+    chat-completions endpoint with image-output models (e.g. the Gemini
+    "flash-image" family). The generated image is returned as a base64 data-URL
+    in ``message.images``. This backend targets asset generation only; the
+    context/image-edit methods are not supported here (use openai or gemini).
+    """
+
+    def __init__(
+        self,
+        model: str = "google/gemini-2.5-flash-image-preview",
+        api_base: str = "https://openrouter.ai/api/v1",
+    ):
+        """Initialize the OpenRouter generator.
+
+        Args:
+            model: OpenRouter model slug that supports image output. Availability
+                of image-capable models changes over time; override as needed.
+            api_base: Base URL for the OpenRouter API.
+
+        Raises:
+            ValueError: If OPENROUTER_API_KEY environment variable is not set.
+        """
+        self.api_key = os.environ.get("OPENROUTER_API_KEY")
+        if not self.api_key:
+            raise ValueError(
+                "OPENROUTER_API_KEY environment variable is required for "
+                "OpenRouter image generation. Set it with: export "
+                "OPENROUTER_API_KEY='your-key'"
+            )
+        self.model = model
+        self.api_base = api_base.rstrip("/")
+        self.prompt_manager = PromptManager(prompts_dir=PROMPTS_DATA_DIR)
+
+    def generate_images(
+        self,
+        style_prompt: str,
+        object_descriptions: list[str],
+        output_paths: list[Path],
+        size: str | None = None,
+        labels: list[str] | None = None,
+    ) -> None:
+        """Generate multiple images in parallel via OpenRouter.
+
+        Args:
+            style_prompt: The style context for the images.
+            object_descriptions: List of object descriptions to generate.
+            output_paths: Paths where images will be saved.
+            size: Ignored. OpenRouter image models do not accept an explicit size
+                the way the OpenAI/Gemini backends do; kept for interface parity.
+            labels: Optional labels for log messages.
+        """
+        if len(object_descriptions) != len(output_paths):
+            raise ValueError("Number of descriptions must match number of output paths")
+
+        # Use labels for logging if provided, otherwise use descriptions.
+        effective_labels = labels if labels else object_descriptions
+
+        console_logger.info(
+            f"Generating {len(object_descriptions)} images "
+            f"(OpenRouter {self.model})"
+        )
+
+        def generate_single_image(
+            description: str, output_path: Path, label: str
+        ) -> None:
+            prompt = self.prompt_manager.get_prompt(
+                ImageGenerationPrompts.ASSET_IMAGE_INITIAL,
+                description=description,
+                style_prompt=style_prompt,
+            )
+
+            start_time = time.time()
+            response = requests.post(
+                f"{self.api_base}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": self.model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "modalities": ["image", "text"],
+                },
+                timeout=300,
+            )
+            response.raise_for_status()
+            end_time = time.time()
+
+            console_logger.info(
+                f"Generated image for {label} in {end_time - start_time:.2f} "
+                "seconds (OpenRouter)."
+            )
+
+            _extract_and_save_openrouter_image(
+                response_json=response.json(),
+                output_path=output_path,
+                description=description,
+            )
+
+        # Generate all images concurrently.
+        with ThreadPoolExecutor() as executor:
+            futures = [
+                executor.submit(generate_single_image, desc, path, lbl)
+                for desc, path, lbl in zip(
+                    object_descriptions, output_paths, effective_labels
+                )
+            ]
+            # Wait for all to complete and raise any exceptions.
+            for future in as_completed(futures):
+                future.result()
+
+    def generate_furniture_context_image(
+        self,
+        reference_image_path: Path,
+        scene_description: str,
+        width_m: float,
+        length_m: float,
+        output_path: Path,
+    ) -> Path:
+        """Not supported on the OpenRouter backend."""
+        raise NotImplementedError(
+            "Context/image-edit generation is not supported on the OpenRouter "
+            "backend; use the openai or gemini backend."
+        )
+
+    def generate_manipuland_context_image(
+        self,
+        reference_image_path: Path,
+        furniture_description: str,
+        furniture_dimensions: str,
+        suggested_items: str,
+        prompt_constraints: str,
+        style_notes: str,
+        output_path: Path,
+    ) -> Path:
+        """Not supported on the OpenRouter backend."""
+        raise NotImplementedError(
+            "Context/image-edit generation is not supported on the OpenRouter "
+            "backend; use the openai or gemini backend."
+        )
+
+
 def create_image_generator(backend: str, config: DictConfig) -> BaseImageGenerator:
     """Factory function to create the appropriate image generator.
 
@@ -598,6 +745,8 @@ def create_image_generator(backend: str, config: DictConfig) -> BaseImageGenerat
             aspect_ratio=config.gemini.aspect_ratio,
             image_size=config.gemini.image_size,
         )
+    elif backend == "openrouter":
+        return OpenRouterImageGenerator(model=config.openrouter.model)
     else:
         raise ValueError(f"Unknown image generation backend: {backend}")
 
@@ -621,6 +770,40 @@ def _extract_and_save_openai_image(
 
     with open(output_path, "wb") as f:
         f.write(base64.b64decode(image_base64))
+
+
+def _extract_and_save_openrouter_image(
+    response_json: dict, output_path: Path, description: str
+) -> None:
+    """Extract image data from an OpenRouter chat-completions response and save.
+
+    OpenRouter returns generated images as base64 data-URLs under
+    ``choices[0].message.images``. If the chosen model did not emit an image,
+    that field is missing/empty.
+
+    Args:
+        response_json: Parsed JSON body of the OpenRouter response.
+        output_path: Path where image will be saved.
+        description: Description of the object for error messages.
+    """
+    try:
+        images = response_json["choices"][0]["message"]["images"]
+    except (KeyError, IndexError, TypeError):
+        images = None
+
+    if not images:
+        raise ValueError(
+            f"No image returned from OpenRouter for {description}. The selected "
+            "model may not support image output."
+        )
+
+    data_url = images[0]["image_url"]["url"]
+    # Strip the "data:image/...;base64," prefix if present.
+    if "," in data_url:
+        data_url = data_url.split(",", 1)[1]
+
+    with open(output_path, "wb") as f:
+        f.write(base64.b64decode(data_url))
 
 
 def _extract_and_save_gemini_image(

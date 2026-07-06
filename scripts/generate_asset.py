@@ -15,9 +15,11 @@ scaling, convex decomposition, Drake SDF generation). The output is the raw
 
 Prerequisites:
     * Stage 1 needs a cloud image API key:
-        - ``--backend openai`` -> set ``OPENAI_API_KEY``
-        - ``--backend gemini`` -> set ``GOOGLE_API_KEY``
-      (OpenRouter does NOT serve image generation, so it can't be used here.)
+        - ``--backend openai``     -> set ``OPENAI_API_KEY``
+        - ``--backend gemini``     -> set ``GOOGLE_API_KEY``
+        - ``--backend openrouter`` -> set ``OPENROUTER_API_KEY``
+      (OpenRouter serves image generation only via its chat-completions
+      image models, e.g. google/gemini-2.5-flash-image-preview.)
     * Stage 2 needs the geometry-generation server running with the SAM3D
       backend. See ASSET_GENERATION_QUICKSTART.md for setup, then start it:
 
@@ -78,10 +80,11 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--backend",
         type=str,
-        choices=["openai", "gemini"],
+        choices=["openai", "gemini", "openrouter"],
         default="openai",
         help="Cloud image-generation backend for Stage 1 (default: %(default)s). "
-        "'openai' reads OPENAI_API_KEY; 'gemini' reads GOOGLE_API_KEY.",
+        "'openai' reads OPENAI_API_KEY; 'gemini' reads GOOGLE_API_KEY; "
+        "'openrouter' reads OPENROUTER_API_KEY.",
     )
     parser.add_argument(
         "--output-dir",
@@ -123,6 +126,13 @@ def parse_arguments() -> argparse.Namespace:
         default="1K",
         help="Gemini image size: 1K, 2K, or 4K (default: %(default)s). "
         "Ignored for openai.",
+    )
+    parser.add_argument(
+        "--openrouter-model",
+        type=str,
+        default="google/gemini-2.5-flash-image-preview",
+        help="OpenRouter image model slug (default: %(default)s). Used only when "
+        "--backend openrouter.",
     )
 
     # Stage 2 (geometry server).
@@ -180,6 +190,7 @@ def build_image_generator(args: argparse.Namespace):
                 "aspect_ratio": args.aspect_ratio,
                 "image_size": args.image_size,
             },
+            "openrouter": {"model": args.openrouter_model},
         }
     )
     return create_image_generator(backend=args.backend, config=config)

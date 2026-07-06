@@ -10,6 +10,7 @@ from reefsmith.agent_utils.geometry_generation_server.geometry_generation import
 )
 from reefsmith.agent_utils.image_generation import (
     OpenAIImageGenerator,
+    OpenRouterImageGenerator,
     _extract_and_save_openai_image,
 )
 
@@ -151,6 +152,93 @@ class TestOpenAIImageGenerator(unittest.TestCase):
             )
 
         self.assertIn("Image generation API error", str(context.exception))
+
+
+class TestOpenRouterImageGenerator(unittest.TestCase):
+    """Test the OpenRouterImageGenerator class."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        self.temp_dir = tempfile.mkdtemp()
+        self.temp_path = Path(self.temp_dir)
+
+    def tearDown(self):
+        """Clean up test fixtures."""
+        shutil.rmtree(self.temp_dir)
+
+    def test_initialization_requires_api_key(self):
+        """Test that missing OPENROUTER_API_KEY raises ValueError."""
+        with patch.dict("os.environ", {}, clear=True):
+            with self.assertRaises(ValueError) as context:
+                OpenRouterImageGenerator()
+        self.assertIn("OPENROUTER_API_KEY", str(context.exception))
+
+    def test_initialization_custom_model(self):
+        """Test generator initialization with a custom model slug."""
+        with patch.dict("os.environ", {"OPENROUTER_API_KEY": "sk-or-test"}):
+            generator = OpenRouterImageGenerator(model="some/other-image-model")
+        self.assertEqual(generator.model, "some/other-image-model")
+
+    @patch("reefsmith.agent_utils.image_generation.requests.post")
+    def test_generate_single_image(self, mock_post):
+        """Test single image generation decodes the returned data-URL to a PNG."""
+        # 1x1 transparent PNG, base64-encoded.
+        png_b64 = (
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk"
+            "+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+        )
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "choices": [
+                {
+                    "message": {
+                        "images": [
+                            {
+                                "image_url": {
+                                    "url": f"data:image/png;base64,{png_b64}"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+        mock_post.return_value = mock_response
+
+        output_path = self.temp_path / "creature.png"
+        with patch.dict("os.environ", {"OPENROUTER_API_KEY": "sk-or-test"}):
+            generator = OpenRouterImageGenerator()
+            generator.generate_images(
+                style_prompt="natural coloring",
+                object_descriptions=["a bright orange clownfish"],
+                output_paths=[output_path],
+            )
+
+        # Verify the request targeted the chat-completions endpoint with the
+        # image modality, and that a non-empty PNG was written.
+        mock_post.assert_called_once()
+        call_kwargs = mock_post.call_args[1]
+        self.assertIn("image", call_kwargs["json"]["modalities"])
+        self.assertTrue(output_path.exists())
+        self.assertGreater(output_path.stat().st_size, 0)
+
+    def test_generate_images_missing_image_raises(self):
+        """Test that a response without an image raises a clear error."""
+        mock_response = MagicMock()
+        mock_response.json.return_value = {"choices": [{"message": {}}]}
+        with patch(
+            "reefsmith.agent_utils.image_generation.requests.post",
+            return_value=mock_response,
+        ):
+            with patch.dict("os.environ", {"OPENROUTER_API_KEY": "sk-or-test"}):
+                generator = OpenRouterImageGenerator()
+                with self.assertRaises(ValueError) as context:
+                    generator.generate_images(
+                        style_prompt="s",
+                        object_descriptions=["thing"],
+                        output_paths=[self.temp_path / "thing.png"],
+                    )
+        self.assertIn("No image returned from OpenRouter", str(context.exception))
 
 
 class TestGeometryGeneration(unittest.TestCase):

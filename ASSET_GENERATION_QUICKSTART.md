@@ -26,12 +26,23 @@ There are **two** distinct systems, not one:
 
 | Stage | Runs where | Needs |
 |-------|-----------|-------|
-| 1. Text → Image | Cloud API | An **OpenAI** key *or* a **Google/Gemini** key |
+| 1. Text → Image | Cloud API | An **OpenAI**, **Google/Gemini**, or **OpenRouter** key |
 | 2. Image → Mesh | **Your GPU** | No key — just checkpoints + a running server |
 
-> ⚠️ **OpenRouter does not work here.** OpenRouter only proxies text/chat models;
-> it does not serve image *generation*. Stage 1 must use a real OpenAI key
-> (`OPENAI_API_KEY`) or a Google key (`GOOGLE_API_KEY`).
+Stage 1 has three backends (pick with `--backend`):
+
+| `--backend` | Key env var | Notes |
+|-------------|-------------|-------|
+| `openai` (default) | `OPENAI_API_KEY` | `gpt-image-1.5` via the Images API |
+| `gemini` | `GOOGLE_API_KEY` | `gemini-3-pro-image-preview` |
+| `openrouter` | `OPENROUTER_API_KEY` | Via OpenRouter's chat-completions **image** models |
+
+> ℹ️ **About OpenRouter:** it does *not* implement the OpenAI Images API, but it
+> can generate images through its chat-completions endpoint using image-output
+> models (default `google/gemini-2.5-flash-image-preview`, override with
+> `--openrouter-model`). Caveats: the set of image-capable models on OpenRouter
+> changes over time, and this backend supports asset image generation only (no
+> image-edit / context images).
 
 ---
 
@@ -69,8 +80,9 @@ Budget ~20–40 minutes for this the first time.
 
 ```bash
 # Pick ONE, matching the --backend you'll use:
-export OPENAI_API_KEY="sk-..."      # for --backend openai (default)
-export GOOGLE_API_KEY="..."         # for --backend gemini
+export OPENAI_API_KEY="sk-..."          # for --backend openai (default)
+export GOOGLE_API_KEY="..."             # for --backend gemini
+export OPENROUTER_API_KEY="sk-or-..."   # for --backend openrouter
 ```
 
 ---
@@ -108,7 +120,16 @@ asset_output/
 └── a_bright_orange_clownfish.glb    # Stage 2 mesh  ← this is what you want
 ```
 
-Switch the image backend with `--backend gemini` (reads `GOOGLE_API_KEY`).
+Switch the image backend with `--backend gemini` (reads `GOOGLE_API_KEY`) or
+`--backend openrouter` (reads `OPENROUTER_API_KEY`), e.g.:
+
+```bash
+python scripts/generate_asset.py \
+    --description "a bright orange clownfish" \
+    --backend openrouter \
+    --openrouter-model google/gemini-2.5-flash-image-preview \
+    --output-dir ./asset_output
+```
 
 ---
 
@@ -117,7 +138,8 @@ Switch the image backend with `--backend gemini` (reads `GOOGLE_API_KEY`).
 | Flag | Purpose | Default |
 |------|---------|---------|
 | `--description` | What to generate (**required**) | — |
-| `--backend` | `openai` or `gemini` for Stage 1 | `openai` |
+| `--backend` | `openai`, `gemini`, or `openrouter` for Stage 1 | `openai` |
+| `--openrouter-model` | OpenRouter image model slug | `google/gemini-2.5-flash-image-preview` |
 | `--output-dir` | Where to write `.png` + `.glb` | `asset_output` |
 | `--short-name` | Base filename for outputs | derived from description |
 | `--style` | Style prompt for the image model | neutral studio look |
